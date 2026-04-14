@@ -1008,15 +1008,67 @@ function renderManualHistory(){
   });
 }
 
+// ── PERSISTENT LOGIN PROFILE (Feature #5) ──
+const LS_PROFILE='ms_profile_v1';
+function saveProfile(name,subj,avatar,goal){
+  localStorage.setItem(LS_PROFILE,JSON.stringify({name,subj,avatar,goal}));
+}
+function loadProfile(){
+  try{return JSON.parse(localStorage.getItem(LS_PROFILE)||'null');}catch{return null;}
+}
+function applyProfile(p){
+  if(!p)return;
+  document.getElementById('nameInput').value=p.name||'';
+  const sel=document.getElementById('subjectSelect');
+  if(p.subj){for(let i=0;i<sel.options.length;i++){if(sel.options[i].value===p.subj){sel.selectedIndex=i;break;}}}
+  if(p.avatar){
+    myAvatar=p.avatar;
+    document.querySelectorAll('.av-btn').forEach(b=>{
+      b.classList.remove('sel');
+      if(b.textContent===p.avatar)b.classList.add('sel');
+    });
+  }
+  if(p.goal)document.getElementById('metaInput').value=p.goal;
+}
+function initQuickLogin(){
+  const p=loadProfile();
+  if(!p||!p.name)return;
+  const card=document.querySelector('.lcard');
+  if(!card)return;
+  const banner=document.createElement('div');
+  banner.id='quickLoginBanner';
+  banner.style.cssText='background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.22);border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;transition:all .2s;';
+  banner.innerHTML=`
+    <span style="font-size:22px;">${p.avatar||'\u{1F9D1}\u200D\u2695\uFE0F'}</span>
+    <div style="flex:1;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);">\u00a1Bienvenid@ de vuelta, ${p.name}!</div>
+      <div style="font-size:10px;color:var(--text2);">${p.subj||''} \u00b7 Meta: ${p.goal||4} \uD83C\uDF45</div>
+    </div>
+    <button id="quickEnterBtn" style="background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;white-space:nowrap;">Entrar \u2192</button>`;
+  banner.onmouseover=()=>banner.style.borderColor='rgba(0,212,255,0.5)';
+  banner.onmouseout=()=>banner.style.borderColor='rgba(0,212,255,0.22)';
+  document.getElementById('quickEnterBtn').onclick=(e)=>{e.stopPropagation();applyProfile(p);setTimeout(()=>window.enterRoom(),50);};
+  const nameInput=document.getElementById('nameInput');
+  card.insertBefore(banner,nameInput);
+  applyProfile(p);
+}
+setTimeout(initQuickLogin,80);
+
 // ── ENTER ROOM ──
 window.enterRoom=function(){
   const name=document.getElementById('nameInput').value.trim();
   const subj=document.getElementById('subjectSelect').value;
   dailyGoal=Math.max(1,parseInt(document.getElementById('metaInput').value)||4);
-  if(!name){document.getElementById('nameInput').style.borderColor='var(--red)';document.getElementById('loginStatus').textContent='¡Escribe tu nombre, crack!';return;}
+  if(!name){document.getElementById('nameInput').style.borderColor='var(--red)';document.getElementById('loginStatus').textContent='\u00a1Escribe tu nombre, crack!';return;}
+  // validate: no reserved names, no HTML (Feature #10 partial)
+  const reserved=['bot','sistema','studybot','admin'];
+  if(reserved.includes(name.toLowerCase())){document.getElementById('loginStatus').textContent='Ese nombre est\u00e1 reservado \uD83D\uDE05';return;}
   document.getElementById('loginStatus').textContent='Conectando...';
   user=name;subject=subj;
-  myUid='u_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  // Feature #10: robust UID with crypto.randomUUID
+  myUid='u_'+(typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID().replace(/-/g,''):Date.now()+'_'+Math.random().toString(36).substr(2,9));
+  // Feature #5: persist profile for next visit
+  saveProfile(name,subj,myAvatar,dailyGoal);
   const s=loadStats();pomosHoy=s.pomosHoy||0;
 
   const myRef=ref(db,'students/'+myUid);
@@ -1057,11 +1109,36 @@ window.enterRoom=function(){
     }
   },1000);
   listenStudents();listenChat();listenFallen();
-  // Show connection indicator
+  // Feature #12: visible reconnection indicator
+  let _wasConnected=true;
   onValue(ref(db,'.info/connected'),snap=>{
     const connected=snap.val();
     const badge=document.getElementById('onlineCount');
-    if(badge && !connected) badge.textContent='Reconectando...';
+    const existing=document.getElementById('reconnBanner');
+    if(!connected){
+      _wasConnected=false;
+      if(badge)badge.textContent='Reconectando...';
+      // Show reconnection banner if not already present
+      if(!existing){
+        const b=document.createElement('div');
+        b.id='reconnBanner';
+        b.style.cssText='position:fixed;top:54px;left:0;right:0;z-index:9998;background:rgba(239,65,80,0.92);backdrop-filter:blur(6px);padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:"Syne",sans-serif;font-size:12px;font-weight:700;color:white;border-bottom:1px solid rgba(239,65,80,0.5);';
+        b.innerHTML='<span style="animation:glow 1s infinite;display:inline-block;">⚠️</span> Sin conexión — reconectando con Firebase...';
+        document.body.appendChild(b);
+      }
+    } else {
+      if(!_wasConnected){
+        // Was disconnected, now restored
+        if(existing)existing.remove();
+        if(badge)badge.textContent='';
+        showToast('🟢','¡Conexión restaurada! Los datos están sincronizados.',4000);
+        // Re-sync our presence
+        if(myUid&&user){
+          set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});
+        }
+      }
+      _wasConnected=true;
+    }
   });
   setTimeout(()=>showFocusAlert(),2*60*1000);
   setInterval(()=>showFocusAlert(),45*60*1000);
@@ -1171,7 +1248,24 @@ function listenFallen(){
 }
 
 // ── CHAT ──
-function pushMsg(name,text,isBot,isSys){push(ref(db,'chat'),{name,text,uid:isBot?'bot':isSys?'sys':myUid,ts:Date.now()});}
+// Feature #9: auto-cleanup — keep only last 100 messages in Firebase
+const CHAT_MAX=100;
+function pruneChatIfNeeded(snap){
+  const d=snap.val();if(!d)return;
+  const keys=Object.keys(d);
+  if(keys.length<=CHAT_MAX)return;
+  // sort by ts, remove oldest
+  const sorted=keys.sort((a,b)=>(d[a].ts||0)-(d[b].ts||0));
+  const toRemove=sorted.slice(0,keys.length-CHAT_MAX);
+  toRemove.forEach(k=>remove(ref(db,'chat/'+k)));
+}
+function pushMsg(name,text,isBot,isSys){
+  const msgRef=push(ref(db,'chat'),{name,text,uid:isBot?'bot':isSys?'sys':myUid,ts:Date.now()});
+  // After each message, check if pruning needed (only run occasionally to avoid extra reads)
+  if(Math.random()<0.1){
+    onValue(ref(db,'chat'),pruneChatIfNeeded,{onlyOnce:true});
+  }
+}
 let _lastChatTs=0;
 window.sendChat=function(){
   const inp=document.getElementById('chatInput'),txt=inp.value.trim();
@@ -1205,6 +1299,8 @@ window.leaveRoom=function(){
   if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
   if(_unsubChat){_unsubChat();_unsubChat=null;}
   if(_unsubFallen){_unsubFallen();_unsubFallen=null;}
+  // Feature #12: clean up reconnection banner if present
+  const rb=document.getElementById('reconnBanner');if(rb)rb.remove();
   clearInterval(pomoInt);clearInterval(chronoInt);
   stopLofi();saveStats(loadStats());closeModal();closeGame();
   document.removeEventListener('visibilitychange',handleVis);
