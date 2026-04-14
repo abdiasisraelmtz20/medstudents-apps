@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Room · MedStudents</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#042D5A;--navy-light:#0a4a8f;--red:#EF4150;--gold:#F4C842;--bg:#040f1e;--bg2:#081830;--glass2:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:#e8f4ff;--text2:#8aabcc;--text3:#4a6a8a;--green:#2ecc71;--purple:#9b59b6;--cyan:#00d4ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(4,45,90,0.25),transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(155,89,182,0.1),transparent 40%);pointer-events:none;z-index:0;}
+
+/* ─── HEADER ─── */
+.hdr{background:rgba(8,24,48,0.95);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.hdr-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px;}
+.hdr-logo span{color:var(--purple);}
+.hdr-user{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--cyan);}
+.btn-back{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--cyan);cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;}
+.btn-back:hover{background:rgba(0,212,255,0.2);}
+
+/* ─── LOBBY ─── */
+#lobby{max-width:900px;margin:0 auto;padding:24px 20px;}
+.lobby-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.lobby-sub{color:var(--text2);font-size:14px;margin-bottom:24px;}
+.game-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.game-card{background:rgba(8,24,48,0.7);border:1px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
+.game-card::before{content:'';position:absolute;inset:0;background:var(--gc-bg,rgba(0,212,255,0.05));opacity:0;transition:opacity .3s;}
+.game-card:hover::before{opacity:1;}
+.game-card:hover{border-color:var(--gc-color,var(--cyan));transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.3);}
+.game-card-ico{font-size:44px;margin-bottom:12px;display:block;}
+.game-card-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.game-card-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:14px;}
+.game-card-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;letter-spacing:.5px;}
+
+/* ─── ACTIVE GAMES ─── */
+.active-games-section{margin-bottom:24px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.game-rooms{display:flex;flex-direction:column;gap:8px;}
+.room-row{background:var(--glass2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;transition:all .2s;}
+.room-row:hover{border-color:rgba(0,212,255,0.25);}
+.room-ico{font-size:22px;flex-shrink:0;}
+.room-info{flex:1;}
+.room-name{font-size:13px;font-weight:600;color:var(--text);}
+.room-players{font-size:11px;color:var(--text2);margin-top:2px;}
+.room-status{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;}
+.rs-waiting{background:rgba(244,200,66,0.15);color:var(--gold);border:1px solid rgba(244,200,66,0.3);}
+.rs-playing{background:rgba(239,65,80,0.15);color:var(--red);border:1px solid rgba(239,65,80,0.3);}
+.rs-done{background:rgba(255,255,255,0.06);color:var(--text3);border:1px solid var(--border);}
+.btn-join{background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 16px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:white;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.btn-join:hover{transform:translateY(-1px);}
+.btn-join:disabled{background:rgba(255,255,255,0.08);color:var(--text3);cursor:default;transform:none;}
+.no-rooms{font-size:13px;color:var(--text3);text-align:center;padding:20px;background:var(--glass2);border:1px solid var(--border);border-radius:12px;}
+
+/* ─── GAME ARENA ─── */
+#gameArena{display:none;max-width:800px;margin:0 auto;padding:20px;}
+.arena-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.arena-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);}
+.btn-leave-game{background:rgba(239,65,80,0.12);border:1px solid rgba(239,65,80,0.25);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--red);cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;}
+.btn-leave-game:hover{background:rgba(239,65,80,0.22);}
+.players-bar{display:flex;gap:10px;margin-bottom:16px;}
+.player-chip{flex:1;background:var(--glass2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:9px;transition:all .3s;}
+.player-chip.active-turn{border-color:var(--cyan);background:rgba(0,212,255,0.06);box-shadow:0 0 14px rgba(0,212,255,0.15);}
+.player-chip.winner-chip{border-color:var(--gold);background:rgba(244,200,66,0.08);}
+.pc-av{font-size:22px;}
+.pc-name{font-size:13px;font-weight:600;color:var(--text);}
+.pc-score{font-size:12px;color:var(--text2);font-family:'DM Mono',monospace;}
+.vs-divider{display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--text3);flex-shrink:0;}
+.game-status-bar{text-align:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px;min-height:26px;}
+
+/* ─── CHESS ─── */
+.chess-board-wrap{display:flex;flex-direction:column;align-items:center;}
+.chess-board{display:grid;grid-template-columns:repeat(8,1fr);border:2px solid rgba(0,212,255,0.2);border-radius:8px;overflow:hidden;width:100%;max-width:480px;aspect-ratio:1;}
+.chess-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(18px,4vw,34px);cursor:pointer;transition:background .15s;position:relative;user-select:none;}
+.chess-cell.light{background:rgba(220,235,255,0.13);}
+.chess-cell.dark{background:rgba(4,45,90,0.55);}
+.chess-cell.selected{background:rgba(0,212,255,0.4)!important;}
+.chess-cell.valid-move::after{content:'';position:absolute;width:32%;height:32%;border-radius:50%;background:rgba(0,212,255,0.55);}
+.chess-cell.valid-capture::after{content:'';position:absolute;inset:3px;border-radius:50%;border:3px solid rgba(0,212,255,0.6);background:transparent;}
+.chess-cell.last-move{background:rgba(244,200,66,0.18)!important;}
+.chess-coords{display:grid;grid-template-columns:repeat(8,1fr);width:100%;max-width:480px;padding:0 2px;}
+.chess-coord{text-align:center;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;padding:2px 0;}
+.chess-captured-row{display:flex;gap:3px;flex-wrap:wrap;font-size:16px;min-height:22px;margin:6px 0;}
+.chess-actions{display:flex;gap:8px;margin-top:14px;}
+
+/* ─── MEMORAMA ─── */
+.memo-board{display:grid;gap:8px;width:100%;max-width:520px;margin:0 auto;}
+.memo-g4{grid-template-columns:repeat(4,1fr);}
+.memo-g5{grid-template-columns:repeat(5,1fr);}
+.memo-card{aspect-ratio:1;border-radius:11px;cursor:pointer;perspective:600px;}
+.memo-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .45s;}
+.memo-card.flipped .memo-inner,.memo-card.matched .memo-inner{transform:rotateY(180deg);}
+.memo-front,.memo-back{position:absolute;inset:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:clamp(22px,4vw,34px);backface-visibility:hidden;}
+.memo-front{background:linear-gradient(135deg,rgba(4,45,90,0.9),rgba(10,74,143,0.9));border:1px solid rgba(0,212,255,0.2);}
+.memo-back{background:linear-gradient(135deg,rgba(13,32,64,0.95),rgba(4,45,90,0.95));border:1px solid rgba(0,212,255,0.4);transform:rotateY(180deg);}
+.memo-card.matched .memo-back{border-color:var(--green);box-shadow:0 0 14px rgba(46,204,113,0.3);}
+.memo-card.my-match .memo-back{border-color:var(--cyan);}
+.memo-card.opp-match .memo-back{border-color:var(--purple);}
+
+/* ─── TRIVIA ─── */
+.trivia-board{width:100%;max-width:640px;margin:0 auto;}
+.trivia-q-box{background:linear-gradient(145deg,rgba(4,45,90,0.5),rgba(13,32,64,0.5));border:1px solid rgba(0,212,255,0.2);border-radius:14px;padding:20px 22px;margin-bottom:14px;}
+.trivia-cat{font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.trivia-q{font-size:17px;color:var(--text);line-height:1.6;font-weight:500;}
+.trivia-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
+.topt{background:var(--glass2);border:1px solid var(--border);border-radius:11px;padding:13px 15px;font-size:14px;color:var(--text2);cursor:pointer;transition:all .2s;text-align:left;font-family:'Space Grotesk',sans-serif;}
+.topt:hover:not(:disabled){background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.3);color:var(--text);}
+.topt.correct{background:rgba(46,204,113,0.2);border-color:var(--green);color:var(--green);}
+.topt.wrong{background:rgba(239,65,80,0.15);border-color:var(--red);color:var(--red);}
+.topt.first-ans{box-shadow:0 0 0 2px var(--gold);}
+.topt:disabled{cursor:default;}
+.trivia-exp{background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:11px;padding:12px 15px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;display:none;}
+.trivia-timer-bar{width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin-bottom:14px;overflow:hidden;}
+.trivia-timer-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:3px;transition:width .5s linear;}
+.trivia-timer-fill.urgent{background:linear-gradient(90deg,var(--red),var(--orange));}
+.scoreboard{background:var(--glass2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-top:12px;}
+.scoreboard-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.sb-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);}
+.sb-row:last-child{border-bottom:none;}
+.sb-pos{font-family:'DM Mono',monospace;font-size:13px;color:var(--text3);width:20px;}
+.sb-av{font-size:18px;}
+.sb-name{flex:1;font-size:13px;font-weight:600;color:var(--text);}
+.sb-pts{font-family:'DM Mono',monospace;font-size:14px;color:var(--gold);font-weight:700;}
+.sb-time{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
+
+/* ─── INVITE MODAL ─── */
+.invite-overlay{position:fixed;inset:0;background:rgba(4,15,30,0.88);z-index:500;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.invite-box{background:linear-gradient(145deg,rgba(8,24,48,0.98),rgba(13,32,64,0.98));border:1px solid rgba(0,212,255,0.2);border-radius:20px;padding:32px;max-width:400px;width:90%;text-align:center;}
+.invite-ico{font-size:48px;margin-bottom:12px;}
+.invite-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.invite-sub{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6;}
+.player-pick-list{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;max-height:200px;overflow-y:auto;}
+.player-pick-row{display:flex;align-items:center;gap:10px;background:var(--glass2);border:1px solid var(--border);border-radius:10px;padding:10px 13px;cursor:pointer;transition:all .2s;}
+.player-pick-row:hover,.player-pick-row.picked{border-color:rgba(0,212,255,0.35);background:rgba(0,212,255,0.07);}
+.player-pick-row.picked{border-color:var(--cyan);}
+.pp-av{font-size:20px;}
+.pp-name{flex:1;font-size:13px;font-weight:600;color:var(--text);}
+.pp-sub{font-size:11px;color:var(--text2);}
+.invite-btns{display:flex;gap:10px;justify-content:center;}
+.btn-invite{padding:10px 22px;border-radius:11px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+.btn-invite-open{background:linear-gradient(135deg,var(--navy-light),var(--cyan));color:white;}
+.btn-invite-specific{background:linear-gradient(135deg,rgba(155,89,182,0.4),rgba(155,89,182,0.2));border:1px solid rgba(155,89,182,0.4);color:#c39bd3;}
+.btn-cancel{background:var(--glass2);border:1px solid var(--border);color:var(--text2);}
+
+/* ─── CHALLENGE TOAST ─── */
+.challenge-toast{position:fixed;bottom:24px;right:24px;z-index:600;animation:cIn .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes cIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.challenge-box{background:linear-gradient(135deg,rgba(155,89,182,0.95),rgba(4,45,90,0.98));border:1px solid rgba(155,89,182,0.5);border-radius:16px;padding:18px 22px;box-shadow:0 8px 40px rgba(155,89,182,0.3);max-width:300px;}
+.ch-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:6px;}
+.ch-sub{font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:14px;}
+.ch-btns{display:flex;gap:8px;}
+.btn-ch-accept{background:var(--green);border:none;border-radius:8px;padding:7px 16px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:white;cursor:pointer;}
+.btn-ch-decline{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);cursor:pointer;font-family:'Syne',sans-serif;}
+
+/* ─── WAITING ROOM ─── */
+.waiting-room{text-align:center;padding:40px 20px;}
+.waiting-spinner{width:60px;height:60px;border-radius:50%;border:3px solid rgba(0,212,255,0.15);border-top-color:var(--cyan);animation:spin 1s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.waiting-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.waiting-sub{font-size:14px;color:var(--text2);margin-bottom:20px;}
+.waiting-code{font-family:'DM Mono',monospace;font-size:28px;color:var(--cyan);letter-spacing:6px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:12px;padding:14px 24px;margin-bottom:20px;display:inline-block;}
+
+/* UTILS */
+.btn-primary{background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:11px;padding:11px 24px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:white;cursor:pointer;transition:all .2s;}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-ghost{background:var(--glass2);border:1px solid var(--border);border-radius:11px;padding:11px 22px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+.pulse{animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@media(max-width:700px){.game-cards{grid-template-columns:1fr;}.trivia-opts{grid-template-columns:1fr;}.chess-board{max-width:100%;}.memo-board{max-width:100%;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">Med<span>🎮</span>Game Room</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="hdr-user" id="hdrUser"></div>
+    <button class="btn-back" onclick="window.close()">✕ Cerrar</button>
+  </div>
+</div>
+
+<!-- LOBBY -->
+<div id="lobby">
+  <div class="lobby-title">🎮 Sala de Juegos</div>
+  <div class="lobby-sub">Juega contra compañeros de la Study Room durante tus descansos.</div>
+
+  <div class="game-cards">
+    <div class="game-card" style="--gc-bg:rgba(155,89,182,0.08);--gc-color:rgba(155,89,182,0.6);" onclick="showInvite('chess')">
+      <span class="game-card-ico">♟️</span>
+      <div class="game-card-name">Ajedrez</div>
+      <div class="game-card-desc">Partida completa 1vs1. Turnos sincronizados en tiempo real. Mueve piezas y tu rival lo ve al instante.</div>
+      <span class="game-card-tag" style="background:rgba(155,89,182,0.15);color:#c39bd3;border:1px solid rgba(155,89,182,0.3);">1 vs 1 · Tiempo real</span>
+    </div>
+    <div class="game-card" style="--gc-bg:rgba(0,212,255,0.06);--gc-color:rgba(0,212,255,0.5);" onclick="showInvite('memorama')">
+      <span class="game-card-ico">🧩</span>
+      <div class="game-card-name">Memorama</div>
+      <div class="game-card-desc">Tablero compartido. Turnos alternados. El que más pares de anatomía/bio encuentre, gana.</div>
+      <span class="game-card-tag" style="background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.25);">1 vs 1 · Turnos</span>
+    </div>
+    <div class="game-card" style="--gc-bg:rgba(244,200,66,0.06);--gc-color:rgba(244,200,66,0.5);" onclick="showInvite('trivia')">
+      <span class="game-card-ico">🧠</span>
+      <div class="game-card-name">Trivia Médica</div>
+      <div class="game-card-desc">Todos responden la misma pregunta al mismo tiempo. El más rápido y correcto acumula puntos.</div>
+      <span class="game-card-tag" style="background:rgba(244,200,66,0.1);color:var(--gold);border:1px solid rgba(244,200,66,0.25);">Multi · Velocidad</span>
+    </div>
+  </div>
+
+  <div class="active-games-section">
+    <div class="sec-title">🔴 Partidas Activas</div>
+    <div class="game-rooms" id="activeRooms"><div class="no-rooms">Sin partidas activas. ¡Crea una! 🎮</div></div>
+  </div>
+</div>
+
+<!-- GAME ARENA -->
+<div id="gameArena">
+  <div class="arena-hdr">
+    <div class="arena-title" id="arenaTitle">♟️ Ajedrez</div>
+    <button class="btn-leave-game" onclick="leaveGame()">← Salir del juego</button>
+  </div>
+  <div class="players-bar" id="playersBar"></div>
+  <div class="game-status-bar" id="gameStatusBar"></div>
+  <div id="gameBoard"></div>
+</div>
+
+<!-- INVITE MODAL -->
+<div id="inviteModal" style="display:none;" class="invite-overlay">
+  <div class="invite-box">
+    <div class="invite-ico" id="inviteIco">♟️</div>
+    <div class="invite-title" id="inviteTitle">Crear partida</div>
+    <div class="invite-sub">Reta a un compañero específico o crea una sala abierta</div>
+    <div class="player-pick-list" id="playerPickList"></div>
+    <div class="invite-btns">
+      <button class="btn-invite btn-invite-open" onclick="createGame(false)">🌐 Sala Abierta</button>
+      <button class="btn-invite btn-invite-specific" id="btnChallenge" onclick="createGame(true)" disabled>⚔️ Retar</button>
+      <button class="btn-cancel btn-ghost" onclick="closeInvite()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHALLENGE NOTIFICATION -->
+<div id="challengeToast" style="display:none;" class="challenge-toast">
+  <div class="challenge-box">
+    <div class="ch-title" id="chTitle">¡Te retaron!</div>
+    <div class="ch-sub" id="chSub">Alguien te invita a jugar</div>
+    <div class="ch-btns">
+      <button class="btn-ch-accept" onclick="acceptChallenge()">✓ Aceptar</button>
+      <button class="btn-ch-decline" onclick="declineChallenge()">✗ Rechazar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getDatabase,ref,set,get,push,onValue,update,remove,serverTimestamp,off}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const FB={apiKey:"AIzaSyBs2uK2PlvHj7s51Oz9Op3dcFq6SVRnThM",authDomain:"medstudents-study-room.firebaseapp.com",databaseURL:"https://medstudents-study-room-default-rtdb.firebaseio.com",projectId:"medstudents-study-room",storageBucket:"medstudents-study-room.firebasestorage.app",messagingSenderId:"946855683989",appId:"1:946855683989:web:3d55ab4abab4f2da6ab89c"};
+const db=getDatabase(initializeApp(FB));
+
+// ── IDENTITY (recibida desde la Study Room via URL params) ──
+const params=new URLSearchParams(location.search);
+const ME={uid:params.get('uid')||'g_'+Date.now(),name:params.get('name')||'Jugador',avatar:params.get('avatar')||'🧑‍⚕️'};
+document.getElementById('hdrUser').innerHTML=`${ME.avatar} <strong>${ME.name}</strong>`;
+
+// ── STATE ──
+let curGameId=null,curGameType=null,curListener=null;
+let pendingChallenge=null,inviteGameType=null,inviteTarget=null;
+let chessState=null,memoState=null,triviaState=null;
+let triviaTimerInt=null,triviaTimeLeft=15;
+
+// ── TRIVIA QUESTIONS ──
+const TQ=[
+  {cat:'Bioquímica',q:'¿Cuál es el producto final de la glucólisis?',opts:['Piruvato','Lactato','Acetil-CoA','Glucosa-6-P'],ans:0,exp:'La glucólisis produce 2 mol de piruvato por glucosa, con 2 ATP netos.'},
+  {cat:'Bioquímica',q:'Cofactor de la piruvato deshidrogenasa',opts:['Vitamina C','Tiamina (B1)','Riboflavina','Niacina'],ans:1,exp:'TPP (tiamina pirofosfato) es cofactor del complejo piruvato deshidrogenasa.'},
+  {cat:'Fisiología',q:'pH arterial normal',opts:['7.25-7.35','7.35-7.45','7.45-7.55','7.15-7.25'],ans:1,exp:'El pH arterial normal es 7.35-7.45.'},
+  {cat:'Anatomía',q:'¿Cuántos huesos tiene el carpo?',opts:['6','7','8','9'],ans:2,exp:'8 huesos: escafoides, semilunar, piramidal, pisiforme, trapecio, trapezoide, grande, ganchoso.'},
+  {cat:'Farmacología',q:'Mecanismo de los IBPs',opts:['Bloquean H2','Inhiben H+/K+ ATPasa','Neutralizan ácido','Estimulan mucosa'],ans:1,exp:'Los IBPs inhiben irreversiblemente la H+/K+ ATPasa de células parietales.'},
+  {cat:'Bioquímica',q:'¿Dónde ocurre el ciclo de Krebs?',opts:['Citoplasma','Membrana mitocondrial','Matriz mitocondrial','RE'],ans:2,exp:'El ciclo de Krebs ocurre en la matriz mitocondrial.'},
+  {cat:'Microbiología',q:'Bacilo gram-negativo de la flora intestinal',opts:['S. aureus','E. coli','S. pneumoniae','B. anthracis'],ans:1,exp:'E. coli es un bacilo gram-negativo, parte de la microbiota intestinal normal.'},
+  {cat:'Fisiología',q:'Hormona de las células beta pancreáticas',opts:['Glucagón','Insulina','Somatostatina','Amilina'],ans:1,exp:'Las células beta secretan insulina, que promueve captación de glucosa.'},
+  {cat:'Patología',q:'Marcador tumoral del cáncer de próstata',opts:['CEA','AFP','PSA','CA-125'],ans:2,exp:'El PSA (antígeno prostático específico) es el marcador del cáncer de próstata.'},
+  {cat:'Embriología',q:'¿Cuándo cierra el tubo neural?',opts:['Semana 2','Semana 4','Semana 6','Semana 8'],ans:1,exp:'El tubo neural cierra en la 3ª-4ª semana (días 22-28).'},
+  {cat:'Bioquímica',q:'ATP producidos por oxidación de glucosa',opts:['2 ATP','20 ATP','30-32 ATP','50 ATP'],ans:2,exp:'La oxidación completa produce ~30-32 ATP.'},
+  {cat:'Farmacología',q:'Antídoto de sobredosis de paracetamol',opts:['Atropina','N-acetilcisteína','Naloxona','Flumazenil'],ans:1,exp:'La N-acetilcisteína restaura el glutatión hepático agotado por NAPQI.'},
+  {cat:'Inmunología',q:'Hipersensibilidad de la anafilaxia',opts:['Tipo I','Tipo II','Tipo III','Tipo IV'],ans:0,exp:'La anafilaxia es hipersensibilidad Tipo I (inmediata), mediada por IgE.'},
+  {cat:'Genética',q:'Cromosomas del cariotipo humano normal',opts:['44','46','48','23'],ans:1,exp:'46 cromosomas: 44 autosomas + 2 sexuales (46,XX o 46,XY).'},
+  {cat:'Anatomía',q:'¿Por qué conducto pasa la bilis al duodeno?',opts:['Pancreático','Wirsung','Colédoco','Hepático izq.'],ans:2,exp:'El colédoco transporta bilis desde vesícula/hígado hacia el duodeno.'},
+  {cat:'Bioquímica',q:'¿Qué enzima convierte fibrinógeno en fibrina?',opts:['Plasmina','Trombina','Factor X','Protrombina'],ans:1,exp:'La trombina convierte fibrinógeno soluble en fibrina insoluble.'},
+  {cat:'Fisiología',q:'¿Cuál es la unidad funcional del riñón?',opts:['Glomérulo','Nefrona','Túbulo colector','Cápsula de Bowman'],ans:1,exp:'La nefrona es la unidad funcional del riñón (aprox. 1 millón por riñón).'},
+  {cat:'Anatomía',q:'¿Cuántas vértebras tiene la columna lumbar?',opts:['5','7','12','4'],ans:0,exp:'La región lumbar tiene 5 vértebras (L1-L5), las más grandes de la columna.'},
+  {cat:'Farmacología',q:'¿Cuál es el mecanismo de los β-bloqueadores?',opts:['Bloquean Ca2+','Bloquean receptores β-adrenérgicos','Inhiben ACE','Bloquean Na+'],ans:1,exp:'Los β-bloqueadores compiten con catecolaminas en receptores β1/β2.'},
+  {cat:'Bioquímica',q:'¿Qué vitamina es necesaria para la síntesis de colágeno?',opts:['Vitamina A','Vitamina C','Vitamina D','Vitamina K'],ans:1,exp:'La vitamina C (ácido ascórbico) es cofactor de la prolil y lisil hidroxilasa en la síntesis de colágeno.'},
+];
+
+// ── CHESS PIECES ──
+const CP={wK:'♔',wQ:'♕',wR:'♖',wB:'♗',wN:'♘',wP:'♙',bK:'♚',bQ:'♛',bR:'♜',bB:'♝',bN:'♞',bP:'♟'};
+const MEMO_SYMS=['🧬','❤️','🧠','💊','🔬','🩺','🦠','💉','🫁','🦷','🫀','🦴','🩸','👁️','🦻'];
+
+// ══════════════════════════════════════════
+// ── LOBBY ──
+// ══════════════════════════════════════════
+function listenRooms(){
+  onValue(ref(db,'gameRooms'),snap=>{
+    const data=snap.val()||{};
+    const c=document.getElementById('activeRooms');c.innerHTML='';
+    const rooms=Object.entries(data).filter(([,r])=>r&&r.status!=='done').sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+    if(!rooms.length){c.innerHTML='<div class="no-rooms">Sin partidas activas. ¡Crea una! 🎮</div>';return;}
+    rooms.forEach(([id,r])=>{
+      const ico={chess:'♟️',memorama:'🧩',trivia:'🧠'}[r.type]||'🎮';
+      const name={chess:'Ajedrez',memorama:'Memorama',trivia:'Trivia Médica'}[r.type]||'Juego';
+      const isOpen=!r.targetUid,canJoin=r.status==='waiting'&&r.hostUid!==ME.uid&&(!r.targetUid||r.targetUid===ME.uid);
+      const players=r.guestName?`${r.hostAvatar||'🧑'}${r.hostName} vs ${r.guestAvatar||'🧑'}${r.guestName}`:`${r.hostAvatar||'🧑'}${r.hostName} esperando...`;
+      const stClass=r.status==='waiting'?'rs-waiting':r.status==='playing'?'rs-playing':'rs-done';
+      const stLabel=r.status==='waiting'?'Esperando':'En curso';
+      const div=document.createElement('div');div.className='room-row';
+      div.innerHTML=`<div class="room-ico">${ico}</div>
+        <div class="room-info">
+          <div class="room-name">${name} ${isOpen?'<span style="font-size:10px;color:var(--text3)">· abierta</span>':'<span style="font-size:10px;color:#c39bd3">· invitación</span>'}</div>
+          <div class="room-players">${players}</div>
+        </div>
+        <span class="room-status ${stClass}">${stLabel}</span>
+        <button class="btn-join" ${canJoin?'':'disabled'} onclick="joinRoom('${id}')">${canJoin?'Unirme':'Llena'}</button>`;
+      c.appendChild(div);
+    });
+  });
+}
+listenRooms();
+
+// ── Listen for incoming challenges ──
+onValue(ref(db,'challenges/'+ME.uid),snap=>{
+  const d=snap.val();
+  if(!d)return;
+  pendingChallenge=d;
+  const ico={chess:'♟️',memorama:'🧩',trivia:'🧠'}[d.type]||'🎮';
+  const name={chess:'Ajedrez',memorama:'Memorama',trivia:'Trivia Médica'}[d.type]||'Juego';
+  document.getElementById('chTitle').textContent=`${d.fromAvatar} ${d.fromName} te reta`;
+  document.getElementById('chSub').textContent=`${ico} ${name} · ¡Acepta para jugar!`;
+  document.getElementById('challengeToast').style.display='block';
+});
+
+// ══════════════════════════════════════════
+// ── INVITE FLOW ──
+// ══════════════════════════════════════════
+window.showInvite=function(type){
+  inviteGameType=type;inviteTarget=null;
+  const ico={chess:'♟️',memorama:'🧩',trivia:'🧠'}[type];
+  const name={chess:'Ajedrez',memorama:'Memorama',trivia:'Trivia Médica'}[type];
+  document.getElementById('inviteIco').textContent=ico;
+  document.getElementById('inviteTitle').textContent=`Crear partida · ${name}`;
+  document.getElementById('btnChallenge').disabled=true;
+  // Load current students from Firebase
+  get(ref(db,'students')).then(snap=>{
+    const data=snap.val()||{};
+    const list=document.getElementById('playerPickList');list.innerHTML='';
+    const others=Object.entries(data).filter(([uid])=>uid!==ME.uid);
+    if(!others.length){list.innerHTML='<div style="font-size:12px;color:var(--text3);text-align:center;padding:12px;">No hay compañeros conectados ahora.</div>';return;}
+    others.forEach(([uid,s])=>{
+      const row=document.createElement('div');row.className='player-pick-row';
+      row.innerHTML=`<div class="pp-av">${s.avatar||'🧑'}</div><div class="pp-name">${s.name}</div><div class="pp-sub">${s.subject||''} · 🍅${s.pomos||0}</div>`;
+      row.onclick=()=>{
+        document.querySelectorAll('.player-pick-row').forEach(r=>r.classList.remove('picked'));
+        row.classList.add('picked');inviteTarget={uid,name:s.name,avatar:s.avatar||'🧑'};
+        document.getElementById('btnChallenge').disabled=false;
+      };
+      list.appendChild(row);
+    });
+  });
+  document.getElementById('inviteModal').style.display='flex';
+};
+window.closeInvite=()=>{document.getElementById('inviteModal').style.display='none';inviteTarget=null;};
+
+window.createGame=async function(specific){
+  const type=inviteGameType;
+  const roomRef=push(ref(db,'gameRooms'));
+  const gameId=roomRef.key;
+  let initialState={};
+  if(type==='chess') initialState=buildInitialChessBoard();
+  else if(type==='memorama') initialState=buildInitialMemorama();
+  else if(type==='trivia') initialState=buildInitialTrivia();
+
+  const roomData={
+    type,status:'waiting',hostUid:ME.uid,hostName:ME.name,hostAvatar:ME.avatar,
+    guestUid:null,guestName:null,guestAvatar:null,
+    targetUid:specific&&inviteTarget?inviteTarget.uid:null,
+    targetName:specific&&inviteTarget?inviteTarget.name:null,
+    createdAt:Date.now(),...initialState
+  };
+  await set(roomRef,roomData);
+
+  // Send challenge notification if specific
+  if(specific&&inviteTarget){
+    await set(ref(db,'challenges/'+inviteTarget.uid),{fromUid:ME.uid,fromName:ME.name,fromAvatar:ME.avatar,type,gameId,ts:Date.now()});
+  }
+  closeInvite();
+  enterRoom(gameId,type,roomData);
+};
+
+window.joinRoom=async function(gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const r=snap.val();if(!r||r.status!=='waiting')return;
+  await update(ref(db,'gameRooms/'+gameId),{guestUid:ME.uid,guestName:ME.name,guestAvatar:ME.avatar,status:'playing'});
+  // Clear challenge if it was directed at me
+  await remove(ref(db,'challenges/'+ME.uid));
+  enterRoom(gameId,r.type,{...r,guestUid:ME.uid,guestName:ME.name,guestAvatar:ME.avatar,status:'playing'});
+};
+
+window.acceptChallenge=async function(){
+  if(!pendingChallenge)return;
+  document.getElementById('challengeToast').style.display='none';
+  await joinRoom(pendingChallenge.gameId);
+  pendingChallenge=null;
+};
+window.declineChallenge=async function(){
+  document.getElementById('challengeToast').style.display='none';
+  await remove(ref(db,'challenges/'+ME.uid));
+  pendingChallenge=null;
+};
+
+// ══════════════════════════════════════════
+// ── ENTER / LEAVE GAME ──
+// ══════════════════════════════════════════
+function enterRoom(gameId,type,initialData){
+  curGameId=gameId;curGameType=type;
+  document.getElementById('lobby').style.display='none';
+  document.getElementById('gameArena').style.display='block';
+  const names={chess:'♟️ Ajedrez',memorama:'🧩 Memorama Médico',trivia:'🧠 Trivia Médica'};
+  document.getElementById('arenaTitle').textContent=names[type]||'🎮 Juego';
+  if(curListener){off(ref(db,'gameRooms/'+curGameId));curListener=null;}
+  curListener=onValue(ref(db,'gameRooms/'+gameId),snap=>{
+    const data=snap.val();
+    if(!data){leaveGame();return;}
+    if(type==='chess') renderChessGame(data,gameId);
+    else if(type==='memorama') renderMemoramaGame(data,gameId);
+    else if(type==='trivia') renderTriviaGame(data,gameId);
+  });
+}
+window.leaveGame=async function(){
+  if(curListener){off(ref(db,'gameRooms/'+curGameId));curListener=null;}
+  if(triviaTimerInt){clearInterval(triviaTimerInt);triviaTimerInt=null;}
+  curGameId=null;curGameType=null;chessState=null;memoState=null;triviaState=null;
+  document.getElementById('gameArena').style.display='none';
+  document.getElementById('lobby').style.display='block';
+  document.getElementById('gameBoard').innerHTML='';
+};
+
+// ══════════════════════════════════════════
+// ── CHESS ──
+// ══════════════════════════════════════════
+function buildInitialChessBoard(){
+  const board=[
+    ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+    ['bP','bP','bP','bP','bP','bP','bP','bP'],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    ['wP','wP','wP','wP','wP','wP','wP','wP'],
+    ['wR','wN','wB','wQ','wK','wB','wN','wR']
+  ];
+  return{board:board.map(r=>r.map(c=>c||'')),turn:'white',selected:null,lastMove:null,capturedW:[],capturedB:[],status:'waiting',winner:null};
+}
+let chessSelected=null;
+function renderChessGame(data,gameId){
+  const isHost=data.hostUid===ME.uid;
+  const myColor=isHost?'white':'black';
+  const myName=isHost?data.hostName:data.guestName;
+  const oppName=isHost?data.guestName:data.hostName;
+  const myAv=isHost?data.hostAvatar:data.guestAvatar;
+  const oppAv=isHost?data.guestAvatar:data.hostAvatar;
+  const myScore=isHost?data.scoreHost||0:data.scoreGuest||0;
+  const oppScore=isHost?data.scoreGuest||0:data.scoreHost||0;
+  const isMyTurn=data.turn===myColor;
+
+  renderPlayersBar([
+    {name:myName||'Tú',avatar:myAv||'🧑',score:myColor==='white'?'♔ Blancas':'♚ Negras',active:isMyTurn,label:'(Tú)'},
+    {name:oppName||'Esperando...',avatar:oppAv||'🧑',score:myColor==='white'?'♚ Negras':'♔ Blancas',active:!isMyTurn}
+  ]);
+
+  if(data.status==='waiting'){
+    document.getElementById('gameBoard').innerHTML=`<div class="waiting-room"><div class="waiting-spinner"></div><div class="waiting-title">Esperando rival...</div><div class="waiting-sub">Comparte el enlace de la Study Room para invitar a alguien.</div></div>`;
+    document.getElementById('gameStatusBar').textContent='';
+    return;
+  }
+  if(data.winner){
+    const myWin=(data.winner==='white'&&myColor==='white')||(data.winner==='black'&&myColor==='black');
+    document.getElementById('gameStatusBar').innerHTML=`<span style="color:${myWin?'var(--gold)':'var(--red)'}">${myWin?'🏆 ¡Ganaste!':'😔 Perdiste'} — Rey capturado</span>`;
+  } else {
+    document.getElementById('gameStatusBar').textContent=isMyTurn?'⚡ Tu turno':'⏳ Turno del rival';
+  }
+
+  const board=data.board||[];
+  const validMoves=chessSelected&&data.turn===myColor?getChessMoves(board,chessSelected.r,chessSelected.c,myColor):[];
+  const lm=data.lastMove;
+  let html=`<div class="chess-board-wrap">
+    <div style="font-size:12px;color:var(--text3);margin-bottom:4px;">Capturadas por ti: <span style="font-size:16px;">${(data.capturedW||[]).join('')}${(data.capturedB||[]).join('')}</span></div>
+    <div class="chess-board" id="cb">`;
+  // Flip board for black player
+  const rows=myColor==='black'?[7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7];
+  const cols=myColor==='black'?[7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7];
+  rows.forEach(r=>cols.forEach(c=>{
+    const piece=board[r]?board[r][c]:'';
+    const isLight=(r+c)%2===0;
+    let cls='chess-cell '+(isLight?'light':'dark');
+    if(chessSelected&&chessSelected.r===r&&chessSelected.c===c) cls+=' selected';
+    if(validMoves.some(m=>m.r===r&&m.c===c)) cls+=piece&&piece[0]!==myColor[0]?' valid-capture':' valid-move';
+    if(lm&&((lm.fr===r&&lm.fc===c)||(lm.tr===r&&lm.tc===c))) cls+=' last-move';
+    const canInteract=!data.winner&&data.status==='playing';
+    html+=`<div class="${cls}" onclick="${canInteract?`handleChessClick(${r},${c})`:''}"> ${piece?CP[piece]||'':''}</div>`;
+  }));
+  html+=`</div>
+    <div class="chess-coords">${['a','b','c','d','e','f','g','h'].map(l=>`<div class="chess-coord">${l}</div>`).join('')}</div>
+    <div class="chess-actions">
+      <button class="btn-ghost" onclick="resetChessGame('${gameId}')">↺ Nueva partida</button>
+    </div></div>`;
+  document.getElementById('gameBoard').innerHTML=html;
+}
+window.handleChessClick=async function(r,c){
+  const snap=await get(ref(db,'gameRooms/'+curGameId));
+  const data=snap.val();if(!data||data.status!=='playing'||data.winner)return;
+  const isHost=data.hostUid===ME.uid;
+  const myColor=isHost?'white':'black';
+  if(data.turn!==myColor)return;
+  const board=data.board.map(row=>[...row]);
+  const piece=board[r][c];
+  if(chessSelected){
+    const valid=getChessMoves(board,chessSelected.r,chessSelected.c,myColor);
+    const move=valid.find(m=>m.r===r&&m.c===c);
+    if(move){
+      const captured=board[r][c];
+      board[r][c]=board[chessSelected.r][chessSelected.c];
+      board[chessSelected.r][chessSelected.c]='';
+      // Promotion
+      if(board[r][c]==='wP'&&r===0) board[r][c]='wQ';
+      if(board[r][c]==='bP'&&r===7) board[r][c]='bQ';
+      const updates={board,turn:myColor==='white'?'black':'white',selected:null,lastMove:{fr:chessSelected.r,fc:chessSelected.c,tr:r,tc:c}};
+      if(captured){
+        const capKey=myColor==='white'?'capturedW':'capturedB';
+        updates[capKey]=[...(data[capKey]||[]),CP[captured]];
+        if(captured==='wK'||captured==='bK') updates.winner=myColor;
+      }
+      chessSelected=null;
+      await update(ref(db,'gameRooms/'+curGameId),updates);
+      return;
+    }
+    chessSelected=null;
+    if(piece&&piece[0]===myColor[0]){chessSelected={r,c};}
+  } else {
+    if(piece&&piece[0]===myColor[0]) chessSelected={r,c};
+  }
+  // Re-render locally while waiting for Firebase
+  const latestSnap=await get(ref(db,'gameRooms/'+curGameId));
+  renderChessGame({...latestSnap.val(),...(chessSelected?{selected:chessSelected}:{})},curGameId);
+};
+window.resetChessGame=async function(gameId){
+  const init=buildInitialChessBoard();
+  chessSelected=null;
+  await update(ref(db,'gameRooms/'+gameId),{...init,status:'playing'});
+};
+function getChessMoves(board,r,c,color){
+  const piece=board[r]?board[r][c]:'';if(!piece)return[];
+  const type=piece[1],moves=[];
+  const inB=(r,c)=>r>=0&&r<8&&c>=0&&c<8;
+  const isEmpty=(r,c)=>inB(r,c)&&!board[r][c];
+  const isEnemy=(r,c,col)=>inB(r,c)&&board[r][c]&&board[r][c][0]!==col[0];
+  const slide=(dr,dc)=>{let nr=r+dr,nc=c+dc;while(inB(nr,nc)){if(!board[nr][nc]){moves.push({r:nr,c:nc});}else{if(isEnemy(nr,nc,color))moves.push({r:nr,c:nc});break;}nr+=dr;nc+=dc;}};
+  if(type==='P'){const d=color==='white'?-1:1,s=color==='white'?6:1;if(isEmpty(r+d,c))moves.push({r:r+d,c});if(r===s&&isEmpty(r+d,c)&&isEmpty(r+2*d,c))moves.push({r:r+2*d,c});if(isEnemy(r+d,c-1,color))moves.push({r:r+d,c:c-1});if(isEnemy(r+d,c+1,color))moves.push({r:r+d,c:c+1});}
+  else if(type==='N'){[[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]].forEach(([dr,dc])=>{if(inB(r+dr,c+dc)&&(!board[r+dr][c+dc]||isEnemy(r+dr,c+dc,color)))moves.push({r:r+dr,c:c+dc});});}
+  else if(type==='R'){[[1,0],[-1,0],[0,1],[0,-1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='B'){[[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='Q'){[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='K'){[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>{if(inB(r+dr,c+dc)&&(!board[r+dr][c+dc]||isEnemy(r+dr,c+dc,color)))moves.push({r:r+dr,c:c+dc});});}
+  return moves;
+}
+
+// ══════════════════════════════════════════
+// ── MEMORAMA ──
+// ══════════════════════════════════════════
+function buildInitialMemorama(){
+  const pairs=8;
+  const syms=[...MEMO_SYMS.slice(0,pairs),...MEMO_SYMS.slice(0,pairs)].sort(()=>Math.random()-.5);
+  const cards=syms.map((s,i)=>({id:i,sym:s,flipped:false,matchedBy:null}));
+  return{memoCards:cards,memoTurn:null,memoFlipped:[],scoreHost:0,scoreGuest:0,memoLocked:false,status:'waiting'};
+}
+function renderMemoramaGame(data,gameId){
+  const isHost=data.hostUid===ME.uid;
+  const myKey=isHost?'Host':'Guest';
+  const oppKey=isHost?'Guest':'Host';
+  const myScore=data['score'+myKey]||0;
+  const oppScore=data['score'+oppKey]||0;
+  const myName=data[isHost?'hostName':'guestName']||'Tú';
+  const oppName=data[isHost?'guestName':'hostName']||'Rival';
+  const myAv=data[isHost?'hostAvatar':'guestAvatar']||'🧑';
+  const oppAv=data[isHost?'guestAvatar':'hostAvatar']||'🧑';
+  const isMyTurn=data.memoTurn===ME.uid;
+  renderPlayersBar([
+    {name:myName,avatar:myAv,score:`${myScore} pares`,active:isMyTurn,label:'(Tú)'},
+    {name:oppName||'Esperando...',avatar:oppAv,score:`${oppScore} pares`,active:!isMyTurn}
+  ]);
+  if(data.status==='waiting'){
+    document.getElementById('gameBoard').innerHTML=`<div class="waiting-room"><div class="waiting-spinner"></div><div class="waiting-title">Esperando rival...</div><div class="waiting-sub">Comparte la sala para que alguien se una.</div></div>`;
+    document.getElementById('gameStatusBar').textContent='';
+    return;
+  }
+  const total=(data.memoCards||[]).length/2;
+  const done=myScore+oppScore;
+  if(done>=total){
+    const myWin=myScore>oppScore,tie=myScore===oppScore;
+    document.getElementById('gameStatusBar').innerHTML=`<span style="color:${tie?'var(--cyan)':myWin?'var(--gold)':'var(--red)'}">${tie?'🤝 ¡Empate!':myWin?'🏆 ¡Ganaste!':'😔 Perdiste'} — ${myScore} vs ${oppScore} pares</span>`;
+  } else {
+    document.getElementById('gameStatusBar').textContent=isMyTurn?'⚡ Tu turno — elige una carta':'⏳ Turno del rival';
+  }
+  const cards=data.memoCards||[];
+  let html=`<div class="memo-board memo-g4" style="max-width:480px;margin:0 auto;">`;
+  cards.forEach((card,i)=>{
+    const isFlipped=card.flipped||card.matchedBy;
+    const matchClass=card.matchedBy?( card.matchedBy===ME.uid?'matched my-match':'matched opp-match'):'';
+    const canClick=isMyTurn&&!card.flipped&&!card.matchedBy&&!data.memoLocked&&(data.memoFlipped||[]).length<2;
+    html+=`<div class="memo-card ${isFlipped?'flipped':''} ${matchClass}" onclick="${canClick?`flipMemo(${i},'${gameId}')`:''}" style="cursor:${canClick?'pointer':'default'}">
+      <div class="memo-inner"><div class="memo-front">🧬</div><div class="memo-back">${card.sym}</div></div>
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('gameBoard').innerHTML=html;
+}
+window.flipMemo=async function(idx,gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const data=snap.val();if(!data||data.memoLocked)return;
+  if(data.memoTurn!==ME.uid)return;
+  const cards=data.memoCards.map(c=>({...c}));
+  const flipped=[...(data.memoFlipped||[])];
+  if(flipped.length>=2||cards[idx].flipped||cards[idx].matchedBy)return;
+  cards[idx]={...cards[idx],flipped:true};
+  flipped.push(idx);
+  if(flipped.length===2){
+    const [a,b]=flipped;
+    if(cards[a].sym===cards[b].sym){
+      // Match!
+      const isHost=data.hostUid===ME.uid;
+      const scoreKey='score'+(isHost?'Host':'Guest');
+      cards[a]={...cards[a],matchedBy:ME.uid,flipped:false};
+      cards[b]={...cards[b],matchedBy:ME.uid,flipped:false};
+      await update(ref(db,'gameRooms/'+gameId),{memoCards:cards,memoFlipped:[],[scoreKey]:(data[scoreKey]||0)+1,memoLocked:false});
+    } else {
+      // No match — show then hide
+      await update(ref(db,'gameRooms/'+gameId),{memoCards:cards,memoFlipped:flipped,memoLocked:true});
+      setTimeout(async()=>{
+        const s2=await get(ref(db,'gameRooms/'+gameId));
+        const d2=s2.val();if(!d2)return;
+        const c2=d2.memoCards.map(c=>({...c}));
+        c2[a]={...c2[a],flipped:false};c2[b]={...c2[b],flipped:false};
+        const opp=data.hostUid===ME.uid?data.guestUid:data.hostUid;
+        await update(ref(db,'gameRooms/'+gameId),{memoCards:c2,memoFlipped:[],memoTurn:opp,memoLocked:false});
+      },900);
+    }
+  } else {
+    await update(ref(db,'gameRooms/'+gameId),{memoCards:cards,memoFlipped:flipped});
+  }
+};
+// Set memo turn when guest joins
+async function initMemoTurn(gameId,data){
+  if(!data.memoTurn&&data.guestUid){
+    await update(ref(db,'gameRooms/'+gameId),{memoTurn:data.hostUid});
+  }
+}
+
+// ══════════════════════════════════════════
+// ── TRIVIA ──
+// ══════════════════════════════════════════
+function buildInitialTrivia(){
+  const order=[...Array(TQ.length).keys()].sort(()=>Math.random()-.5).slice(0,10);
+  return{triviaOrder:order,triviaIdx:0,triviaPhase:'waiting',triviaAnswers:{},triviaScores:{},triviaTs:null,status:'waiting'};
+}
+let triviaLocalAnswered=false;
+function renderTriviaGame(data,gameId){
+  const isHost=data.hostUid===ME.uid;
+  const myScore=(data.triviaScores||{})[ME.uid]||0;
+  const oppUid=isHost?data.guestUid:data.hostUid;
+  const oppScore=oppUid?(data.triviaScores||{})[oppUid]||0:0;
+  const myName=data[isHost?'hostName':'guestName']||'Tú';
+  const oppName=data[isHost?'guestName':'hostName']||'Rival';
+  const myAv=data[isHost?'hostAvatar':'guestAvatar']||'🧑';
+  const oppAv=data[isHost?'guestAvatar':'hostAvatar']||'🧑';
+  renderPlayersBar([
+    {name:myName,avatar:myAv,score:`${myScore} pts`,active:true,label:'(Tú)'},
+    {name:oppName||'Esperando...',avatar:oppAv,score:`${oppScore} pts`,active:true}
+  ]);
+  if(data.status==='waiting'){
+    document.getElementById('gameBoard').innerHTML=`<div class="waiting-room"><div class="waiting-spinner"></div><div class="waiting-title">Esperando rival...</div><div class="waiting-sub">En trivia, ambos responden al mismo tiempo. El más rápido gana más puntos.</div></div>`;
+    document.getElementById('gameStatusBar').textContent='';
+    return;
+  }
+  const order=data.triviaOrder||[];
+  const idx=data.triviaIdx||0;
+  if(idx>=order.length){
+    // Game over
+    const myWin=myScore>oppScore,tie=myScore===oppScore;
+    document.getElementById('gameStatusBar').innerHTML=`<span style="color:${tie?'var(--cyan)':myWin?'var(--gold)':'var(--red)'}">${tie?'🤝 ¡Empate!':myWin?'🏆 ¡Ganaste!':'😔 Perdiste'}</span>`;
+    // Scoreboard
+    const all=Object.entries(data.triviaScores||{}).sort((a,b)=>b[1]-a[1]);
+    let sb=`<div class="trivia-board"><div class="scoreboard"><div class="scoreboard-title">Resultado Final</div>`;
+    all.forEach(([uid,pts],i)=>{
+      const isM=uid===ME.uid;
+      const nm=isM?myName:(data.hostUid===uid?data.hostName:data.guestName)||uid;
+      const av=isM?myAv:(data.hostUid===uid?data.hostAvatar:data.guestAvatar)||'🧑';
+      sb+=`<div class="sb-row"><div class="sb-pos">${i===0?'🥇':i===1?'🥈':'🥉'}</div><div class="sb-av">${av}</div><div class="sb-name">${nm}${isM?' (Tú)':''}</div><div class="sb-pts">${pts} pts</div></div>`;
+    });
+    sb+=`</div><div style="text-align:center;margin-top:14px;"><button class="btn-primary" onclick="restartTrivia('${gameId}')">▶ Nueva Ronda</button></div></div>`;
+    document.getElementById('gameBoard').innerHTML=sb;
+    if(triviaTimerInt){clearInterval(triviaTimerInt);triviaTimerInt=null;}
+    return;
+  }
+  const q=TQ[order[idx]];
+  const phase=data.triviaPhase||'question';
+  const myAnswer=(data.triviaAnswers||{})[ME.uid];
+  const oppAnswer=oppUid?(data.triviaAnswers||{})[oppUid]:undefined;
+  const bothAnswered=myAnswer!==undefined&&(!oppUid||oppAnswer!==undefined);
+  document.getElementById('gameStatusBar').textContent=`Pregunta ${idx+1} de ${order.length}`;
+
+  if(triviaTimerInt){clearInterval(triviaTimerInt);triviaTimerInt=null;}
+  // Timer bar
+  const now=Date.now();
+  const elapsed=data.triviaTs?Math.min(15,(now-data.triviaTs)/1000):0;
+  triviaTimeLeft=Math.max(0,15-elapsed);
+
+  let html=`<div class="trivia-board">
+    <div class="trivia-timer-bar"><div class="trivia-timer-fill ${triviaTimeLeft<5?'urgent':''}" id="timerFill" style="width:${(triviaTimeLeft/15)*100}%"></div></div>
+    <div class="trivia-q-box"><div class="trivia-cat">${q.cat}</div><div class="trivia-q">${q.q}</div></div>
+    <div class="trivia-opts">`;
+  q.opts.forEach((o,i)=>{
+    let cls='topt';
+    if(phase==='reveal'||myAnswer!==undefined){
+      if(i===q.ans) cls+=' correct';
+      else if(myAnswer===i&&i!==q.ans) cls+=' wrong';
+      // Highlight who answered first
+      if(myAnswer===i&&(data.triviaFirstAnswer===ME.uid)) cls+=' first-ans';
+    }
+    const disabled=(myAnswer!==undefined||phase==='reveal');
+    html+=`<button class="${cls}" ${disabled?'disabled':''} onclick="answerTrivia(${i},'${gameId}')">${o}</button>`;
+  });
+  html+=`</div>`;
+  if(phase==='reveal'||bothAnswered){
+    html+=`<div class="trivia-exp" style="display:block;">💡 ${q.exp}</div>`;
+    // Show who answered what
+    const answersHtml=Object.entries(data.triviaAnswers||{}).map(([uid,ans])=>{
+      const isM=uid===ME.uid;const nm=isM?myName:(data.hostUid===uid?data.hostName:data.guestName)||uid;
+      const av=isM?myAv:(data.hostUid===uid?data.hostAvatar:data.guestAvatar)||'🧑';
+      const correct=ans===q.ans;
+      return`<span style="background:${correct?'rgba(46,204,113,0.15)':'rgba(239,65,80,0.1)'};border:1px solid ${correct?'var(--green)':'var(--red)'};border-radius:8px;padding:4px 10px;font-size:12px;">${av} ${nm}: ${q.opts[ans]} ${correct?'✓':'✗'}</span>`;
+    }).join(' ');
+    html+=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">${answersHtml}</div>`;
+    if(isHost) html+=`<div style="text-align:center;"><button class="btn-primary" onclick="nextTriviaQ('${gameId}')">Siguiente →</button></div>`;
+    else html+=`<div style="text-align:center;font-size:13px;color:var(--text3);">Esperando que el host avance...</div>`;
+  } else if(myAnswer!==undefined&&!bothAnswered){
+    html+=`<div style="text-align:center;font-size:13px;color:var(--text3);padding:10px;">Respondiste ✓ — Esperando al rival...</div>`;
+  }
+  html+=`</div>`;
+  document.getElementById('gameBoard').innerHTML=html;
+
+  // Timer countdown
+  if(myAnswer===undefined&&phase!=='reveal'){
+    triviaTimerInt=setInterval(()=>{
+      triviaTimeLeft=Math.max(0,triviaTimeLeft-0.5);
+      const fill=document.getElementById('timerFill');
+      if(fill){fill.style.width=(triviaTimeLeft/15)*100+'%';if(triviaTimeLeft<5)fill.classList.add('urgent');}
+      if(triviaTimeLeft<=0){clearInterval(triviaTimerInt);triviaTimerInt=null;autoAnswerTrivia(gameId);}
+    },500);
+  }
+}
+window.answerTrivia=async function(chosen,gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const data=snap.val();if(!data)return;
+  if((data.triviaAnswers||{})[ME.uid]!==undefined)return;
+  const q=TQ[(data.triviaOrder||[])[data.triviaIdx||0]];
+  const isCorrect=chosen===q.ans;
+  const elapsed=data.triviaTs?Math.min(15,(Date.now()-data.triviaTs)/1000):15;
+  const speedBonus=isCorrect?Math.round((1-(elapsed/15))*5):0;
+  const pts=isCorrect?(10+speedBonus):0;
+  const curScore=(data.triviaScores||{})[ME.uid]||0;
+  const oppUid=data.hostUid===ME.uid?data.guestUid:data.hostUid;
+  const oppAnswered=oppUid&&(data.triviaAnswers||{})[oppUid]!==undefined;
+  const isFirst=!oppAnswered;
+  const updates={[`triviaAnswers/${ME.uid}`]:chosen,[`triviaScores/${ME.uid}`]:curScore+pts};
+  if(isFirst) updates.triviaFirstAnswer=ME.uid;
+  if(oppAnswered) updates.triviaPhase='reveal';
+  if(triviaTimerInt){clearInterval(triviaTimerInt);triviaTimerInt=null;}
+  await update(ref(db,'gameRooms/'+gameId),updates);
+};
+async function autoAnswerTrivia(gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const data=snap.val();if(!data)return;
+  if((data.triviaAnswers||{})[ME.uid]!==undefined)return;
+  const oppUid=data.hostUid===ME.uid?data.guestUid:data.hostUid;
+  const oppAnswered=oppUid&&(data.triviaAnswers||{})[oppUid]!==undefined;
+  const updates={[`triviaAnswers/${ME.uid}`]:-1};// -1 = no answer
+  if(oppAnswered) updates.triviaPhase='reveal';
+  await update(ref(db,'gameRooms/'+gameId),updates);
+}
+window.nextTriviaQ=async function(gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const data=snap.val();if(!data)return;
+  const nextIdx=(data.triviaIdx||0)+1;
+  await update(ref(db,'gameRooms/'+gameId),{triviaIdx:nextIdx,triviaAnswers:{},triviaFirstAnswer:null,triviaPhase:'question',triviaTs:Date.now()});
+};
+window.restartTrivia=async function(gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const data=snap.val();if(!data)return;
+  const order=[...Array(TQ.length).keys()].sort(()=>Math.random()-.5).slice(0,10);
+  await update(ref(db,'gameRooms/'+gameId),{triviaOrder:order,triviaIdx:0,triviaPhase:'question',triviaAnswers:{},triviaFirstAnswer:null,triviaScores:{},triviaTs:Date.now()});
+};
+
+// When guest joins trivia/memo, kick off the game
+const _origJoin=window.joinRoom;
+window.joinRoom=async function(gameId){
+  const snap=await get(ref(db,'gameRooms/'+gameId));
+  const r=snap.val();if(!r||r.status!=='waiting')return;
+  const updates={guestUid:ME.uid,guestName:ME.name,guestAvatar:ME.avatar,status:'playing'};
+  if(r.type==='trivia') updates.triviaTs=Date.now();
+  if(r.type==='memorama') updates.memoTurn=r.hostUid;
+  await update(ref(db,'gameRooms/'+gameId),updates);
+  await remove(ref(db,'challenges/'+ME.uid));
+  const fresh=(await get(ref(db,'gameRooms/'+gameId))).val();
+  enterRoom(gameId,r.type,fresh);
+};
+
+// ── UI HELPERS ──
+function renderPlayersBar(players){
+  const bar=document.getElementById('playersBar');
+  bar.innerHTML=players.map((p,i)=>`
+    <div class="player-chip ${p.active?'active-turn':''}">
+      <div class="pc-av">${p.avatar}</div>
+      <div><div class="pc-name">${p.name} ${p.label?`<span style="font-size:10px;color:var(--text3);">${p.label}</span>`:''}</div><div class="pc-score">${p.score}</div></div>
+      ${p.active?'<span style="margin-left:auto;font-size:10px;color:var(--cyan);font-weight:700;" class="pulse">●</span>':''}
+    </div>
+    ${i===0?'<div class="vs-divider">VS</div>':''}`).join('');
+}
+</script>
+</body>
+</html>
