@@ -131,6 +131,9 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .pomo.p-break .phase-box{border-left-color:var(--green);}
 .pi-ttl{font-weight:700;color:var(--text);margin-bottom:2px;font-size:11px;}
 .pi-txt{font-size:10px;color:var(--text2);line-height:1.5;}
+/* aliases for JS-generated innerHTML */
+.pi-title{font-weight:700;color:var(--text);margin-bottom:2px;font-size:11px;}
+.pi-text{font-size:10px;color:var(--text2);line-height:1.5;}
 .quote-box{background:rgba(255,255,255,0.03);border-radius:9px;padding:9px 11px;}
 .quote-txt{font-size:11px;color:var(--text2);font-style:italic;line-height:1.5;min-height:32px;transition:opacity .6s;}
 /* progress bar */
@@ -870,6 +873,35 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-ap
 import{getDatabase,ref,set,onValue,push,remove,onDisconnect,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const FB={apiKey:"AIzaSyBs2uK2PlvHj7s51Oz9Op3dcFq6SVRnThM",authDomain:"medstudents-study-room.firebaseapp.com",databaseURL:"https://medstudents-study-room-default-rtdb.firebaseio.com",projectId:"medstudents-study-room",storageBucket:"medstudents-study-room.firebasestorage.app",messagingSenderId:"946855683989",appId:"1:946855683989:web:3d55ab4abab4f2da6ab89c"};
+/*
+  ⚠️ FIREBASE RULES RECOMENDADAS — aplicar en Firebase Console → Realtime Database → Rules:
+  {
+    "rules": {
+      "students": {
+        "$uid": {
+          ".read": true,
+          ".write": true,
+          ".validate": "newData.hasChildren(['name','pomos']) && newData.child('name').isString() && newData.child('name').val().length <= 40"
+        }
+      },
+      "chat": {
+        ".read": true,
+        "$msgId": {
+          ".write": true,
+          ".validate": "newData.hasChildren(['name','text','ts']) && newData.child('text').isString() && newData.child('text').val().length <= 120"
+        }
+      },
+      "fallen": {
+        ".read": true,
+        "$id": { ".write": true, ".validate": "newData.hasChildren(['name','ts'])" }
+      },
+      "leaderboard": {
+        ".read": true,
+        "$uid": { ".write": true, ".validate": "newData.hasChildren(['name','totalPomos'])" }
+      }
+    }
+  }
+*/
 const db=getDatabase(initializeApp(FB));
 
 // ── AVATARS ──
@@ -878,11 +910,11 @@ let myAvatar='🧑‍⚕️';
 (function buildAvatarGrid(){
   const g=document.getElementById('avatarGrid');
   AVATARS.forEach((a,i)=>{
-    const b=document.createElement('button');b.className='av-btn'+(i===0?' selected':'');
+    const b=document.createElement('button');b.className='av-btn'+(i===0?' sel':'');
     b.textContent=a;b.title=a;
     b.onclick=()=>{
-      document.querySelectorAll('.av-btn').forEach(x=>x.classList.remove('selected'));
-      b.classList.add('selected');myAvatar=a;
+      document.querySelectorAll('.av-btn').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel');myAvatar=a;
     };
     g.appendChild(b);
   });
@@ -932,6 +964,8 @@ window.addManualPomos=function(){
   if(!dateVal){showToast('⚠️','Elige una fecha primero',3000);return;}
   if(qty<1||qty>20){showToast('⚠️','Entre 1 y 20 pomodoros',3000);return;}
   const dateObj=new Date(dateVal+'T12:00:00');
+  const today=new Date();today.setHours(23,59,59,999);
+  if(dateObj>today){showToast('⚠️','No puedes registrar fechas futuras',3000);return;}
   const dateKey=dateObj.toDateString();
   // Update activity map
   saveAMDay(dateKey,qty);
@@ -1059,8 +1093,11 @@ function cleanFallen(){
 }
 
 // ── FIREBASE LISTENERS ──
+let _unsubStudents=null,_unsubChat=null,_unsubFallen=null;
+
 function listenStudents(){
-  onValue(ref(db,'students'),snap=>{
+  if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
+  _unsubStudents=onValue(ref(db,'students'),snap=>{
     const d=snap.val()||{};
     const entries=Object.entries(d);
     document.getElementById('onlineCount').textContent=entries.length+' en línea';
@@ -1093,7 +1130,8 @@ function listenStudents(){
 }
 
 function listenChat(){
-  onValue(ref(db,'chat'),snap=>{
+  if(_unsubChat){_unsubChat();_unsubChat=null;}
+  _unsubChat=onValue(ref(db,'chat'),snap=>{
     const d=snap.val()||{};
     const box=document.getElementById('chatBox');box.innerHTML='';
     Object.values(d).filter(m=>m&&m.text&&m.name).sort((a,b)=>(a.ts||0)-(b.ts||0)).slice(-60).forEach(m=>{
@@ -1107,7 +1145,8 @@ function listenChat(){
 }
 
 function listenFallen(){
-  onValue(ref(db,'fallen'),snap=>{
+  if(_unsubFallen){_unsubFallen();_unsubFallen=null;}
+  _unsubFallen=onValue(ref(db,'fallen'),snap=>{
     const d=snap.val()||{};
     const c=document.getElementById('fallenStudents'),nf=document.getElementById('noFallen');
     const now=Date.now();
@@ -1133,9 +1172,13 @@ function listenFallen(){
 
 // ── CHAT ──
 function pushMsg(name,text,isBot,isSys){push(ref(db,'chat'),{name,text,uid:isBot?'bot':isSys?'sys':myUid,ts:Date.now()});}
+let _lastChatTs=0;
 window.sendChat=function(){
   const inp=document.getElementById('chatInput'),txt=inp.value.trim();
   if(!txt||!user)return;
+  const now=Date.now();
+  if(now-_lastChatTs<2000){showToast('⏳','Espera un momento antes de enviar otro mensaje.',1500);return;}
+  _lastChatTs=now;
   pushMsg(user,txt);inp.value='';
   const bots=["💪 ¡Sigue estudiando!","🔥 ¡Crack! Así se hace.","🧠 Tu hipocampo te lo agradece.","📚 ¡Excelente actitud médica!"];
   if(Math.random()>.7)setTimeout(()=>pushMsg('🤖 StudyBot',bots[Math.floor(Math.random()*bots.length)],true),1500);
@@ -1158,6 +1201,10 @@ window.leaveRoom=function(){
     remove(ref(db,'students/'+myUid));
     pushMsg('⚰️ Sistema',`${user} ${myAvatar} abandonó la sala con ${pomosHoy} 🍅`,false,true);
   }
+  // FIX #9: unsubscribe Firebase listeners to prevent memory leaks on re-enter
+  if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
+  if(_unsubChat){_unsubChat();_unsubChat=null;}
+  if(_unsubFallen){_unsubFallen();_unsubFallen=null;}
   clearInterval(pomoInt);clearInterval(chronoInt);
   stopLofi();saveStats(loadStats());closeModal();closeGame();
   document.removeEventListener('visibilitychange',handleVis);
@@ -1321,7 +1368,7 @@ window.resetPomo=function(){
   if(pi){pi.className='phase-box';pi.innerHTML='<div class="pi-title">⚠️ Min 0–15: Riesgo</div><div class="pi-text">Resiste. El cerebro aún calienta.</div>';}
   const el=document.getElementById('pomoMotText');if(el){el.textContent='';el.className='pomo-mot-text';}
   const q=document.getElementById('motivQuote');if(q)q.textContent='▶ Inicia el pomodoro para comenzar';
-  lastMotPhase='';const fill=document.getElementById('ppbFill');if(fill)fill.style.width='0%';const pw=document.getElementById('pomoWrap');if(pw)pw.className='pomo-wrap';
+  lastMotPhase='';const fill=document.getElementById('ppbFill');if(fill)fill.style.width='0%';const pw=document.getElementById('pomoWrap');if(pw)pw.className='pomo p-danger';
   for(let i=0;i<20;i++){const s=document.getElementById(`fs${i}`);if(s){s.style.height='3px';s.style.background='rgba(255,255,255,0.06)';}}
 };
 
@@ -1597,10 +1644,11 @@ window.handleChessClick=function(r,c){
     const valid=getValidMoves(chessSelected.r,chessSelected.c);
     const move=valid.find(m=>m.r===r&&m.c===c);
     if(move){
-      applyMove(chessSelected.r,chessSelected.c,r,c);
+      const fromR=chessSelected.r,fromC=chessSelected.c;
+      applyMove(fromR,fromC,r,c);
       chessSelected=null;
       chessTurn=chessTurn==='white'?'black':'white';
-      chessLastMove={fr:chessSelected?.r,fc:chessSelected?.c,tr:r,tc:c};
+      chessLastMove={fr:fromR,fc:fromC,tr:r,tc:c};
       const captured=document.getElementById('chessCaptured');
       const tl=document.getElementById('chessTurnLbl');if(tl)tl.textContent=chessTurn==='white'?'Blancas ♔':'Negras ♚';
       renderChess();
@@ -2093,7 +2141,8 @@ window._motionHook=function(){
 const _origUpdateMyPomos=updateMyPomos;
 window.updateMyPomos=function(){
   if(!myUid)return;
-  set(ref(db,'students/'+myUid+'/pomos'),pomosHoy);
+  // FIX #2: write full student object, not just the pomos field
+  set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});
   if(window._myFallenRef)onDisconnect(window._myFallenRef).set({name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});
   updateLeaderboard();
   renderLeaderboard();
