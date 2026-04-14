@@ -163,58 +163,90 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .btn-game.active-game{background:rgba(155,89,182,0.3);color:white;border-color:rgba(155,89,182,0.7);box-shadow:0 0 14px rgba(155,89,182,0.3);}
 .btn-game .game-ico{font-size:18px;display:block;margin-bottom:3px;}
 
-/* POMODORO */
-.pomo-wrap{background:linear-gradient(145deg,rgba(8,24,48,0.95),rgba(13,32,64,0.95));border:1px solid rgba(0,212,255,0.15);border-radius:22px;padding:22px 26px;margin-bottom:18px;position:relative;}
-.pomo-glow{position:absolute;inset:0;border-radius:22px;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,0.06),transparent 60%);z-index:0;}
-.pomo-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1;}
-.pomo-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px;}
-.phase-badge{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:700;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;}
-.ph-danger{background:rgba(239,65,80,0.2);color:var(--red);border:1px solid rgba(239,65,80,0.4);animation:badgePulse 2s infinite;}
-.ph-gold{background:rgba(244,200,66,0.15);color:var(--gold);border:1px solid rgba(244,200,66,0.3);}
-.ph-push{background:rgba(155,89,182,0.2);color:#c39bd3;border:1px solid rgba(155,89,182,0.4);}
-.ph-break{background:rgba(46,204,113,0.15);color:var(--green);border:1px solid rgba(46,204,113,0.3);}
-@keyframes badgePulse{0%,100%{opacity:1}50%{opacity:.6}}
-/* LAYOUT HORIZONTAL: ring izq + info der */
-.pomo-body{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center;position:relative;z-index:1;margin-bottom:14px;}
-.ring-outer{position:relative;width:200px;height:200px;flex-shrink:0;}
-.timer-svg{transform:rotate(-90deg);width:200px;height:200px;}
-.ring-track{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:14;}
-.ring-bg-color{fill:none;stroke:rgba(0,212,255,0.06);stroke-width:14;}
-.ring-prog{fill:none;stroke:var(--cyan);stroke-width:14;stroke-linecap:round;stroke-dasharray:565;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke .8s ease;filter:drop-shadow(0 0 10px rgba(0,212,255,0.7));}
-.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:130px;}
-.ring-logo{width:36px;height:36px;object-fit:contain;margin-bottom:4px;opacity:.85;}
-.timer-display{font-family:'DM Mono',monospace;font-size:36px;font-weight:700;color:var(--text);line-height:1;letter-spacing:2px;}
-.timer-lbl{font-size:9px;color:var(--text3);letter-spacing:3px;text-transform:uppercase;margin-top:2px;}
-.timer-pomos{font-size:11px;color:var(--cyan);font-family:'DM Mono',monospace;margin-top:4px;}
-/* RIGHT SIDE INFO */
-.pomo-info-col{display:flex;flex-direction:column;gap:10px;}
-.pomo-quote-box{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.1);border-radius:11px;padding:10px 13px;}
-.pomo-quote-text{font-size:12px;color:var(--text2);font-style:italic;line-height:1.5;min-height:44px;transition:opacity .5s;}
-.phase-info-compact{background:rgba(255,255,255,0.03);border-radius:10px;padding:9px 12px;border-left:3px solid var(--red);}
+/* ══ POMODORO CLÍNICO PREMIUM ══ */
+/* Fondo que cambia suavemente según fase */
+.pomo-wrap{
+  border-radius:20px;padding:20px 22px;margin-bottom:0;position:relative;overflow:hidden;
+  background:var(--pomo-bg,rgba(8,24,48,0.97));
+  border:1px solid var(--pomo-border,rgba(0,212,255,0.18));
+  transition:background 2s ease,border-color 2s ease;
+}
+.pomo-wrap.phase-danger{--pomo-bg:rgba(30,8,12,0.97);--pomo-border:rgba(239,65,80,0.25);}
+.pomo-wrap.phase-gold{--pomo-bg:rgba(24,20,4,0.97);--pomo-border:rgba(244,200,66,0.28);}
+.pomo-wrap.phase-push{--pomo-bg:rgba(18,8,28,0.97);--pomo-border:rgba(155,89,182,0.28);}
+.pomo-wrap.phase-break{--pomo-bg:rgba(4,20,12,0.97);--pomo-border:rgba(46,204,113,0.28);}
+/* Línea superior de acento de color */
+.pomo-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:20px 20px 0 0;background:var(--pomo-accent,var(--cyan));transition:background 1.5s ease;}
+.pomo-wrap.phase-danger .pomo-accent{background:var(--red);}
+.pomo-wrap.phase-gold .pomo-accent{background:var(--gold);}
+.pomo-wrap.phase-push .pomo-accent{background:#9b59b6;}
+.pomo-wrap.phase-break .pomo-accent{background:var(--green);}
+/* Header */
+.pomo-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-top:4px;}
+.pomo-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text2);display:flex;align-items:center;gap:7px;text-transform:uppercase;letter-spacing:2px;}
+.phase-badge{padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;transition:all 1s ease;}
+.ph-danger{background:rgba(239,65,80,0.15);color:var(--red);border:1px solid rgba(239,65,80,0.3);}
+.ph-gold{background:rgba(244,200,66,0.12);color:var(--gold);border:1px solid rgba(244,200,66,0.25);}
+.ph-push{background:rgba(155,89,182,0.15);color:#c39bd3;border:1px solid rgba(155,89,182,0.3);}
+.ph-break{background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.25);}
+/* Ring central - GRANDE y protagonista */
+.pomo-ring-section{display:flex;flex-direction:column;align-items:center;padding:8px 0 16px;}
+.ring-outer{position:relative;width:220px;height:220px;}
+.timer-svg{transform:rotate(-90deg);width:220px;height:220px;}
+.ring-track{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:10;}
+.ring-prog{fill:none;stroke:var(--cyan);stroke-width:10;stroke-linecap:round;stroke-dasharray:659;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke 1.5s ease;}
+.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:160px;}
+.ring-logo{width:32px;height:32px;object-fit:contain;margin-bottom:6px;opacity:.7;}
+.timer-display{font-family:'DM Mono',monospace;font-size:46px;font-weight:400;color:var(--text);line-height:1;letter-spacing:1px;transition:color 1.5s ease;}
+.pomo-wrap.phase-danger .timer-display{color:#ffb3bb;}
+.pomo-wrap.phase-gold .timer-display{color:#ffe9a0;}
+.pomo-wrap.phase-push .timer-display{color:#d9b8f0;}
+.pomo-wrap.phase-break .timer-display{color:#a8f0c8;}
+.timer-lbl{font-size:9px;color:var(--text3);letter-spacing:3px;text-transform:uppercase;margin-top:4px;}
+.timer-pomos{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:6px;}
+/* Dots bajo el ring */
+.pomo-dots{display:flex;gap:7px;justify-content:center;margin-bottom:14px;}
+.pd{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);transition:all .6s ease;}
+.pd.done{background:var(--red);border-color:var(--red);}
+/* Barra de progreso lineal elegante */
+.pomo-progress-bar{width:100%;margin:0 0 14px;position:relative;}
+.ppb-labels{display:flex;justify-content:space-between;margin-bottom:5px;}
+.ppb-label{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:.5px;}
+.ppb-track{width:100%;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.ppb-fill{height:100%;border-radius:2px;background:var(--cyan);transition:width 1s linear,background 1.5s ease;width:0%;}
+.pomo-wrap.phase-danger .ppb-fill{background:var(--red);}
+.pomo-wrap.phase-gold .ppb-fill{background:var(--gold);}
+.pomo-wrap.phase-push .ppb-fill{background:#9b59b6;}
+.pomo-wrap.phase-break .ppb-fill{background:var(--green);}
+/* Info de fase y frase - compacto */
+.pomo-info-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.pomo-phase-box{background:rgba(255,255,255,0.03);border-radius:10px;padding:10px 12px;border-left:2px solid var(--red);transition:border-color 1.5s ease;}
+.pomo-wrap.phase-gold .pomo-phase-box{border-left-color:var(--gold);}
+.pomo-wrap.phase-push .pomo-phase-box{border-left-color:#9b59b6;}
+.pomo-wrap.phase-break .pomo-phase-box{border-left-color:var(--green);}
+.pi-title{font-weight:700;color:var(--text);margin-bottom:2px;font-size:11px;}
+.pi-text{font-size:10px;color:var(--text2);line-height:1.5;}
+.pomo-quote-box{background:rgba(255,255,255,0.03);border-radius:10px;padding:10px 12px;border-left:2px solid rgba(255,255,255,0.1);}
+.pomo-quote-text{font-size:11px;color:var(--text2);font-style:italic;line-height:1.5;min-height:36px;transition:opacity .6s;}
+/* Controles */
+.pomo-ctrls{display:flex;gap:10px;justify-content:center;}
+.btn-pomo{padding:10px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;transition:all .25s;}
+.btn-start{background:rgba(239,65,80,0.9);color:white;min-width:130px;transition:background 1.5s ease,transform .2s,box-shadow .2s;}
+.pomo-wrap.phase-gold .btn-start{background:rgba(180,140,20,0.9);}
+.pomo-wrap.phase-push .btn-start{background:rgba(120,60,160,0.9);}
+.pomo-wrap.phase-break .btn-start{background:rgba(30,140,80,0.9);}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+.btn-start.running{opacity:.85;}
+.btn-reset{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text2);font-family:'Syne',sans-serif;}
+.btn-reset:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+/* Break */
+.break-sugg{display:none;gap:7px;flex-wrap:wrap;margin-top:12px;padding:12px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);border-radius:11px;}
+.bi{font-size:11px;color:var(--text2);padding:4px 9px;background:rgba(46,204,113,0.07);border-radius:16px;border:1px solid rgba(46,204,113,0.12);}
+/* phase-info-compact alias */
+.phase-info-compact{background:rgba(255,255,255,0.03);border-radius:10px;padding:9px 12px;border-left:2px solid var(--red);}
 .phase-info-compact.gold-border{border-left-color:var(--gold);}
 .phase-info-compact.push-border{border-left-color:#9b59b6;}
 .phase-info-compact.break-border{border-left-color:var(--green);}
-.pi-title{font-weight:700;color:var(--text);margin-bottom:2px;font-size:12px;}
-.pi-text{font-size:11px;color:var(--text2);line-height:1.5;}
-/* FLAME BAR */
-.flame-bar-wrap{display:flex;align-items:flex-end;gap:2px;height:24px;padding:0 2px;}
-.flame-seg{width:100%;border-radius:2px 2px 0 0;background:rgba(255,255,255,0.06);transition:height .5s ease,background .5s ease;}
-/* CONTROLS */
-.pomo-ctrls{display:flex;gap:10px;justify-content:center;position:relative;z-index:1;}
-.btn-pomo{padding:11px 28px;border-radius:12px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;transition:all .25s;}
-.btn-start{background:linear-gradient(135deg,#c0303d,var(--red));color:white;box-shadow:0 4px 24px rgba(239,65,80,0.4);min-width:130px;}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(239,65,80,0.5);}
-.btn-start.running{background:linear-gradient(135deg,#0a4a8f,var(--cyan));box-shadow:0 4px 24px rgba(0,212,255,0.3);}
-.btn-reset{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2);}
-.btn-reset:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
-/* DOTS */
-.pomo-dots{display:flex;gap:6px;justify-content:center;margin-bottom:10px;position:relative;z-index:1;}
-.pd{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);transition:all .5s;}
-.pd.done{background:var(--red);border-color:var(--red);box-shadow:0 0 10px rgba(239,65,80,0.6);}
-/* BREAK */
-.break-sugg{display:none;gap:7px;flex-wrap:wrap;margin-top:12px;padding:13px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);border-radius:12px;position:relative;z-index:1;}
-.bi{font-size:12px;color:var(--text2);padding:4px 10px;background:rgba(46,204,113,0.08);border-radius:18px;border:1px solid rgba(46,204,113,0.15);}
-.btn-pomo-reset-old{display:none;}
 
 /* ── LEADERBOARD ── */
 .leaderboard-card{background:linear-gradient(145deg,rgba(244,200,66,0.06),rgba(4,45,90,0.4));border:1px solid rgba(244,200,66,0.18);border-radius:16px;padding:16px 18px;margin-bottom:18px;}
@@ -534,59 +566,77 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
       <!-- POMODORO FIJO ARRIBA -->
       <div class="center-pomo-fixed">
-      <div class="pomo-wrap" style="margin-bottom:0;">
-        <div class="pomo-glow"></div>
+      <div class="pomo-wrap" id="pomoWrap">
+        <div class="pomo-accent"></div>
+
+        <!-- Header minimal -->
         <div class="pomo-hdr">
           <div class="pomo-title">
-            <img src="https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp" style="width:24px;height:24px;object-fit:contain;border-radius:50%;">
+            <img src="https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp" style="width:20px;height:20px;object-fit:contain;opacity:.7;">
             Pomodoro Médico
           </div>
-          <div class="phase-badge ph-danger" id="phaseBadge">⚠️ Zona Peligrosa</div>
+          <div class="phase-badge ph-danger" id="phaseBadge">Zona de Riesgo</div>
         </div>
-        <div class="pomo-dots" id="pomoDots"></div>
-        <div class="pomo-body">
+
+        <!-- Ring grande y central -->
+        <div class="pomo-ring-section">
+          <div class="pomo-dots" id="pomoDots"></div>
           <div class="ring-outer">
-            <svg class="timer-svg" viewBox="0 0 200 200">
-              <circle class="ring-track" cx="100" cy="100" r="90"/>
-              <circle class="ring-bg-color" cx="100" cy="100" r="90"/>
-              <circle class="ring-prog" cx="100" cy="100" r="90" id="ringProg"/>
+            <svg class="timer-svg" viewBox="0 0 220 220">
+              <circle class="ring-track" cx="110" cy="110" r="105"/>
+              <circle class="ring-prog" cx="110" cy="110" r="105" id="ringProg"/>
             </svg>
             <div class="ring-center">
               <img class="ring-logo" src="https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp" alt="">
               <div class="timer-display" id="timerDisplay">45:00</div>
               <div class="timer-lbl" id="timerLbl">POMODORO</div>
-              <div class="timer-pomos" id="pomosHoyLbl">🍅 0 hoy</div>
+              <div class="timer-pomos" id="pomosHoyLbl">0 completados hoy</div>
             </div>
-          </div>
-          <div class="pomo-info-col">
-            <div class="pomo-quote-box">
-              <div class="pomo-quote-text" id="motivQuote">▶ Inicia el pomodoro para comenzar</div>
-            </div>
-            <div class="phase-info-compact" id="phaseInfo">
-              <div class="pi-title">⚠️ Min 0–15: Zona de Riesgo</div>
-              <div class="pi-text">Resiste la tentación del celular.</div>
-            </div>
-            <div>
-              <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">Progreso</div>
-              <div id="flameBar" style="display:flex;align-items:flex-end;gap:2px;height:22px;"></div>
-            </div>
-            <div id="pomoMotText" style="font-size:10px;color:var(--text3);font-style:italic;min-height:14px;"></div>
           </div>
         </div>
-        <div class="pomo-ctrls" style="margin-top:12px;">
+
+        <!-- Barra de progreso lineal -->
+        <div class="pomo-progress-bar">
+          <div class="ppb-labels">
+            <span class="ppb-label">INICIO</span>
+            <span class="ppb-label" id="ppbPct">0%</span>
+            <span class="ppb-label">45 MIN</span>
+          </div>
+          <div class="ppb-track"><div class="ppb-fill" id="ppbFill"></div></div>
+        </div>
+
+        <!-- Frase motivacional + fase en 2 columnas -->
+        <div class="pomo-info-row">
+          <div class="pomo-phase-box" id="phaseInfo">
+            <div class="pi-title">⚠️ Min 0–15: Riesgo</div>
+            <div class="pi-text">Resiste. El cerebro aún calienta.</div>
+          </div>
+          <div class="pomo-quote-box">
+            <div class="pomo-quote-text" id="motivQuote">Inicia el pomodoro para comenzar.</div>
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="pomo-ctrls">
           <button class="btn-pomo btn-reset" onclick="resetPomo()">↺ Reset</button>
           <button class="btn-pomo btn-start" id="startBtn" onclick="togglePomo()">▶ Iniciar</button>
         </div>
+
+        <!-- Descanso -->
         <div class="break-sugg" id="breakSugg">
-          <div style="width:100%;font-weight:700;color:var(--green);font-size:12px;margin-bottom:5px;">🎉 ¡15 min de descanso guiado!</div>
+          <div style="width:100%;font-weight:700;color:var(--green);font-size:12px;margin-bottom:6px;">15 min de descanso guiado</div>
           <div style="width:100%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:5px;">
-            <div class="bi" style="text-align:center;cursor:pointer;" onclick="showBreakGuide('agua')">💧<br><span style="font-size:9px;">Agua</span></div>
-            <div class="bi" style="text-align:center;cursor:pointer;" onclick="showBreakGuide('estiramiento')">🧘<br><span style="font-size:9px;">Estiramiento</span></div>
-            <div class="bi" style="text-align:center;cursor:pointer;" onclick="showBreakGuide('ojos')">👁️<br><span style="font-size:9px;">Ojos</span></div>
+            <div class="bi" style="text-align:center;cursor:pointer;" onclick="showBreakGuide('agua')">💧 Agua</div>
+            <div class="bi" style="text-align:center;cursor:pointer;" onclick="showBreakGuide('estiramiento')">🧘 Estirar</div>
+            <div class="bi" style="text-align:center;cursor:pointer;" onclick="showBreakGuide('ojos')">👁️ Ojos</div>
           </div>
           <div class="bi">📵 Sin celular</div>
           <div class="bi">😴 Cierra ojos</div>
         </div>
+
+        <!-- ID oculto para flame bar legacy -->
+        <div id="flameBar" style="display:none;"></div>
+        <div id="pomoMotText" style="display:none;"></div>
       </div>
       </div>
 
@@ -1215,7 +1265,7 @@ function tickPomo(){
       pushMsg('🤖 StudyBot',`🍅 ¡${user} ${myAvatar} completó pomodoro #${pomosHoy}! ${pomosHoy>=dailyGoal?'¡META CUMPLIDA! 🎉':'¡Sigue crack! 🔥'}`,true);
       showBreakModal();onBreak=true;pomoTime=BREAK;
       document.getElementById('startBtn').textContent='▶ Descanso';
-      document.getElementById('timerLbl').textContent='DESCANSO';
+      document.getElementById('timerLbl').textContent='DESCANSO';const pw2=document.getElementById('pomoWrap');if(pw2)pw2.className='pomo-wrap phase-break';
       document.getElementById('breakSugg').style.display='flex';
       document.getElementById('phaseBadge').textContent='¡Descanso!';
       document.getElementById('phaseBadge').className='phase-badge ph-break';
@@ -1232,40 +1282,57 @@ function updateTimerUI(){const m=Math.floor(pomoTime/60),s=pomoTime%60;document.
 function updateRing(){
   const tot=onBreak?BREAK:POMO_TOTAL,r=document.getElementById('ringProg');
   if(!r)return;
-  // radius=90, circumference=2*PI*90=565
-  r.style.strokeDashoffset=565*(1-pomoTime/tot);
+  // r=105, circumference=2*PI*105≈659
+  const offset=659*(pomoTime/tot);
+  r.style.strokeDashoffset=offset;
+  const wrap=document.getElementById('pomoWrap');
+  // Progress bar lineal
+  const pct=Math.round(((tot-pomoTime)/tot)*100);
+  const fill=document.getElementById('ppbFill');
+  const pctLbl=document.getElementById('ppbPct');
+  if(fill)fill.style.width=pct+'%';
+  if(pctLbl)pctLbl.textContent=pct+'%';
   if(!onBreak){
     const e=(POMO_TOTAL-pomoTime)/60;
-    r.style.stroke=e<15?'#EF4150':e<30?'#F4C842':'#9b59b6';
-    r.style.filter=e<15?'drop-shadow(0 0 10px rgba(239,65,80,0.8))':e<30?'drop-shadow(0 0 10px rgba(244,200,66,0.8))':'drop-shadow(0 0 10px rgba(155,89,182,0.8))';
-    // update phase border on info box
+    if(e<15){
+      r.style.stroke='#EF4150';
+      if(wrap){wrap.className='pomo-wrap phase-danger';}
+    } else if(e<30){
+      r.style.stroke='#F4C842';
+      if(wrap){wrap.className='pomo-wrap phase-gold';}
+    } else {
+      r.style.stroke='#9b59b6';
+      if(wrap){wrap.className='pomo-wrap phase-push';}
+    }
     const pi=document.getElementById('phaseInfo');
-    if(pi)pi.className=e<15?'phase-info-compact':e<30?'phase-info-compact gold-border':'phase-info-compact push-border';
-    // update start btn style
-    const sb=document.getElementById('startBtn');
-    if(sb&&pomoRunning)sb.className='btn-pomo btn-start running';
+    if(pi)pi.className=e<15?'pomo-phase-box':e<30?'pomo-phase-box gold-border':'pomo-phase-box push-border';
   } else {
     r.style.stroke='#2ecc71';
-    r.style.filter='drop-shadow(0 0 10px rgba(46,204,113,0.8))';
+    const wrap=document.getElementById('pomoWrap');
+    if(wrap)wrap.className='pomo-wrap phase-break';
     const pi=document.getElementById('phaseInfo');
-    if(pi)pi.className='phase-info-compact break-border';
+    if(pi)pi.className='pomo-phase-box break-border';
   }
 }
 function updatePhase(){
   const e=(POMO_TOTAL-pomoTime)/60;if(onBreak)return;
   const pi=document.getElementById('phaseInfo');
+  const wrap=document.getElementById('pomoWrap');
   if(e<15){
-    document.getElementById('phaseBadge').textContent='⚠️ Zona Peligrosa';
+    document.getElementById('phaseBadge').textContent='Zona de Riesgo';
     document.getElementById('phaseBadge').className='phase-badge ph-danger';
-    if(pi){pi.className='phase-info-compact';pi.innerHTML='<div class="pi-title">⚠️ Min 0–15: Zona de Riesgo</div><div class="pi-text">Resiste la tentación del celular. Tu cerebro aún calienta.</div>';}
+    if(pi){pi.innerHTML='<div class="pi-title">⚠️ Min 0–15: Riesgo</div><div class="pi-text">Resiste. El cerebro aún calienta.</div>';}
+    if(wrap)wrap.className='pomo-wrap phase-danger';
   } else if(e<30){
-    document.getElementById('phaseBadge').textContent='⚡ ¡Zona Dorada!';
+    document.getElementById('phaseBadge').textContent='Zona Dorada';
     document.getElementById('phaseBadge').className='phase-badge ph-gold';
-    if(pi){pi.className='phase-info-compact gold-border';pi.innerHTML='<div class="pi-title">⚡ Min 15–30: ¡Zona Dorada!</div><div class="pi-text">Corteza prefrontal en flujo. Aprovecha para lo difícil.</div>';}
+    if(pi){pi.innerHTML='<div class="pi-title">⚡ Min 15–30: Flujo</div><div class="pi-text">Corteza prefrontal activa. Aprovecha.</div>';}
+    if(wrap)wrap.className='pomo-wrap phase-gold';
   } else {
-    document.getElementById('phaseBadge').textContent='💪 Último Esfuerzo';
+    document.getElementById('phaseBadge').textContent='Último Sprint';
     document.getElementById('phaseBadge').className='phase-badge ph-push';
-    if(pi){pi.className='phase-info-compact push-border';pi.innerHTML='<div class="pi-title">💪 Min 30–45: El Cierre</div><div class="pi-text">¡Último sprint! No te rajes ahora.</div>';}
+    if(pi){pi.innerHTML='<div class="pi-title">💪 Min 30–45: Sprint</div><div class="pi-text">Casi terminas. No te rajes ahora.</div>';}
+    if(wrap)wrap.className='pomo-wrap phase-push';
   }
 }
 window.resetPomo=function(){
@@ -1274,16 +1341,16 @@ window.resetPomo=function(){
   document.getElementById('startBtn').className='btn-pomo btn-start';
   document.getElementById('timerDisplay').textContent='45:00';
   const r=document.getElementById('ringProg');
-  if(r){r.style.strokeDashoffset=0;r.style.stroke='var(--cyan)';r.style.filter='drop-shadow(0 0 10px rgba(0,212,255,0.7))';}
+  if(r){r.style.strokeDashoffset=659;r.style.stroke='rgba(0,212,255,0.4)';}
   document.getElementById('timerLbl').textContent='POMODORO';
   document.getElementById('breakSugg').style.display='none';
-  document.getElementById('phaseBadge').textContent='⚠️ Zona Peligrosa';
+  document.getElementById('phaseBadge').textContent='Zona de Riesgo';
   document.getElementById('phaseBadge').className='phase-badge ph-danger';
   const pi=document.getElementById('phaseInfo');
-  if(pi){pi.className='phase-info-compact';pi.innerHTML='<div class="pi-title">⚠️ Min 0–15: Zona de Riesgo</div><div class="pi-text">Resiste. Tu cerebro aún calienta.</div>';}
+  if(pi){pi.className='pomo-phase-box';pi.innerHTML='<div class="pi-title">⚠️ Min 0–15: Riesgo</div><div class="pi-text">Resiste. El cerebro aún calienta.</div>';}
   const el=document.getElementById('pomoMotText');if(el){el.textContent='';el.className='pomo-mot-text';}
   const q=document.getElementById('motivQuote');if(q)q.textContent='▶ Inicia el pomodoro para comenzar';
-  lastMotPhase='';
+  lastMotPhase='';const fill=document.getElementById('ppbFill');if(fill)fill.style.width='0%';const pw=document.getElementById('pomoWrap');if(pw)pw.className='pomo-wrap';
   for(let i=0;i<20;i++){const s=document.getElementById(`fs${i}`);if(s){s.style.height='3px';s.style.background='rgba(255,255,255,0.06)';}}
 };
 
@@ -1296,7 +1363,7 @@ function updateDashboard(){
   document.getElementById('statDays').textContent=Object.keys(loadAM()).length;
   document.getElementById('statTotalPomos').textContent=s.totalPomos||0;
   document.getElementById('statHours').textContent=Math.floor((s.totalMins||0)/60)+'h';
-  document.getElementById('pomosHoyLbl').textContent='🍅 '+pomosHoy+' hoy';
+  document.getElementById('pomosHoyLbl').textContent=pomosHoy+' completados hoy';
   document.getElementById('streakCount').textContent=s.streak||0;
   document.getElementById('insStreak').textContent=s.streak||0;
   refreshAnalytics();
@@ -1975,7 +2042,7 @@ const MOT_MSGS={
   ]
 };
 let motIdx={danger:0,gold:0,push:0};
-let lastMotPhase='';
+let lastMotPhase='';const fill=document.getElementById('ppbFill');if(fill)fill.style.width='0%';const pw=document.getElementById('pomoWrap');if(pw)pw.className='pomo-wrap';
 let flameBuilt=false;
 
 function buildFlameBar(){
