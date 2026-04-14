@@ -262,11 +262,11 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .mentry{display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border);font-size:9px;color:var(--text2);}
 
 /* LOFI */
-.lofi-tr{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(155,89,182,0.1);border-radius:7px;padding:6px 8px;cursor:pointer;margin-bottom:5px;}
-.lofi-tr:hover,.lofi-tr.active{background:rgba(155,89,182,0.1);border-color:rgba(155,89,182,0.28);}
+.lofi-tr,.lofi-track{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(155,89,182,0.1);border-radius:7px;padding:6px 8px;cursor:pointer;margin-bottom:5px;}
+.lofi-tr:hover,.lofi-tr.active,.lofi-track:hover,.lofi-track.active{background:rgba(155,89,182,0.1);border-color:rgba(155,89,182,0.28);}
 .lofi-nm{font-size:10px;font-weight:600;color:var(--text);}
 .lofi-gn{font-size:8px;color:var(--text3);}
-.lofi-iw{border-radius:7px;overflow:hidden;background:#000;display:none;margin-bottom:6px;}
+.lofi-iw{border-radius:7px;overflow:hidden;background:#000;display:none;margin-bottom:6px;min-height:100px;}
 .lofi-iw.on{display:block;}
 .btn-lofi{background:rgba(155,89,182,0.1);border:1px solid rgba(155,89,182,0.2);border-radius:6px;padding:4px 10px;font-size:9px;font-weight:700;color:#c39bd3;cursor:pointer;font-family:"Syne",sans-serif;}
 
@@ -445,11 +445,11 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .pi-text{font-size:10px;color:var(--text2);line-height:1.5;}
 .pomo-mot-text{display:none;}
 .phase-info-compact{background:rgba(255,255,255,0.03);border-radius:9px;padding:9px 11px;border-left:2px solid var(--red);}
-.rank-card,.rank-progress,.rank-fill,.rank-icon,.rank-name,.rank-next{display:none;}
-.rank-c{display:block!important;}
-.rank-bar,.rank-fill{display:block!important;}
-.chrono-card,.chrono-display,.chrono-lbl{display:none;}
-.chrono-c,.chrono-d,.chrono-l{display:block!important;}
+/* rank legacy aliases */
+
+
+/* chrono legacy aliases */
+
 .game-panel{display:none;position:fixed;inset:0;z-index:500;background:rgba(4,15,30,0.96);flex-direction:column;align-items:center;padding:20px;overflow-y:auto;}
 .game-panel.open,.gpanel.open{display:flex!important;}
 .game-panel-hdr{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:660px;margin-bottom:14px;}
@@ -492,7 +492,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .tpd.done-ok{background:var(--green);}
 .tpd.current{background:var(--cyan);}
 .lofi-player{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
-.lofi-iframe-wrap{border-radius:7px;overflow:hidden;background:#000;display:none;margin-bottom:6px;}
+.lofi-iframe-wrap{border-radius:7px;overflow:hidden;background:#000;display:none;margin-bottom:6px;min-height:100px;}
 .lofi-iframe-wrap.on{display:block;}
 .pomo-dots{display:flex;gap:5px;justify-content:center;margin-bottom:12px;}
 .ppb{margin-bottom:12px;}
@@ -504,6 +504,24 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .date-input{background:rgba(255,255,255,0.04);border:1px solid rgba(0,212,255,0.16);border-radius:7px;padding:5px 8px;font-family:"DM Mono",monospace;font-size:10px;color:var(--text);outline:none;cursor:pointer;}
 .date-input::-webkit-calendar-picker-indicator{filter:invert(.7);}
 
+
+.playing-bar{display:flex;gap:2px;align-items:flex-end;margin-left:auto;}
+.playing-bar span{display:block;width:3px;background:#c39bd3;border-radius:2px;animation:bb .8s ease-in-out infinite;}
+.playing-bar span:nth-child(1){height:7px;animation-delay:0s;}
+.playing-bar span:nth-child(2){height:13px;animation-delay:.15s;}
+.playing-bar span:nth-child(3){height:5px;animation-delay:.3s;}
+.playing-bar span:nth-child(4){height:11px;animation-delay:.1s;}
+@keyframes bb{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+
+.chrono-c{display:block;}
+.chrono-d{display:block;font-family:"DM Mono",monospace;font-size:20px;color:var(--cyan);letter-spacing:2px;}
+.chrono-l{display:block;font-size:9px;color:var(--text3);margin-top:1px;}
+
+.fallen-how{font-size:8px;color:rgba(239,65,80,0.5);margin-top:1px;}
+.badge-time{background:rgba(0,212,255,0.08);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);}
+
+.student-header{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
+.student-meta{display:flex;gap:3px;flex-wrap:wrap;margin-top:2px;}
 </style>
 </head>
 <body>
@@ -677,9 +695,9 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
             <div class="card-ttl" style="margin-bottom:0;">🎵 Lo-Fi Study Radio</div>
             <div style="font-size:9px;color:#c39bd3;font-family:DM Mono,monospace;" id="lofiNP">Elige una pista</div>
           </div>
-          <div class="lofi-tr" id="tr0" onclick="selectTrack(0)"><span style="font-size:16px;">🌙</span><div><div class="lofi-nm">Lofi Chill Beats</div><div class="lofi-gn">Ambient · Chill</div></div></div>
-          <div class="lofi-tr" id="tr1" onclick="selectTrack(1)"><span style="font-size:16px;">☕</span><div><div class="lofi-nm">Study with Me</div><div class="lofi-gn">Jazz · Focus</div></div></div>
-          <div id="lofiWrap" class="lofi-iw"></div>
+          <div class="lofi-tr lofi-track" id="tr0" onclick="selectTrack(0)"><span style="font-size:16px;">🌙</span><div><div class="lofi-nm">Lofi Chill Beats</div><div class="lofi-gn">Ambient · Chill</div></div></div>
+          <div class="lofi-tr lofi-track" id="tr1" onclick="selectTrack(1)"><span style="font-size:16px;">☕</span><div><div class="lofi-nm">Study with Me</div><div class="lofi-gn">Jazz · Focus</div></div></div>
+          <div id="lofiWrap" class="lofi-iw" style="min-height:0;"></div>
           <div style="display:flex;gap:5px;margin-top:6px;">
             <button class="btn-lofi" id="btnLofi" onclick="toggleLofi()">▶ Play</button>
             <button class="btn-lofi" onclick="stopLofi()">⏹ Stop</button>
@@ -994,9 +1012,23 @@ window.enterRoom=function(){
   chronoSec=0;updateChrono();
   chronoInt=setInterval(()=>{
     chronoSec++;updateChrono();
-    if(chronoSec%60===0){const s=loadStats();s.minsHoy=(s.minsHoy||0)+1;s.totalMins=(s.totalMins||0)+1;s.studiedYest=true;saveStats(s);updateDashboard();}
+    if(chronoSec%60===0){
+      const s=loadStats();s.minsHoy=(s.minsHoy||0)+1;s.totalMins=(s.totalMins||0)+1;s.studiedYest=true;saveStats(s);updateDashboard();
+      // ✅ Refresh onDisconnect timestamp so fallen always has current time
+      if(window._myFallenRef){
+        onDisconnect(window._myFallenRef).set({name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});
+      }
+      // ✅ Also update student record timestamp
+      if(myUid) set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});
+    }
   },1000);
   listenStudents();listenChat();listenFallen();
+  // Show connection indicator
+  onValue(ref(db,'.info/connected'),snap=>{
+    const connected=snap.val();
+    const badge=document.getElementById('onlineCount');
+    if(badge && !connected) badge.textContent='Reconectando...';
+  });
   setTimeout(()=>showFocusAlert(),2*60*1000);
   setInterval(()=>showFocusAlert(),45*60*1000);
   document.addEventListener('visibilitychange',handleVis);
@@ -1033,7 +1065,8 @@ function listenStudents(){
     const entries=Object.entries(d);
     document.getElementById('onlineCount').textContent=entries.length+' en línea';
     const c=document.getElementById('activeStudents');
-    if(!entries.length){c.innerHTML='<div class="no-students">Sé el primero en entrar 🚀</div>';return;}
+    if(!entries.length){c.innerHTML='<div class="no-students">Sé el primero en entrar 🚀</div>';
+    document.getElementById('onlineCount').textContent='0 en línea';return;}
     entries.sort((a,b)=>(b[1].pomos||0)-(a[1].pomos||0));
     c.innerHTML='';
     entries.forEach(([uid,s],i)=>{
@@ -1110,7 +1143,7 @@ window.sendChat=function(){
 
 function updateMyPomos(){
   if(!myUid)return;
-  set(ref(db,'students/'+myUid+'/pomos'),pomosHoy);
+  set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});
   if(window._myFallenRef)onDisconnect(window._myFallenRef).set({name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});
 }
 
@@ -1136,7 +1169,7 @@ window.leaveRoom=function(){
 };
 
 // ── LOFI ──
-const TRACKS=[{id:'ePka9SwqxGo',name:'Lofi Chill Beats'},{id:'Uov1YSHhqKw',name:'Study with Me'}];
+const TRACKS=[{id:'jfKfPfyJRdk',name:'Lofi Chill Beats'},{id:'5qap5aO4i9A',name:'Study with Me'}];
 let curTrack=-1,lofiOn=false;
 window.selectTrack=function(i){
   curTrack=i;
@@ -1144,8 +1177,8 @@ window.selectTrack=function(i){
   document.getElementById('lofiNP').textContent='▶ '+TRACKS[i].name;
   const w=document.getElementById('lofiWrap');w.innerHTML='';w.classList.add('on');
   const f=document.createElement('iframe');
-  f.width='100%';f.height='110';f.src=`https://www.youtube.com/embed/${TRACKS[i].id}?autoplay=1&controls=1&rel=0&modestbranding=1`;
-  f.frameBorder='0';f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';f.allowFullscreen=true;
+  f.width='100%';f.height='120';f.src=`https://www.youtube-nocookie.com/embed/${TRACKS[i].id}?autoplay=1&controls=1&rel=0&modestbranding=1&enablejsapi=0`;
+  f.frameBorder='0';f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope');f.style.borderRadius='7px';f.style.display='block';
   w.appendChild(f);lofiOn=true;document.getElementById('btnLofi').textContent='⏸ Pause';
   document.querySelectorAll('.lofi-track').forEach((el,j)=>{
     el.querySelector('.playing-bar')?.remove();
