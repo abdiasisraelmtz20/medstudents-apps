@@ -487,7 +487,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <input type="number" class="meta-number-input" id="metaInput" min="1" max="20" value="4">
     </div>
     <button class="btn-primary" onclick="enterRoom()">ENTRAR A LA SALA 🚀</button>
-    <p id="loginStatus" style="font-size:12px;color:var(--text3);margin-top:13px;"></p>
+    <p style="font-size:11px;color:var(--text3);margin-top:10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:8px 12px;line-height:1.6;">
+      💡 <strong style="color:var(--cyan);">Mejor experiencia:</strong> Presiona <strong style="color:var(--gold);">F11</strong> o abre en nueva pestaña para pantalla completa.
+    </p>
+    <p id="loginStatus" style="font-size:12px;color:var(--text3);margin-top:8px;"></p>
   </div>
 </div>
 
@@ -509,7 +512,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <div class="user-av-circle" id="userAvCircle">🧑</div>
         <span id="userNameHdr"></span>
       </div>
-      <button title="Pantalla completa" onclick="toggleFullscreen()" style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);border-radius:8px;padding:6px 10px;font-size:14px;color:var(--cyan);cursor:pointer;transition:all .2s;" id="btnFullscreen">⛶</button>
+      <button title="Pantalla completa (F11)" onclick="toggleFullscreen()" style="background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,212,255,0.08));border:1px solid rgba(0,212,255,0.35);border-radius:8px;padding:6px 12px;font-size:13px;color:var(--cyan);cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;font-weight:700;display:flex;align-items:center;gap:5px;" id="btnFullscreen">⛶ <span style="font-size:11px;">Full</span></button>
       <button class="btn-leave" onclick="tryLeave()">Salir</button>
     </div>
   </div>
@@ -2072,6 +2075,12 @@ window.enterRoom=function(){
     renderDoubts();
     startMotivationalQuotes();
     startFocusAlerts();
+    // Mostrar banner de pantalla completa si no está en fullscreen
+    setTimeout(()=>{
+      if(!document.fullscreenElement&&!document.webkitFullscreenElement){
+        showFullscreenBanner();
+      }
+    },3000);
   },1200);
 };
 
@@ -2101,18 +2110,86 @@ function startClock(){
 // ══════════════════════════════════════════
 window.toggleFullscreen=function(){
   const btn=document.getElementById('btnFullscreen');
+  const isInIframe=window.self!==window.top;
   if(!document.fullscreenElement){
-    document.documentElement.requestFullscreen().catch(()=>{});
-    if(btn)btn.textContent='⊡';
+    // Intentar fullscreen en el elemento raíz primero
+    const target=document.documentElement;
+    const req=target.requestFullscreen||target.webkitRequestFullscreen||target.mozRequestFullScreen||target.msRequestFullscreen;
+    if(req){
+      req.call(target).then(()=>{
+        if(btn){btn.textContent='⊡';btn.title='Salir de pantalla completa';}
+        hideFullscreenBanner();
+      }).catch(()=>{
+        // Si falla (por iframe), mostrar instrucciones
+        showFullscreenInstructions();
+      });
+    } else {
+      showFullscreenInstructions();
+    }
   } else {
-    document.exitFullscreen().catch(()=>{});
-    if(btn)btn.textContent='⛶';
+    const exit=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+    if(exit) exit.call(document).catch(()=>{});
+    if(btn){btn.textContent='⛶';btn.title='Pantalla completa';}
   }
 };
+
 document.addEventListener('fullscreenchange',()=>{
   const btn=document.getElementById('btnFullscreen');
-  if(btn)btn.textContent=document.fullscreenElement?'⊡':'⛶';
+  if(btn){btn.textContent=document.fullscreenElement?'⊡':'⛶';}
+  if(!document.fullscreenElement) showFullscreenBanner();
 });
+document.addEventListener('webkitfullscreenchange',()=>{
+  const btn=document.getElementById('btnFullscreen');
+  const isFull=document.fullscreenElement||document.webkitFullscreenElement;
+  if(btn){btn.textContent=isFull?'⊡':'⛶';}
+});
+
+function showFullscreenInstructions(){
+  document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay"><div class="modal-box" style="border-color:rgba(0,212,255,0.4);">
+    <span class="modal-emoji">🖥️</span>
+    <div class="modal-title">Cómo ver en pantalla completa</div>
+    <div class="modal-text" style="text-align:left;">
+      La Study Room está dentro de Odoo, por lo que el botón de pantalla completa tiene una limitación del navegador.<br><br>
+      <strong style="color:var(--cyan);">Opción 1 — Abrir en pestaña nueva (recomendado):</strong><br>
+      <a href="${window.location.href}" target="_blank" style="color:var(--gold);font-weight:700;font-size:15px;">👉 Clic aquí para abrir en nueva pestaña</a><br>
+      Luego presiona <strong style="color:var(--gold);">F11</strong> (Windows) o <strong style="color:var(--gold);">Ctrl+Cmd+F</strong> (Mac)<br><br>
+      <strong style="color:var(--cyan);">Opción 2 — Desde el teclado:</strong><br>
+      Presiona <strong style="color:var(--gold);">F11</strong> en tu teclado ahora mismo.
+    </div>
+    <button class="modal-btn" onclick="closeModal()">Entendido ✓</button>
+  </div></div>`;
+}
+
+function showFullscreenBanner(){
+  const existing=document.getElementById('fullscreenBanner');
+  if(existing||document.fullscreenElement)return;
+  const banner=document.createElement('div');
+  banner.id='fullscreenBanner';
+  banner.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,rgba(4,45,90,0.98),rgba(0,212,255,0.15));border-top:1px solid rgba(0,212,255,0.3);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(20px);animation:slideUp .4s ease;';
+  banner.innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:22px;">🖥️</span>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--text);">¡Mejor experiencia en pantalla completa!</div>
+        <div style="font-size:11px;color:var(--text2);">Presiona <strong style="color:var(--gold);">F11</strong> en tu teclado o abre en nueva pestaña para verla completa.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+      <a href="${window.location.href}" target="_blank" style="background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:5px;">↗ Nueva pestaña</a>
+      <button onclick="hideFullscreenBanner()" style="background:rgba(255,255,255,0.08);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:'Syne',sans-serif;">✕</button>
+    </div>`;
+  document.body.appendChild(banner);
+}
+
+function hideFullscreenBanner(){
+  const b=document.getElementById('fullscreenBanner');
+  if(b)b.remove();
+}
+
+// CSS para animación del banner
+const fsStyle=document.createElement('style');
+fsStyle.textContent='@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+document.head.appendChild(fsStyle);
 
 // ══════════════════════════════════════════
 // ── REGISTRO DE DUDAS ──
