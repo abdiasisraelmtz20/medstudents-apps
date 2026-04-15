@@ -698,8 +698,8 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
             <div class="card-ttl" style="margin-bottom:0;">🎵 Lo-Fi Study Radio</div>
             <div style="font-size:9px;color:#c39bd3;font-family:DM Mono,monospace;" id="lofiNP">Elige una pista</div>
           </div>
-          <div class="lofi-tr lofi-track" id="tr0" onclick="selectTrack(0)"><span style="font-size:16px;">🌙</span><div><div class="lofi-nm">Lofi Chill Beats</div><div class="lofi-gn">Ambient · Chill</div></div></div>
-          <div class="lofi-tr lofi-track" id="tr1" onclick="selectTrack(1)"><span style="font-size:16px;">☕</span><div><div class="lofi-nm">Study with Me</div><div class="lofi-gn">Jazz · Focus</div></div></div>
+          <div class="lofi-tr lofi-track" id="tr0" onclick="selectTrack(0)"><span style="font-size:16px;">🧬</span><div><div class="lofi-nm">MedStudents Lo-Fi • Bioquímica</div><div class="lofi-gn">Lo-Fi · Estudio Médico</div></div></div>
+          <div class="lofi-tr lofi-track" id="tr1" onclick="selectTrack(1)"><span style="font-size:16px;">🧠</span><div><div class="lofi-nm">MedStudents Lo-Fi • Estudio</div><div class="lofi-gn">Lo-Fi · Concentración</div></div></div>
           <div id="lofiWrap" class="lofi-iw" style="min-height:0;"></div>
           <div style="display:flex;gap:5px;margin-top:6px;">
             <button class="btn-lofi" id="btnLofi" onclick="toggleLofi()">▶ Play</button>
@@ -1037,19 +1037,21 @@ function initQuickLogin(){
   if(!card)return;
   const banner=document.createElement('div');
   banner.id='quickLoginBanner';
-  banner.style.cssText='background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.22);border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;transition:all .2s;';
-  banner.innerHTML=`
-    <span style="font-size:22px;">${p.avatar||'\u{1F9D1}\u200D\u2695\uFE0F'}</span>
-    <div style="flex:1;">
-      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);">\u00a1Bienvenid@ de vuelta, ${p.name}!</div>
-      <div style="font-size:10px;color:var(--text2);">${p.subj||''} \u00b7 Meta: ${p.goal||4} \uD83C\uDF45</div>
-    </div>
-    <button id="quickEnterBtn" style="background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;white-space:nowrap;">Entrar \u2192</button>`;
+  banner.style.cssText='background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.22);border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;transition:border-color .2s;';
+  const avSpan=document.createElement('span');avSpan.style.fontSize='22px';avSpan.textContent=p.avatar||'🧑‍⚕️';
+  const nameDiv=document.createElement('div');nameDiv.style.flex='1';
+  const title=document.createElement('div');title.style.cssText='font-family:Syne,sans-serif;font-weight:700;font-size:13px;color:var(--text);';title.textContent='¡Bienvenid@ de vuelta, '+p.name+'!';
+  const sub=document.createElement('div');sub.style.cssText='font-size:10px;color:var(--text2);';sub.textContent=(p.subj||'')+' · Meta: '+(p.goal||4)+' 🍅';
+  nameDiv.appendChild(title);nameDiv.appendChild(sub);
+  const btn=document.createElement('button');
+  btn.textContent='Entrar →';
+  btn.style.cssText='background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 14px;font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;white-space:nowrap;';
+  btn.onclick=(e)=>{e.stopPropagation();applyProfile(p);setTimeout(()=>window.enterRoom(),50);};
+  banner.appendChild(avSpan);banner.appendChild(nameDiv);banner.appendChild(btn);
   banner.onmouseover=()=>banner.style.borderColor='rgba(0,212,255,0.5)';
   banner.onmouseout=()=>banner.style.borderColor='rgba(0,212,255,0.22)';
-  document.getElementById('quickEnterBtn').onclick=(e)=>{e.stopPropagation();applyProfile(p);setTimeout(()=>window.enterRoom(),50);};
   const nameInput=document.getElementById('nameInput');
-  card.insertBefore(banner,nameInput);
+  if(nameInput)card.insertBefore(banner,nameInput);
   applyProfile(p);
 }
 setTimeout(initQuickLogin,80);
@@ -1059,10 +1061,10 @@ window.enterRoom=function(){
   const name=document.getElementById('nameInput').value.trim();
   const subj=document.getElementById('subjectSelect').value;
   dailyGoal=Math.max(1,parseInt(document.getElementById('metaInput').value)||4);
-  if(!name){document.getElementById('nameInput').style.borderColor='var(--red)';document.getElementById('loginStatus').textContent='\u00a1Escribe tu nombre, crack!';return;}
+  if(!name){document.getElementById('nameInput').style.borderColor='var(--red)';document.getElementById('loginStatus').textContent='¡Escribe tu nombre, crack!';return;}
   // validate: no reserved names, no HTML (Feature #10 partial)
   const reserved=['bot','sistema','studybot','admin'];
-  if(reserved.includes(name.toLowerCase())){document.getElementById('loginStatus').textContent='Ese nombre est\u00e1 reservado \uD83D\uDE05';return;}
+  if(reserved.includes(name.toLowerCase())){document.getElementById('loginStatus').textContent='Ese nombre está reservado 😅';return;}
   document.getElementById('loginStatus').textContent='Conectando...';
   user=name;subject=subj;
   // Feature #10: robust UID with crypto.randomUUID
@@ -1145,6 +1147,9 @@ window.enterRoom=function(){
   document.addEventListener('visibilitychange',handleVis);
   setTimeout(()=>pushMsg('🤖 StudyBot',`¡Bienvenid@ ${name} ${myAvatar}! La sala está activa. 🧠`,true),800);
   cleanFallen();
+  cleanStaleStudents();
+  // Periodic stale cleanup every 60 seconds
+  setInterval(cleanStaleStudents,60*1000);
   // Init extras
   setTimeout(()=>{
     buildFlameBar();
@@ -1169,6 +1174,22 @@ function cleanFallen(){
   },{onlyOnce:true});
 }
 
+// STALE STUDENTS CLEANUP: entradas fantasma sin lastSeen reciente
+const STALE_TTL=90*1000;
+function cleanStaleStudents(){
+  onValue(ref(db,'students'),snap=>{
+    const d=snap.val()||{},now=Date.now();
+    Object.entries(d).forEach(([k,s])=>{
+      if(!s||k===myUid)return;
+      const lastSeen=s.lastSeen||0;
+      if(!lastSeen||(now-lastSeen>STALE_TTL)){
+        remove(ref(db,'students/'+k));
+        if(s.name) push(ref(db,'fallen'),{name:s.name,subject:s.subject||'',avatar:s.avatar||'',pomos:s.pomos||0,ts:now,how:'desconexion'});
+      }
+    });
+  },{onlyOnce:true});
+}
+
 // ── FIREBASE LISTENERS ──
 let _unsubStudents=null,_unsubChat=null,_unsubFallen=null;
 
@@ -1176,7 +1197,9 @@ function listenStudents(){
   if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
   _unsubStudents=onValue(ref(db,'students'),snap=>{
     const d=snap.val()||{};
-    const entries=Object.entries(d);
+    const now=Date.now();
+    // Filter out ghost entries: no lastSeen or stale beyond 90s
+    const entries=Object.entries(d).filter(([k,s])=>s&&s.name&&(s.lastSeen&&(now-s.lastSeen<STALE_TTL)));
     document.getElementById('onlineCount').textContent=entries.length+' en línea';
     const c=document.getElementById('activeStudents');
     if(!entries.length){c.innerHTML='<div class="no-students">Sé el primero en entrar 🚀</div>';
@@ -1312,7 +1335,7 @@ window.leaveRoom=function(){
 };
 
 // ── LOFI ──
-const TRACKS=[{id:'jfKfPfyJRdk',name:'Lofi Chill Beats'},{id:'5qap5aO4i9A',name:'Study with Me'}];
+const TRACKS=[{id:'ePka9SwqxGo',name:'MedStudents Lo-Fi • Bioquímica'},{id:'Uov1YSHhqKw',name:'MedStudents Lo-Fi • Estudio'}];
 let curTrack=-1,lofiOn=false;
 window.selectTrack=function(i){
   curTrack=i;
