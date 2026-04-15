@@ -598,6 +598,14 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <div class="sec" style="margin-top:14px;">⚰️ Caídos Hoy</div>
       <div id="fallenStudents"></div>
       <div id="noFallen" style="font-size:10px;color:var(--text3);text-align:center;padding:7px;">Ninguno aún 💪</div>
+      <div class="sec" style="margin-top:14px;">🏅 Tu Rango</div>
+      <div class="rank-c">
+        <div class="rank-ico" id="rankIcon">🌱</div>
+        <div class="rank-nm" id="rankName">Principiante</div>
+        <div class="rank-ds" id="rankDesc">Tu primer paso. Todo comienza aquí.</div>
+        <div class="rank-bar"><div class="rank-fill" id="rankFill" style="width:0%"></div></div>
+        <div class="rank-nxt" id="rankNext"></div>
+      </div>
     </div>
 
     <!-- CENTRO -->
@@ -808,14 +816,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
         <button class="lb-tab" onclick="switchLb('all',this)">Histórico</button>
       </div>
       <div id="lbList" style="margin-bottom:10px;"><div style="font-size:10px;color:var(--text3);text-align:center;padding:8px;">Cargando...</div></div>
-      <div class="sec">🏅 Tu Rango</div>
-      <div class="rank-c">
-        <div class="rank-ico" id="rankIcon">😴</div>
-        <div class="rank-nm" id="rankName">Dormido</div>
-        <div class="rank-ds" id="rankDesc">Aún no has encendido motores</div>
-        <div class="rank-bar"><div class="rank-fill" id="rankFill" style="width:0%"></div></div>
-        <div class="rank-nxt" id="rankNext"></div>
-      </div>
+
       <div class="neuro">
         <div class="neuro-l">💡 Tip del Pomodoro</div>
         <div class="neuro-t" id="neuroTip">El pomodoro aprovecha el enfoque profundo.</div>
@@ -928,14 +929,14 @@ let onBreak=false,BREAK=900,chronoSec=0,pomosHoy=0,dailyGoal=4;
 const FALLEN_TTL=24*60*60*1000;
 
 const RANKS=[
-  {name:"Dormido",icon:"😴",desc:"Aún no has encendido motores",min:0},
-  {name:"Despertando",icon:"🥱",desc:"Algo de calor en los motores",min:1},
-  {name:"En modo estudio",icon:"📖",desc:"Ya estás en el juego",min:5},
-  {name:"Concentrado",icon:"🎯",desc:"El foco empieza a aparecer",min:10},
-  {name:"CRACK",icon:"🔥",desc:"Nadie te para cuando estás así",min:15},
-  {name:"Máquina",icon:"⚙️",desc:"Eficiencia pura",min:20},
-  {name:"Bestia de estudio",icon:"🦁",desc:"Respeto. Pocos llegan aquí.",min:30},
-  {name:"MODO DIOS",icon:"⚡",desc:"Leyenda viva de la sala",min:50},
+  {name:"Principiante", icon:"🌱", desc:"Tu primer paso. Todo comienza aquí.",             min:0},
+  {name:"En camino",    icon:"📖", desc:"Ya arrancaste. El hábito empieza a formarse.",   min:1},
+  {name:"Constante",    icon:"🎯", desc:"La constancia te separa del resto.",                  min:5},
+  {name:"Enfocado",     icon:"⚡",     desc:"Tu concentración está por encima del promedio.",     min:10},
+  {name:"Avanzado",     icon:"🔥", desc:"Rendimiento sólido. La sala te nota.",           min:20},
+  {name:"Experto",      icon:"🔬", desc:"Dominas el ritmo. Eres referencia en la sala.",      min:35},
+  {name:"Élite",       icon:"💎", desc:"Pocos llegan aquí. Tú sí lo lograste.",         min:55},
+  {name:"Leyenda",      icon:"🏆", desc:"Leyenda de la Study Room. Nivel máximo.",        min:80},
 ];
 const TIPS=["El pomodoro aprovecha el enfoque profundo. Tu corteza prefrontal necesita ~25 min para entrar en flujo real.","Cada pomodoro completado libera dopamina. Tu cerebro aprende a querer estudiar.","Los descansos permiten consolidación de memoria en el hipocampo.","Apagar el celular aumenta la atención sostenida hasta un 40%.","El modo flujo requiere eliminar interrupciones. Cada notificación reinicia el ciclo."];
 const ALERTS=[{e:"📵",m:"¡No estés en el celular, crack!"},{e:"🧠",m:"¡CONCÉNTRATE! Tu futuro paciente depende de lo que estudies HOY."},{e:"🔥",m:"¡ENFÓCATE! Los mejores médicos nacen en estas horas."},{e:"💪",m:"CRACK, ¿qué haces distraído? ¡Vuelve al material!"},{e:"⚡",m:"¡Ya no te distraigas! Cada minuto cuenta."}];
