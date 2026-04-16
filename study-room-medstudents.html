@@ -824,7 +824,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <div class="sec">💬 Chat <span style="font-size:7px;color:var(--green);font-weight:700;letter-spacing:1px;">EN VIVO</span></div>
       <div class="chat-box" id="chatBox"></div>
       <div class="chat-row">
-        <input class="cinput" id="chatInput" placeholder="Mensaje para todos..." maxlength="120" onkeydown="if(event.key==='Enter')sendChat()">
+        <input class="cinput" id="chatInput" placeholder="Mensaje para todos..." maxlength="120" onkeydown="if(event.key==='Enter')sendChat()" oninput="updateChatCounter(this)">
         <button class="btn-chat" onclick="sendChat()">↑</button>
       </div>
       <div class="sec">🎯 Mi Objetivo Hoy</div>
@@ -1147,6 +1147,10 @@ window.enterRoom=function(){
   setInterval(()=>showFocusAlert(),45*60*1000);
   document.addEventListener('visibilitychange',handleVis);
   setTimeout(()=>pushMsg('🤖 StudyBot',`¡Bienvenid@ ${name} ${myAvatar}! La sala está activa. 🧠`,true),800);
+  // Mejora #2: pedir permiso notificaciones
+  setTimeout(()=>requestNotifPermission(),3000);
+  // Mejora #3: intentar restaurar pomodoro si recargó durante sesión
+  setTimeout(()=>tryRestorePomoState(),500);
   cleanFallen();
   cleanStaleStudents();
   // Periodic stale cleanup every 60 seconds
@@ -1325,6 +1329,7 @@ window.leaveRoom=function(){
   if(_unsubFallen){_unsubFallen();_unsubFallen=null;}
   // Feature #12: clean up reconnection banner if present
   const rb=document.getElementById('reconnBanner');if(rb)rb.remove();
+  clearPomoState();
   clearInterval(pomoInt);clearInterval(chronoInt);
   stopLofi();saveStats(loadStats());closeModal();closeGame();
   document.removeEventListener('visibilitychange',handleVis);
@@ -1393,6 +1398,8 @@ window.togglePomo=function(){
 function tickPomo(){
   pomoTime--;updateTimerUI();updateRing();updatePhase();
   if(window._motionHook)window._motionHook();
+  // Mejora #3: persist state every 5s
+  if(pomoTime%5===0)savePomoState();
   if(pomoTime<=0){
     clearInterval(pomoInt);pomoRunning=false;
     if(!onBreak){
@@ -1401,6 +1408,9 @@ function tickPomo(){
       saveStats(s);saveActivity();updateDashboard();updateRank();buildDots();updateMyPomos();updateMeta();
       if(window._checkBadgesHook)window._checkBadgesHook();
       pushMsg('🤖 StudyBot',`🍅 ¡${user} ${myAvatar} completó pomodoro #${pomosHoy}! ${pomosHoy>=dailyGoal?'¡META CUMPLIDA! 🎉':'¡Sigue crack! 🔥'}`,true);
+      // Mejora #2: notificación de escritorio al completar
+      sendDesktopNotif('🍅 Pomodoro completado — MedStudents',`¡${user}, completaste el pomodoro #${pomosHoy}! Toma tu descanso 💪`);
+      clearPomoState();
       showBreakModal();onBreak=true;pomoTime=BREAK;
       document.getElementById('startBtn').textContent='▶ Descanso';
       document.getElementById('timerLbl').textContent='DESCANSO';const pw2=document.getElementById('pomoWrap');if(pw2)pw2.className='pomo-wrap phase-break';
@@ -1412,7 +1422,9 @@ function tickPomo(){
       document.getElementById('startBtn').textContent='▶ Iniciar';
       document.getElementById('timerLbl').textContent='POMODORO';
       document.getElementById('breakSugg').style.display='none';
-      playSound();showToast('⏰','¡Descanso terminado! A estudiar, crack 🔥');
+      playSound();
+      sendDesktopNotif('⏰ Descanso terminado — MedStudents','¡Es hora de volver! Tu siguiente pomodoro te espera 🧠');
+      showToast('⏰','¡Descanso terminado! A estudiar, crack 🔥');
     }
   }
 }
@@ -1474,6 +1486,7 @@ function updatePhase(){
   }
 }
 window.resetPomo=function(){
+  clearPomoState();
   clearInterval(pomoInt);pomoRunning=false;onBreak=false;pomoTime=POMO_TOTAL;
   document.getElementById('startBtn').textContent='▶ Iniciar';
   document.getElementById('startBtn').className='btn-pomo btn-start';
@@ -2564,6 +2577,96 @@ const _origSaveActivity=saveActivity;
 window._checkBadgesHook=function(){
   checkAndAwardBadges();
 };
+
+
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+// ══ MEJORA #11 — CONTADOR DE CARACTERES EN CHAT ══
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+window.updateChatCounter=function(inp){
+  const len=inp.value.length,max=120;
+  const el=document.getElementById('chatCounter');
+  if(!el)return;
+  el.textContent=len+' / '+max;
+  el.style.color=len>=100?'var(--red)':len>=80?'var(--gold)':'var(--text3)';
+};
+// Reset counter after message sent
+const _sendChatPrev=window.sendChat;
+window.sendChat=function(){
+  _sendChatPrev&&_sendChatPrev();
+  const el=document.getElementById('chatCounter');
+  if(el){el.textContent='0 / 120';el.style.color='var(--text3)';}
+};
+
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+// ══ MEJORA #7 — CONFIRMACIÓN AL CERRAR TAB ══
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+window.addEventListener('beforeunload',function(e){
+  if(!user)return;
+  e.preventDefault();
+  e.returnValue='';
+  return '';
+});
+
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+// ══ MEJORA #2 — NOTIFICACIONES DE ESCRITORIO ══
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+function requestNotifPermission(){
+  if(!('Notification' in window))return;
+  if(Notification.permission==='default'){
+    Notification.requestPermission().catch(()=>{});
+  }
+}
+const NOTIF_ICON='https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp';
+function sendDesktopNotif(title,body){
+  if(!('Notification' in window)||Notification.permission!=='granted')return;
+  try{
+    const n=new Notification(title,{body,icon:NOTIF_ICON,silent:false});
+    n.onclick=()=>window.focus();
+    setTimeout(()=>n.close(),8000);
+  }catch(err){}
+}
+
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+// ══ MEJORA #3 — PERSISTENCIA DEL POMODORO EN RECARGA ══
+// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═// ═
+const SS_POMO='ms_pomo_v1';
+function savePomoState(){
+  if(!user||!pomoRunning)return;
+  sessionStorage.setItem(SS_POMO,JSON.stringify({
+    pomoTime,onBreak,savedAt:Date.now()
+  }));
+}
+function clearPomoState(){sessionStorage.removeItem(SS_POMO);}
+function tryRestorePomoState(){
+  try{
+    const raw=sessionStorage.getItem(SS_POMO);
+    if(!raw)return false;
+    const s=JSON.parse(raw);
+    const elapsed=Math.floor((Date.now()-s.savedAt)/1000);
+    // Only restore if page reloaded within 2 min
+    if(elapsed>120){clearPomoState();return false;}
+    // Adjust time for seconds lost during reload
+    pomoTime=Math.max(0,(s.pomoTime||POMO_TOTAL)-elapsed);
+    onBreak=s.onBreak||false;
+    updateTimerUI();updateRing();updatePhase();
+    // Resume automatically
+    pomoRunning=true;
+    document.getElementById('startBtn').textContent='⏸ Pausar';
+    document.getElementById('startBtn').className='btn-pomo btn-start running';
+    pomoInt=setInterval(tickPomo,1000);
+    clearPomoState();
+    if(onBreak){
+      document.getElementById('timerLbl').textContent='DESCANSO';
+      document.getElementById('breakSugg').style.display='flex';
+      document.getElementById('phaseBadge').textContent='¡Descanso!';
+      document.getElementById('phaseBadge').className='phase-badge ph-break';
+      showToast('⏳','¡Descanso restaurado! Sigue descansando 💪',3000);
+    } else {
+      showToast('⏳','Pomodoro restaurado. ¡Sigue donde lo dejaste! 🔥',3000);
+    }
+    return true;
+  }catch(err){clearPomoState();return false;}
+}
 
 </script>
 </body>
