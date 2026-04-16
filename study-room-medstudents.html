@@ -1255,7 +1255,7 @@ function listenFallen(){
     const d=snap.val()||{};
     const c=document.getElementById('fallenStudents'),nf=document.getElementById('noFallen');
     const now=Date.now();
-    const list=Object.values(d).filter(f=>f&&f.name&&(now-(f.ts||0))<FALLEN_TTL).sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,15);
+    const list=Object.values(d).filter(f=>f&&f.name&&(now-(f.ts||0))<FALLEN_TTL).sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,5);
     if(!list.length){nf.style.display='block';c.innerHTML='';return;}
     nf.style.display='none';c.innerHTML='';
     list.forEach(f=>{
