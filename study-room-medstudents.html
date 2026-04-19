@@ -942,12 +942,76 @@ const TIPS=["El pomodoro aprovecha el enfoque profundo. Tu corteza prefrontal ne
 const ALERTS=[{e:"📵",m:"¡No estés en el celular, crack!"},{e:"🧠",m:"¡CONCÉNTRATE! Tu futuro paciente depende de lo que estudies HOY."},{e:"🔥",m:"¡ENFÓCATE! Los mejores médicos nacen en estas horas."},{e:"💪",m:"CRACK, ¿qué haces distraído? ¡Vuelve al material!"},{e:"⚡",m:"¡Ya no te distraigas! Cada minuto cuenta."}];
 
 // ── STORAGE ──
+// ── PROFILE KEY: stable per-user ID for Firebase (based on name+avatar hash) ──
+function makeProfileKey(name,avatar){
+  const raw=(name||'').toLowerCase().replace(/[^a-z0-9]/g,'_')+'_'+(avatar||'x').codePointAt(0).toString(16);
+  return 'p_'+raw.slice(0,30);
+}
+let _profileKey=null;
+
 function loadStats(){
   const t=new Date().toDateString(),s=JSON.parse(localStorage.getItem('ms_stats_v3')||'{}');
   if(s.lastDate!==t){s.pomosHoy=0;s.minsHoy=0;if(s.studiedYest)s.streak=(s.streak||0)+1;else if(s.lastDate)s.streak=0;s.studiedYest=false;s.lastDate=t;}
   return s;
 }
-function saveStats(s){localStorage.setItem('ms_stats_v3',JSON.stringify(s));}
+function saveStats(s){
+  localStorage.setItem('ms_stats_v3',JSON.stringify(s));
+  // Sync to Firebase for cross-device persistence
+  if(_profileKey&&typeof db!=='undefined'){
+    set(ref(db,'profiles/'+_profileKey+'/stats'),{
+      totalPomos:s.totalPomos||0,
+      totalMins:s.totalMins||0,
+      streak:s.streak||0,
+      lastSaved:Date.now()
+    }).catch(()=>{});
+  }
+}
+
+// ── BADGES: load/save with Firebase backup ──
+function loadBadges(){
+  return JSON.parse(localStorage.getItem('ms_badges')||'[]');
+}
+function saveBadges(awarded){
+  localStorage.setItem('ms_badges',JSON.stringify(awarded));
+  if(_profileKey&&typeof db!=='undefined'){
+    set(ref(db,'profiles/'+_profileKey+'/badges'),awarded).catch(()=>{});
+  }
+}
+
+// ── RESTORE profile from Firebase if localStorage is empty ──
+function tryRestoreFromFirebase(profileKey,onDone){
+  if(!profileKey||typeof db==='undefined'){onDone(false);return;}
+  onValue(ref(db,'profiles/'+profileKey),snap=>{
+    const d=snap.val();
+    if(!d){onDone(false);return;}
+    let restored=false;
+    // Restore stats if local is empty or Firebase has more pomos
+    if(d.stats){
+      const local=JSON.parse(localStorage.getItem('ms_stats_v3')||'{}');
+      const fbTotal=d.stats.totalPomos||0;
+      const localTotal=local.totalPomos||0;
+      if(fbTotal>localTotal){
+        const merged=Object.assign(local,{
+          totalPomos:fbTotal,
+          totalMins:d.stats.totalMins||local.totalMins||0,
+          streak:d.stats.streak||local.streak||0
+        });
+        localStorage.setItem('ms_stats_v3',JSON.stringify(merged));
+        restored=true;
+      }
+    }
+    // Restore badges
+    if(d.badges&&Array.isArray(d.badges)&&d.badges.length>0){
+      const localB=JSON.parse(localStorage.getItem('ms_badges')||'[]');
+      const merged=[...new Set([...localB,...d.badges])];
+      if(merged.length>localB.length){
+        localStorage.setItem('ms_badges',JSON.stringify(merged));
+        restored=true;
+      }
+    }
+    onDone(restored);
+  },{onlyOnce:true});
+}
 function loadAM(){return JSON.parse(localStorage.getItem('ms_activity_v3')||'{}');}
 function saveAMDay(dateStr,count){const m=loadAM();m[dateStr]=(m[dateStr]||0)+count;localStorage.setItem('ms_activity_v3',JSON.stringify(m));}
 function saveActivity(){saveAMDay(new Date().toDateString(),1);}
@@ -996,6 +1060,10 @@ window.addManualPomos=function(){
   refreshAnalytics();
   updateRank();
   showToast('✅',`+${qty} pomodoros de ${subj} registrados 🍅`,3500);
+  // Re-evaluate ALL badges after manual add (so recovered students get their insignias)
+  checkAndAwardBadges();
+  // Sync stats to Firebase immediately
+  const _sfb=loadStats();saveStats(_sfb);
   document.getElementById('manualQty').value='1';
 };
 function renderManualHistory(){
@@ -1070,8 +1138,14 @@ window.enterRoom=function(){
   user=name;subject=subj;
   // Feature #10: robust UID with crypto.randomUUID
   myUid='u_'+(typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID().replace(/-/g,''):Date.now()+'_'+Math.random().toString(36).substr(2,9));
+  // Stable profile key for Firebase cross-device persistence
+  _profileKey=makeProfileKey(name,myAvatar);
   // Feature #5: persist profile for next visit
   saveProfile(name,subj,myAvatar,dailyGoal);
+  // Try restore from Firebase before loading local stats
+  tryRestoreFromFirebase(_profileKey,(restored)=>{
+    if(restored)showToast('☁️','Historial e insignias restaurados desde la nube ✅',4000);
+  });
   const s=loadStats();pomosHoy=s.pomosHoy||0;
 
   const myRef=ref(db,'students/'+myUid);
@@ -2454,14 +2528,16 @@ const BADGES=[
 
 function checkAndAwardBadges(){
   const s=loadStats();
-  const awarded=JSON.parse(localStorage.getItem('ms_badges')||'[]');
+  const awarded=loadBadges();
+  let changed=false;
   BADGES.forEach(b=>{
     if(!awarded.includes(b.id)&&b.check(s)){
       awarded.push(b.id);
-      localStorage.setItem('ms_badges',JSON.stringify(awarded));
+      changed=true;
       showBadgeToast(b);
     }
   });
+  if(changed)saveBadges(awarded);
   renderBadges();
 }
 
@@ -2477,7 +2553,7 @@ function showBadgeToast(badge){
 
 function renderBadges(){
   const c=document.getElementById('badgesWrap');if(!c)return;
-  const awarded=JSON.parse(localStorage.getItem('ms_badges')||'[]');
+  const awarded=loadBadges();
   c.innerHTML='';
   BADGES.forEach(b=>{
     const earned=awarded.includes(b.id);
