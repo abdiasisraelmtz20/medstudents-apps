@@ -37,6 +37,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .meta-row-lbl{font-size:12px;color:var(--text2);flex:1;}
 .meta-num{width:52px;background:rgba(255,255,255,0.05);border:1px solid rgba(244,200,66,0.28);border-radius:7px;padding:6px;font-family:"DM Mono",monospace;font-size:15px;color:var(--gold);outline:none;text-align:center;}
 .btn-enter{width:100%;background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:10px;padding:13px;font-family:"Syne",sans-serif;font-size:13px;font-weight:700;color:white;cursor:pointer;letter-spacing:1px;text-transform:uppercase;}
+.btn-enter:disabled{opacity:.55;cursor:wait;}
 #loginStatus{font-size:11px;color:var(--text3);margin-top:8px;min-height:16px;}
 
 /* APP */
@@ -60,6 +61,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .meta-hdr-lbl{font-size:9px;color:var(--gold);font-family:"DM Mono",monospace;white-space:nowrap;}
 .btn-fs{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.25);border-radius:7px;padding:5px 10px;font-size:12px;color:var(--cyan);cursor:pointer;font-family:"Syne",sans-serif;font-weight:700;white-space:nowrap;}
 .btn-leave{background:rgba(239,65,80,0.1);border:1px solid rgba(239,65,80,0.22);border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--red);cursor:pointer;}
+.btn-mural{background:linear-gradient(135deg,#e1306c,#c13584,#833ab4);border:none;border-radius:7px;padding:5px 11px;font-size:11px;color:white;cursor:pointer;font-family:"Syne",sans-serif;font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(225,48,108,0.25);}
 
 /* BODY */
 .app-body{display:grid;grid-template-columns:240px 1fr 250px;height:calc(100vh - 54px);overflow:hidden;}
@@ -156,7 +158,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .meta-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffdd44);border-radius:3px;transition:width .8s;}
 .meta-fill.done{background:linear-gradient(90deg,var(--green),#55ff99);}
 .mstones{display:flex;gap:4px;flex-wrap:wrap;}
-/* FIX Bug #9: added .ms alias support */
 .ms{font-size:9px;padding:2px 6px;border-radius:6px;font-family:"DM Mono",monospace;}
 .ms.ok{background:rgba(244,200,66,0.15);color:var(--gold);border:1px solid rgba(244,200,66,0.25);}
 .ms.no{background:rgba(255,255,255,0.03);color:var(--text3);border:1px solid var(--border);}
@@ -205,7 +206,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .lb-tabs{display:flex;gap:3px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:7px;padding:2px;margin-bottom:8px;}
 .lb-tab{background:none;border:none;padding:3px 9px;border-radius:5px;font-family:"Syne",sans-serif;font-size:9px;font-weight:700;color:var(--text3);cursor:pointer;}
 .lb-tab.active{background:rgba(244,200,66,0.14);color:var(--gold);}
-/* FIX Bug #17/#18: added missing LB classes used by drawLb() */
 .lb-row{display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:7px;margin-bottom:3px;background:rgba(255,255,255,0.02);}
 .lb-row.me{border:1px solid rgba(0,212,255,0.22);}
 .lb-row.t1{border:1px solid rgba(244,200,66,0.28);}
@@ -239,7 +239,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .cinput{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-family:"Space Grotesk",sans-serif;font-size:10px;color:var(--text);outline:none;}
 .btn-chat{background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.22);border-radius:7px;padding:5px 10px;color:var(--cyan);cursor:pointer;font-size:12px;font-weight:700;}
 
-/* MANUAL POMOS — FIX Bug #19 */
+/* MANUAL POMOS */
 .mf-lbl{font-size:9px;color:var(--text3);margin-bottom:2px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
 .mf-in{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(46,204,113,0.16);border-radius:7px;padding:6px 9px;font-family:"Space Grotesk",sans-serif;font-size:11px;color:var(--text);outline:none;}
 .mf-sel{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(46,204,113,0.16);border-radius:7px;padding:6px 9px;font-family:"Space Grotesk",sans-serif;font-size:11px;color:var(--text);outline:none;appearance:none;cursor:pointer;}
@@ -273,10 +273,8 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 /* BREATHING */
 .breath-c{background:rgba(46,204,113,0.04);border:1px solid rgba(46,204,113,0.13);border-radius:12px;padding:11px 13px;margin-bottom:10px;}
 .breath-techs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;}
-/* FIX Bug #8: added .ab alias for active breath button */
 .breath-btn{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:7px 3px;cursor:pointer;text-align:center;}
 .breath-btn:hover,.breath-btn.ab{background:rgba(46,204,113,0.08);border-color:rgba(46,204,113,0.28);}
-/* FIX Bug #7: .breath-arena.on instead of only .active */
 .breath-arena{display:none;flex-direction:column;align-items:center;padding:4px 0;}
 .breath-arena.on{display:flex;}
 .bcirc{position:relative;width:110px;height:110px;margin-bottom:8px;}
@@ -307,14 +305,12 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .stat-ic{font-size:13px;margin-bottom:2px;}
 .stat-v{font-family:"DM Mono",monospace;font-size:16px;color:var(--text);}
 .stat-l{font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;}
-/* FIX Bug #20: heatmap uses l0-l4 classes */
 .hm30{display:grid;grid-template-columns:repeat(30,1fr);gap:2px;}
 .hmd{aspect-ratio:1;border-radius:1px;background:rgba(255,255,255,0.04);}
 .hmd.l1{background:rgba(0,212,255,0.14);}
 .hmd.l2{background:rgba(0,212,255,0.32);}
 .hmd.l3{background:rgba(0,212,255,0.55);}
 .hmd.l4{background:rgba(0,212,255,0.82);}
-/* FIX Bug #22: today heatmap cell highlight */
 .hmd.today{border:1px solid var(--cyan);}
 .ptabs{display:flex;gap:3px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:2px;margin-bottom:8px;}
 .ptab{background:none;border:none;padding:3px 9px;border-radius:5px;font-family:"Syne",sans-serif;font-size:9px;font-weight:700;color:var(--text2);cursor:pointer;}
@@ -413,7 +409,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .memo-progress{width:100%;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-bottom:8px;}
 .memo-progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));border-radius:2px;transition:width .4s ease;}
 
-/* FIX Bug #14: CHESS — correct class names used by JS */
+/* CHESS */
 .chess-board{display:grid;grid-template-columns:repeat(8,1fr);border:2px solid rgba(0,212,255,0.18);border-radius:7px;overflow:hidden;width:100%;aspect-ratio:1;}
 .chess-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(13px,2.3vw,22px);cursor:pointer;transition:background .1s;position:relative;user-select:none;}
 .chess-cell.light{background:rgba(232,244,255,0.1);}
@@ -422,14 +418,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .chess-cell.valid-move::after{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(0,212,255,0.42);}
 .chess-cell.last-move{background:rgba(244,200,66,0.16)!important;}
 .chess-cell.check{background:rgba(239,65,80,0.35)!important;}
-/* Keep old short aliases too */
-.cc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(13px,2.3vw,22px);cursor:pointer;transition:background .1s;position:relative;user-select:none;}
-.cc.lt{background:rgba(232,244,255,0.1);}
-.cc.dk{background:rgba(4,45,90,0.42);}
-.cc.sel{background:rgba(0,212,255,0.3)!important;}
-.cc.vm::after{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(0,212,255,0.42);}
-.cc.lm{background:rgba(244,200,66,0.16)!important;}
-.cc.ck{background:rgba(239,65,80,0.35)!important;}
 .chess-info{display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px;color:var(--text2);}
 .chess-status{text-align:center;font-family:"Syne",sans-serif;font-size:13px;font-weight:700;margin:8px 0;min-height:20px;}
 .chess-captured{display:flex;gap:3px;flex-wrap:wrap;min-height:20px;font-size:14px;}
@@ -475,10 +463,27 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 /* DATE INPUT */
 .date-in,.date-input{background:rgba(255,255,255,0.04);border:1px solid rgba(0,212,255,0.16);border-radius:7px;padding:5px 8px;font-family:"DM Mono",monospace;font-size:10px;color:var(--text);outline:none;cursor:pointer;}
 .date-in::-webkit-calendar-picker-indicator,.date-input::-webkit-calendar-picker-indicator{filter:invert(.7);}
-.customRange{display:none;}
 
 /* FLAME BAR */
 .flame-bar{display:flex;align-items:flex-end;gap:1px;height:28px;margin-bottom:8px;}
+
+/* ═══════ MURAL ═══════ */
+.mural-card{background:linear-gradient(145deg,rgba(8,24,48,0.85),rgba(20,10,30,0.85));border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all .25s;position:relative;overflow:hidden;animation:muralIn .4s ease-out backwards;}
+.mural-card:hover{transform:translateY(-2px);border-color:rgba(225,48,108,0.35);box-shadow:0 8px 20px rgba(225,48,108,0.12);}
+.mural-card.is-me{border-color:rgba(225,48,108,0.5);background:linear-gradient(145deg,rgba(225,48,108,0.08),rgba(131,58,180,0.06));}
+.mural-card.is-me::before{content:"TÚ";position:absolute;top:8px;right:8px;background:linear-gradient(135deg,#e1306c,#c13584);color:white;font-family:"Syne",sans-serif;font-size:8px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;z-index:2;}
+.mural-card.is-online::after{content:"";position:absolute;top:10px;left:10px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:glow 2s infinite;}
+@keyframes muralIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mural-avatar{font-size:34px;margin-bottom:8px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(225,48,108,0.15),rgba(131,58,180,0.15));display:flex;align-items:center;justify-content:center;border:2px solid rgba(225,48,108,0.25);}
+.mural-name{font-family:"Syne",sans-serif;font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mural-handle{font-size:11px;color:#ff6b9d;margin-bottom:4px;font-family:"DM Mono",monospace;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mural-subject{font-size:9px;color:var(--text3);margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase;}
+.mural-follow-btn{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;background:linear-gradient(135deg,#e1306c,#c13584,#833ab4);border:none;border-radius:8px;padding:8px 12px;font-family:"Syne",sans-serif;font-size:11px;font-weight:700;color:white;text-decoration:none;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:filter .2s;}
+.mural-follow-btn:hover{filter:brightness(1.15);}
+.mural-empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text3);}
+.mural-empty-em{font-size:56px;margin-bottom:14px;opacity:.5;}
+.mural-empty-t{font-family:"Syne",sans-serif;font-size:15px;color:var(--text2);margin-bottom:6px;font-weight:700;}
+.mural-empty-s{font-size:12px;color:var(--text3);}
 
 @keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
@@ -495,6 +500,16 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
     <h1 class="ltitle">Study <span>Room</span></h1>
     <p class="lsub">Tu sala de estudio virtual compartida.<br>Entra, enfócate, conquista.</p>
     <input class="linput" id="nameInput" type="text" placeholder="¿Cómo te llamas, crack?" maxlength="30">
+    <div style="display:flex;gap:8px;margin-bottom:11px;align-items:end;">
+      <div style="flex:1;">
+        <div class="llabel" style="margin-bottom:3px;">Tu código personal (4 dígitos)</div>
+        <input class="linput" id="codeInput" type="text" inputmode="numeric" pattern="[0-9]{4}" placeholder="Ej: 0427" maxlength="4" style="margin-bottom:0;font-family:'DM Mono',monospace;letter-spacing:4px;text-align:center;font-size:16px;">
+      </div>
+      <button type="button" onclick="generateCode()" style="background:rgba(244,200,66,0.12);border:1px solid rgba(244,200,66,0.3);border-radius:10px;padding:11px 12px;color:var(--gold);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;">🎲 Aleatorio</button>
+    </div>
+    <p style="font-size:10px;color:var(--text3);margin-top:-4px;margin-bottom:11px;background:rgba(244,200,66,0.04);border:1px solid rgba(244,200,66,0.12);border-radius:7px;padding:6px 10px;line-height:1.5;text-align:left;">
+      🔑 <strong style="color:var(--gold)">Anota tu código.</strong> Lo necesitas para recuperar tus pomodoros desde otro dispositivo.
+    </p>
     <div class="llabel">¿Qué vas a estudiar hoy?</div>
     <select class="lselect" id="subjectSelect">
       <option value="Bioquímica">🧬 Bioquímica</option>
@@ -516,7 +531,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <span class="meta-row-lbl">🎯 Meta de pomodoros para hoy</span>
       <input type="number" class="meta-num" id="metaInput" min="1" max="20" value="4">
     </div>
-    <button class="btn-enter" onclick="enterRoom()">ENTRAR A LA SALA 🚀</button>
+    <button class="btn-enter" id="btnEnter" onclick="enterRoom()">ENTRAR A LA SALA 🚀</button>
     <p style="font-size:10px;color:var(--text3);margin-top:9px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:7px;padding:6px 10px;line-height:1.6;">
       💡 <strong style="color:var(--cyan)">Mejor experiencia:</strong> Presiona <strong style="color:var(--gold)">F11</strong> en tu teclado para pantalla completa.
     </p>
@@ -541,12 +556,13 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       </div>
       <div class="live-badge"><div class="live-dot"></div><span id="onlineCount">0 en línea</span></div>
       <div class="user-badge"><div class="user-av" id="userAvCircle">🧑</div><span id="userNameHdr"></span></div>
+      <button class="btn-mural" onclick="openMural()">📸 Mural</button>
       <button class="btn-fs" onclick="toggleFullscreen()" id="btnFs">⛶ Full</button>
       <button class="btn-leave" onclick="tryLeave()">Salir</button>
     </div>
   </div>
 
-  <!-- BODY: 3 columnas -->
+  <!-- BODY -->
   <div class="app-body">
 
     <!-- IZQUIERDA -->
@@ -607,7 +623,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
                 <div class="ppb-track"><div class="ppb-fill" id="ppbFill"></div></div>
                 <div class="ppb-row" style="margin-top:3px;"><span class="ppb-lbl">0 min</span><span class="ppb-lbl" id="ppbPct">0%</span><span class="ppb-lbl">45 min</span></div>
               </div>
-              <!-- Flame bar -->
               <div class="flame-bar" id="flameBar"></div>
             </div>
           </div>
@@ -631,7 +646,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <!-- SCROLL ZONE -->
       <div class="scroll-zone">
 
-        <!-- META -->
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
             <div class="card-ttl" style="margin-bottom:0;">🎯 Meta de hoy</div>
@@ -641,7 +655,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
           <div class="mstones" id="metaStones"></div>
         </div>
 
-        <!-- MANUAL POMOS -->
         <div class="card">
           <div class="card-ttl">➕ Agregar Pomodoros Externos</div>
           <div style="display:grid;grid-template-columns:1fr 1fr 70px;gap:6px;align-items:end;margin-bottom:7px;">
@@ -658,7 +671,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
           <div id="manualHistory" style="margin-top:6px;max-height:70px;overflow-y:auto;"></div>
         </div>
 
-        <!-- LOFI -->
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
             <div class="card-ttl" style="margin-bottom:0;">🎵 Lo-Fi Study Radio</div>
@@ -673,7 +685,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
           </div>
         </div>
 
-        <!-- BREATHING -->
         <div class="breath-c">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
             <div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:var(--green);">🌬️ Respiración Anti-Estrés</div>
@@ -700,7 +711,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
           </div>
         </div>
 
-        <!-- GAMES -->
         <div class="card">
           <div class="card-ttl">🎮 Zona de Juegos</div>
           <div class="games-bar">
@@ -711,7 +721,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
           <div style="font-size:9px;color:var(--text3);text-align:center;">Reta a tus compañeros de sala 🎯</div>
         </div>
 
-        <!-- ANALYTICS -->
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:5px;">
             <div class="card-ttl" style="margin-bottom:0;">📊 Dashboard de Estudio</div>
@@ -745,7 +754,6 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
             </div>
             <div class="hm30" id="hm30"></div>
           </div>
-          <!-- FIX Bug #29: insights elements that JS references -->
           <div class="insights-grid">
             <div class="ins-card"><div class="ins-lbl">🏆 Mejor día</div><div class="ins-val" id="insBestDay">—</div><div class="ins-sub" id="insBestDayV">sin datos</div></div>
             <div class="ins-card"><div class="ins-lbl">🔥 Racha</div><div class="ins-val" id="insStreak">0</div><div class="ins-sub">días seguidos</div></div>
@@ -811,13 +819,69 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
         <div><div class="social-nm">@dr.abdimtz</div><div class="social-sb">Dr. Abdías Martínez</div></div>
         <span class="social-fw" style="color:var(--red);">SEGUIR →</span>
       </a>
-      <a href="https://instagram.com/medstudentsmx" target="_blank" class="social-a" style="border-color:rgba(0,212,255,0.12);" onmouseover="this.style.borderColor='rgba(0,212,255,0.3)'" onmouseout="this.style.borderColor='rgba(0,212,255,0.12)'">
+      <a href="https://instagram.com/medstudentsmx" target="_blank" class="social-a" style="border-color:rgba(0,212,255,0.12);">
         <img src="https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp" style="width:20px;height:20px;object-fit:contain;border-radius:50%;">
         <div><div class="social-nm">@medstudentsmx</div><div class="social-sb">MedStudents MX · eLearning</div></div>
         <span class="social-fw" style="color:var(--cyan);">SEGUIR →</span>
       </a>
     </div>
 
+  </div>
+</div>
+
+<!-- ═══════════ MURAL PANEL ═══════════ -->
+<div id="muralPanel" style="display:none;position:fixed;inset:0;z-index:600;background:linear-gradient(135deg,rgba(4,15,30,0.97),rgba(20,8,30,0.97));flex-direction:column;padding:20px;overflow-y:auto;">
+  <div style="width:100%;max-width:900px;margin:0 auto 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#e1306c,#c13584,#833ab4,#fcb045);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 16px rgba(225,48,108,0.3);">📸</div>
+      <div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(90deg,#fcb045,#e1306c,#c13584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2px;">Mural Instagram</h2>
+        <div style="font-size:11px;color:var(--text2);">Conecta con tus compañeros de sala 💕</div>
+      </div>
+    </div>
+    <button onclick="closeMural()" style="background:rgba(239,65,80,0.13);border:1px solid rgba(239,65,80,0.28);border-radius:8px;padding:8px 16px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;">✕ Volver a estudiar</button>
+  </div>
+
+  <div style="width:100%;max-width:900px;margin:0 auto 18px;background:linear-gradient(135deg,rgba(225,48,108,0.08),rgba(131,58,180,0.06));border:1px solid rgba(225,48,108,0.22);border-radius:16px;padding:18px 22px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+      <span style="font-size:18px;">✨</span>
+      <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--text);">Tu perfil en el mural</h3>
+    </div>
+    <div style="display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:0 12px;display:flex;align-items:center;font-size:18px;color:#ff6b9d;font-weight:700;">@</div>
+      <input id="muralIgInput" placeholder="tu_usuario_de_instagram" maxlength="30" style="flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')publishToMural()">
+      <button onclick="publishToMural()" style="background:linear-gradient(135deg,#e1306c,#c13584,#833ab4);border:none;border-radius:10px;padding:10px 22px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:white;cursor:pointer;letter-spacing:1px;box-shadow:0 3px 10px rgba(225,48,108,0.3);">💾 PUBLICAR</button>
+      <button id="muralDelBtn" onclick="removeFromMural()" style="display:none;background:rgba(239,65,80,0.1);border:1px solid rgba(239,65,80,0.28);border-radius:10px;padding:10px 16px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;">🗑️ Quitar</button>
+    </div>
+    <div id="muralMyStatus" style="font-size:11px;color:var(--text3);margin-top:10px;">Publica tu @ para que otros estudiantes te sigan en Instagram 💕</div>
+  </div>
+
+  <div style="width:100%;max-width:900px;margin:0 auto 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;">
+      <div style="font-family:'DM Mono',monospace;font-size:22px;color:#ff6b9d;font-weight:700;" id="muralCount">0</div>
+      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Estudiantes en el mural</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;">
+      <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--green);font-weight:700;" id="muralOnline">0</div>
+      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Activos ahora en la sala</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;">
+      <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--gold);font-weight:700;" id="muralNew">0</div>
+      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Nuevos hoy</div>
+    </div>
+  </div>
+
+  <div style="width:100%;max-width:900px;margin:0 auto 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <input id="muralSearch" placeholder="🔍 Buscar por nombre o @..." oninput="renderMural()" style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--text);outline:none;">
+    <div style="display:flex;gap:3px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:9px;padding:3px;">
+      <button id="muralFilterAll" onclick="setMuralFilter('all',this)" style="background:rgba(225,48,108,0.18);border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:#ff6b9d;cursor:pointer;">Todos</button>
+      <button id="muralFilterOnline" onclick="setMuralFilter('online',this)" style="background:none;border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;">Activos ahora</button>
+      <button id="muralFilterRecent" onclick="setMuralFilter('recent',this)" style="background:none;border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;">Recientes</button>
+    </div>
+  </div>
+
+  <div id="muralGrid" style="width:100%;max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding-bottom:30px;">
+    <div style="grid-column:1/-1;font-size:13px;color:var(--text3);text-align:center;padding:40px 20px;">Cargando mural...</div>
   </div>
 </div>
 
@@ -859,12 +923,12 @@ let myAvatar='🧑‍⚕️';
 })();
 
 // ── STATE ──
-let user=null,subject='',myUid=null;
+let user=null,subject='',myUid=null,myCode='';
 let pomoInt=null,chronoInt=null;
 let pomoRunning=false,pomoTime=2700,POMO_TOTAL=2700;
 let onBreak=false,BREAK=900,chronoSec=0,pomosHoy=0,dailyGoal=4;
 const FALLEN_TTL=24*60*60*1000;
-let lastMotPhase=''; // FIX Bug #10: moved inside proper scope, not loose code
+let lastMotPhase='';
 
 const RANKS=[
   {name:"Principiante",icon:"🌱",desc:"Tu primer paso. Todo comienza aquí.",min:0},
@@ -879,48 +943,213 @@ const RANKS=[
 const TIPS=["El pomodoro aprovecha el enfoque profundo. Tu corteza prefrontal necesita ~25 min para entrar en flujo real.","Cada pomodoro completado libera dopamina. Tu cerebro aprende a querer estudiar.","Los descansos permiten consolidación de memoria en el hipocampo.","Apagar el celular aumenta la atención sostenida hasta un 40%.","El modo flujo requiere eliminar interrupciones. Cada notificación reinicia el ciclo."];
 const ALERTS=[{e:"📵",m:"¡No estés en el celular, crack!"},{e:"🧠",m:"¡CONCÉNTRATE! Tu futuro paciente depende de lo que estudies HOY."},{e:"🔥",m:"¡ENFÓCATE! Los mejores médicos nacen en estas horas."},{e:"💪",m:"CRACK, ¿qué haces distraído? ¡Vuelve al material!"},{e:"⚡",m:"¡Ya no te distraigas! Cada minuto cuenta."}];
 
-// ── STORAGE ──
-function makeProfileKey(name,avatar){
+// ═══════════════════════════════════════
+// IDENTIDAD: clave = nombre + código de 4 dígitos
+// (el avatar puede cambiar sin afectar la identidad)
+// ═══════════════════════════════════════
+function makeProfileKey(name,code){
+  const raw=(name||'').toLowerCase().trim().replace(/[^a-z0-9]/g,'_');
+  const c=(code||'0000').toString().replace(/[^0-9]/g,'').padStart(4,'0').slice(0,4);
+  return 'p_'+raw.slice(0,24)+'_'+c;
+}
+// Claves viejas (para migrar datos existentes)
+function makeOldProfileKey_emoji(name,avatar){
   const raw=(name||'').toLowerCase().replace(/[^a-z0-9]/g,'_')+'_'+(avatar||'x').codePointAt(0).toString(16);
   return 'p_'+raw.slice(0,30);
 }
+function makeOldProfileKey_nameOnly(name){
+  const raw=(name||'').toLowerCase().trim().replace(/[^a-z0-9]/g,'_');
+  return 'p_'+raw.slice(0,30);
+}
 let _profileKey=null;
+
+function todayFbKey(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
 
 function loadStats(){
   const t=new Date().toDateString(),s=JSON.parse(localStorage.getItem('ms_stats_v3')||'{}');
   if(s.lastDate!==t){s.pomosHoy=0;s.minsHoy=0;if(s.studiedYest)s.streak=(s.streak||0)+1;else if(s.lastDate)s.streak=0;s.studiedYest=false;s.lastDate=t;}
   return s;
 }
+
 function saveStats(s){
   localStorage.setItem('ms_stats_v3',JSON.stringify(s));
   if(_profileKey&&typeof db!=='undefined'){
-    set(ref(db,'profiles/'+_profileKey+'/stats'),{totalPomos:s.totalPomos||0,totalMins:s.totalMins||0,streak:s.streak||0,lastSaved:Date.now()}).catch(()=>{});
+    set(ref(db,'profiles/'+_profileKey+'/stats'),{
+      totalPomos:s.totalPomos||0,
+      totalMins:s.totalMins||0,
+      streak:s.streak||0,
+      lastSaved:Date.now()
+    }).catch(()=>{});
+    const tk=todayFbKey();
+    set(ref(db,'profiles/'+_profileKey+'/daily/'+tk),{
+      pomos:s.pomosHoy||0,
+      mins:s.minsHoy||0,
+      updatedAt:Date.now()
+    }).catch(()=>{});
   }
 }
+
 function loadBadges(){return JSON.parse(localStorage.getItem('ms_badges')||'[]');}
 function saveBadges(awarded){
   localStorage.setItem('ms_badges',JSON.stringify(awarded));
   if(_profileKey&&typeof db!=='undefined'){set(ref(db,'profiles/'+_profileKey+'/badges'),awarded).catch(()=>{});}
 }
+
+// Restaurar perfil desde Firebase
 function tryRestoreFromFirebase(profileKey,onDone){
   if(!profileKey||typeof db==='undefined'){onDone(false);return;}
   onValue(ref(db,'profiles/'+profileKey),snap=>{
     const d=snap.val();if(!d){onDone(false);return;}
     let restored=false;
-    if(d.stats){const local=JSON.parse(localStorage.getItem('ms_stats_v3')||'{}');const fbTotal=d.stats.totalPomos||0;const localTotal=local.totalPomos||0;if(fbTotal>localTotal){const merged=Object.assign(local,{totalPomos:fbTotal,totalMins:d.stats.totalMins||local.totalMins||0,streak:d.stats.streak||local.streak||0});localStorage.setItem('ms_stats_v3',JSON.stringify(merged));restored=true;}}
-    if(d.badges&&Array.isArray(d.badges)&&d.badges.length>0){const localB=JSON.parse(localStorage.getItem('ms_badges')||'[]');const merged=[...new Set([...localB,...d.badges])];if(merged.length>localB.length){localStorage.setItem('ms_badges',JSON.stringify(merged));restored=true;}}
+    const today=new Date().toDateString();
+    const tk=todayFbKey();
+    const local=JSON.parse(localStorage.getItem('ms_stats_v3')||'{}');
+
+    if(d.stats){
+      const fbTotal=d.stats.totalPomos||0;
+      const localTotal=local.totalPomos||0;
+      if(fbTotal>localTotal){
+        local.totalPomos=fbTotal;
+        local.totalMins=d.stats.totalMins||local.totalMins||0;
+        local.streak=d.stats.streak||local.streak||0;
+        restored=true;
+      }
+    }
+
+    if(d.daily&&d.daily[tk]){
+      const fbToday=d.daily[tk];
+      const fbPomosHoy=fbToday.pomos||0;
+      const localPomosHoy=(local.lastDate===today)?(local.pomosHoy||0):0;
+      const localMinsHoy=(local.lastDate===today)?(local.minsHoy||0):0;
+      if(fbPomosHoy>localPomosHoy){
+        local.pomosHoy=fbPomosHoy;
+        local.minsHoy=Math.max(localMinsHoy,fbToday.mins||0);
+        local.lastDate=today;
+        local.studiedYest=true;
+        restored=true;
+      }
+    }
+
+    if(d.daily){
+      const am=JSON.parse(localStorage.getItem('ms_activity_v3')||'{}');
+      let amChanged=false;
+      Object.entries(d.daily).forEach(([key,val])=>{
+        const parts=key.split('-');
+        if(parts.length===3){
+          const dObj=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+          const localKey=dObj.toDateString();
+          const fbCount=val.pomos||0;
+          const localCount=am[localKey]||0;
+          if(fbCount>localCount){am[localKey]=fbCount;amChanged=true;}
+        }
+      });
+      if(amChanged){localStorage.setItem('ms_activity_v3',JSON.stringify(am));restored=true;}
+    }
+
+    localStorage.setItem('ms_stats_v3',JSON.stringify(local));
+
+    if(d.badges&&Array.isArray(d.badges)&&d.badges.length>0){
+      const localB=JSON.parse(localStorage.getItem('ms_badges')||'[]');
+      const merged=[...new Set([...localB,...d.badges])];
+      if(merged.length>localB.length){
+        localStorage.setItem('ms_badges',JSON.stringify(merged));
+        restored=true;
+      }
+    }
+
     onDone(restored);
   },{onlyOnce:true});
 }
+
+// Migración desde sistemas viejos (nombre+emoji, o solo nombre)
+function migrateOldProfileIfNeeded(name,avatar,code,callback){
+  if(typeof db==='undefined'){callback();return;}
+  const newKey=makeProfileKey(name,code);
+  const oldKeys=[makeOldProfileKey_emoji(name,avatar),makeOldProfileKey_nameOnly(name)].filter(k=>k!==newKey);
+  const migFlag='ms_migrated_v2_'+newKey;
+  if(localStorage.getItem(migFlag)){callback();return;}
+  let pending=oldKeys.length;
+  if(pending===0){callback();return;}
+  const collected=[];
+  oldKeys.forEach(oldKey=>{
+    onValue(ref(db,'profiles/'+oldKey),snap=>{
+      const v=snap.val();
+      if(v)collected.push(v);
+      pending--;
+      if(pending<=0)mergeAndWrite();
+    },{onlyOnce:true});
+  });
+  function mergeAndWrite(){
+    if(!collected.length){
+      localStorage.setItem(migFlag,'1');
+      callback();
+      return;
+    }
+    onValue(ref(db,'profiles/'+newKey),newSnap=>{
+      const newData=newSnap.val()||{};
+      const all=[newData,...collected];
+      const mergedStats={
+        totalPomos:Math.max(...all.map(d=>d.stats?.totalPomos||0)),
+        totalMins:Math.max(...all.map(d=>d.stats?.totalMins||0)),
+        streak:Math.max(...all.map(d=>d.stats?.streak||0)),
+        lastSaved:Date.now()
+      };
+      const mergedDaily={};
+      all.forEach(d=>{
+        const dly=d.daily||{};
+        Object.entries(dly).forEach(([k,v])=>{
+          if(!mergedDaily[k])mergedDaily[k]={pomos:0,mins:0};
+          mergedDaily[k].pomos=Math.max(mergedDaily[k].pomos,v.pomos||0);
+          mergedDaily[k].mins=Math.max(mergedDaily[k].mins,v.mins||0);
+          mergedDaily[k].updatedAt=Date.now();
+        });
+      });
+      const mergedBadges=[...new Set(all.flatMap(d=>Array.isArray(d.badges)?d.badges:[]))];
+      set(ref(db,'profiles/'+newKey),{
+        stats:mergedStats,
+        daily:mergedDaily,
+        badges:mergedBadges
+      }).then(()=>{
+        localStorage.setItem(migFlag,'1');
+        showToast('🔄','Datos antiguos recuperados ✅',3500);
+        callback();
+      }).catch(()=>{callback();});
+    },{onlyOnce:true});
+  }
+}
+
 function loadAM(){return JSON.parse(localStorage.getItem('ms_activity_v3')||'{}');}
-function saveAMDay(dateStr,count){const m=loadAM();m[dateStr]=(m[dateStr]||0)+count;localStorage.setItem('ms_activity_v3',JSON.stringify(m));}
+function saveAMDay(dateStr,count){
+  const m=loadAM();m[dateStr]=(m[dateStr]||0)+count;
+  localStorage.setItem('ms_activity_v3',JSON.stringify(m));
+  if(_profileKey&&typeof db!=='undefined'){
+    const d=new Date(dateStr);
+    const fbKey=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    set(ref(db,'profiles/'+_profileKey+'/daily/'+fbKey),{
+      pomos:m[dateStr],
+      mins:(m[dateStr]||0)*45,
+      updatedAt:Date.now()
+    }).catch(()=>{});
+  }
+}
 function saveActivity(){saveAMDay(new Date().toDateString(),1);}
 function loadManualLog(){return JSON.parse(localStorage.getItem('ms_manual_log')||'[]');}
 function saveManualLog(l){localStorage.setItem('ms_manual_log',JSON.stringify(l));}
 window.saveObj=()=>localStorage.setItem('ms_obj',document.getElementById('objectiveInput').value);
-// FIX Bug #26: escape single quotes too
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function dk(d){return d.toDateString();}
+
+// Generador de código aleatorio
+window.generateCode=function(){
+  const code=String(Math.floor(1000+Math.random()*9000));
+  const inp=document.getElementById('codeInput');
+  inp.value=code;
+  inp.style.borderColor='var(--gold)';
+  showToast('🎲','Código generado: '+code+' — ¡Anótalo!',4500);
+};
 
 // ── MANUAL POMODOROS ──
 window.addManualPomos=function(){
@@ -939,9 +1168,9 @@ window.addManualPomos=function(){
   } else {const s=loadStats();s.totalPomos=(s.totalPomos||0)+qty;saveStats(s);updateDashboard();}
   const log=loadManualLog();log.unshift({subj,date:dateVal,qty,ts:Date.now()});if(log.length>30)log.length=30;saveManualLog(log);
   renderManualHistory();refreshAnalytics();updateRank();
-  showToast('✅',`+${qty} pomodoros de ${subj} registrados 🍅`,3500);
+  showToast('✅','+'+qty+' pomodoros de '+subj+' registrados 🍅',3500);
   checkAndAwardBadges();
-  const _sfb=loadStats();saveStats(_sfb);
+  saveStats(loadStats());
   document.getElementById('manualQty').value='1';
 };
 function renderManualHistory(){
@@ -950,17 +1179,18 @@ function renderManualHistory(){
   log.slice(0,8).forEach(e=>{
     const d=new Date(e.date+'T12:00:00');
     const ds=d.toLocaleDateString('es-MX',{weekday:'short',month:'short',day:'numeric'});
-    c.innerHTML+=`<div class="manual-entry"><span class="manual-entry-pomo">+${e.qty}🍅</span><span style="color:var(--text3);">${ds}</span><span style="flex:1;color:var(--text2);">${esc(e.subj)}</span></div>`;
+    c.innerHTML+='<div class="manual-entry"><span class="manual-entry-pomo">+'+e.qty+'🍅</span><span style="color:var(--text3);">'+ds+'</span><span style="flex:1;color:var(--text2);">'+esc(e.subj)+'</span></div>';
   });
 }
 
 // ── PERSISTENT LOGIN PROFILE ──
 const LS_PROFILE='ms_profile_v1';
-function saveProfile(name,subj,avatar,goal){localStorage.setItem(LS_PROFILE,JSON.stringify({name,subj,avatar,goal}));}
+function saveProfile(name,subj,avatar,goal,code){localStorage.setItem(LS_PROFILE,JSON.stringify({name,subj,avatar,goal,code}));}
 function loadProfile(){try{return JSON.parse(localStorage.getItem(LS_PROFILE)||'null');}catch{return null;}}
 function applyProfile(p){
   if(!p)return;
   document.getElementById('nameInput').value=p.name||'';
+  if(p.code)document.getElementById('codeInput').value=p.code;
   const sel=document.getElementById('subjectSelect');
   if(p.subj){for(let i=0;i<sel.options.length;i++){if(sel.options[i].value===p.subj){sel.selectedIndex=i;break;}}}
   if(p.avatar){myAvatar=p.avatar;document.querySelectorAll('.av-btn').forEach(b=>{b.classList.remove('sel');if(b.textContent===p.avatar)b.classList.add('sel');});}
@@ -974,39 +1204,74 @@ function initQuickLogin(){
   const avSpan=document.createElement('span');avSpan.style.fontSize='22px';avSpan.textContent=p.avatar||'🧑‍⚕️';
   const nameDiv=document.createElement('div');nameDiv.style.flex='1';
   const title=document.createElement('div');title.style.cssText='font-family:Syne,sans-serif;font-weight:700;font-size:13px;color:var(--text);';title.textContent='¡Bienvenid@ de vuelta, '+p.name+'!';
-  const sub=document.createElement('div');sub.style.cssText='font-size:10px;color:var(--text2);';sub.textContent=(p.subj||'')+' · Meta: '+(p.goal||4)+' 🍅';
+  const sub=document.createElement('div');sub.style.cssText='font-size:10px;color:var(--text2);';sub.textContent=(p.subj||'')+' · Código: '+(p.code||'----')+' · Meta: '+(p.goal||4)+' 🍅';
   nameDiv.appendChild(title);nameDiv.appendChild(sub);
   const btn=document.createElement('button');btn.textContent='Entrar →';
   btn.style.cssText='background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 14px;font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;white-space:nowrap;';
   btn.onclick=(e)=>{e.stopPropagation();applyProfile(p);setTimeout(()=>window.enterRoom(),50);};
   banner.appendChild(avSpan);banner.appendChild(nameDiv);banner.appendChild(btn);
-  banner.onmouseover=()=>banner.style.borderColor='rgba(0,212,255,0.5)';
-  banner.onmouseout=()=>banner.style.borderColor='rgba(0,212,255,0.22)';
   const nameInput=document.getElementById('nameInput');
   if(nameInput)card.insertBefore(banner,nameInput);
   applyProfile(p);
 }
 setTimeout(initQuickLogin,80);
 
-// ── ENTER ROOM ──
-window.enterRoom=function(){
+// ═══════════════════════════════════════
+// ENTER ROOM (async para esperar Firebase)
+// ═══════════════════════════════════════
+window.enterRoom=async function(){
   const name=document.getElementById('nameInput').value.trim();
+  const codeRaw=document.getElementById('codeInput').value.trim();
   const subj=document.getElementById('subjectSelect').value;
   dailyGoal=Math.max(1,parseInt(document.getElementById('metaInput').value)||4);
-  if(!name){document.getElementById('nameInput').style.borderColor='var(--red)';document.getElementById('loginStatus').textContent='¡Escribe tu nombre, crack!';return;}
+
+  if(!name){
+    document.getElementById('nameInput').style.borderColor='var(--red)';
+    document.getElementById('loginStatus').textContent='¡Escribe tu nombre, crack!';
+    return;
+  }
+  if(!/^\d{4}$/.test(codeRaw)){
+    document.getElementById('codeInput').style.borderColor='var(--red)';
+    document.getElementById('loginStatus').textContent='Tu código debe tener 4 dígitos (0-9).';
+    return;
+  }
+  myCode=codeRaw;
   const reserved=['bot','sistema','studybot','admin'];
-  if(reserved.includes(name.toLowerCase())){document.getElementById('loginStatus').textContent='Ese nombre está reservado 😅';return;}
-  document.getElementById('loginStatus').textContent='Conectando...';
+  if(reserved.includes(name.toLowerCase())){
+    document.getElementById('loginStatus').textContent='Ese nombre está reservado 😅';
+    return;
+  }
+
+  const btnEnter=document.getElementById('btnEnter');
+  if(btnEnter)btnEnter.disabled=true;
+  document.getElementById('loginStatus').textContent='Restaurando tus datos...';
+
   user=name;subject=subj;
   myUid='u_'+(typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID().replace(/-/g,''):Date.now()+'_'+Math.random().toString(36).substr(2,9));
-  _profileKey=makeProfileKey(name,myAvatar);
-  saveProfile(name,subj,myAvatar,dailyGoal);
-  tryRestoreFromFirebase(_profileKey,(restored)=>{if(restored)showToast('☁️','Historial e insignias restaurados desde la nube ✅',4000);});
+  _profileKey=makeProfileKey(name,myCode);
+  saveProfile(name,subj,myAvatar,dailyGoal,myCode);
+
+  // Migrar perfiles viejos si existen
+  await new Promise(resolveMig=>migrateOldProfileIfNeeded(name,myAvatar,myCode,resolveMig));
+
+  // Esperar a Firebase ANTES de leer pomosHoy
+  await new Promise(resolve=>{
+    let resolved=false;
+    tryRestoreFromFirebase(_profileKey,(restored)=>{
+      if(resolved)return;resolved=true;
+      if(restored)showToast('☁️','Datos restaurados desde la nube ✅',3500);
+      resolve();
+    });
+    setTimeout(()=>{if(!resolved){resolved=true;resolve();}},3000);
+  });
+
+  if(btnEnter)btnEnter.disabled=false;
+  document.getElementById('loginStatus').textContent='Conectando...';
+
   const s=loadStats();pomosHoy=s.pomosHoy||0;
 
   const myRef=ref(db,'students/'+myUid);
-  // FIX Bug #11: include lastSeen on initial join so user appears immediately
-  set(myRef,{name,subject:subj,avatar:myAvatar,pomos:pomosHoy,joinedAt:serverTimestamp(),online:true,lastSeen:Date.now()});
+  set(myRef,{name,subject:subj,avatar:myAvatar,pomos:pomosHoy,joinedAt:serverTimestamp(),online:true,lastSeen:Date.now(),profileKey:_profileKey});
 
   const myFallenRef=push(ref(db,'fallen'));
   onDisconnect(myFallenRef).set({name,subject:subj,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});
@@ -1032,7 +1297,7 @@ window.enterRoom=function(){
     if(chronoSec%60===0){
       const s=loadStats();s.minsHoy=(s.minsHoy||0)+1;s.totalMins=(s.totalMins||0)+1;s.studiedYest=true;saveStats(s);updateDashboard();
       if(window._myFallenRef){onDisconnect(window._myFallenRef).set({name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});}
-      if(myUid)set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});
+      if(myUid)set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now(),profileKey:_profileKey});
     }
   },1000);
   listenStudents();listenChat();listenFallen();
@@ -1043,13 +1308,13 @@ window.enterRoom=function(){
       _wasConnected=false;if(badge)badge.textContent='Reconectando...';
       if(!existing){const b=document.createElement('div');b.id='reconnBanner';b.style.cssText='position:fixed;top:54px;left:0;right:0;z-index:9998;background:rgba(239,65,80,0.92);backdrop-filter:blur(6px);padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:"Syne",sans-serif;font-size:12px;font-weight:700;color:white;border-bottom:1px solid rgba(239,65,80,0.5);';b.innerHTML='<span style="animation:glow 1s infinite;display:inline-block;">⚠️</span> Sin conexión — reconectando con Firebase...';document.body.appendChild(b);}
     } else {
-      if(!_wasConnected){if(existing)existing.remove();if(badge)badge.textContent='';showToast('🟢','¡Conexión restaurada! Los datos están sincronizados.',4000);if(myUid&&user){set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});}}_wasConnected=true;
+      if(!_wasConnected){if(existing)existing.remove();if(badge)badge.textContent='';showToast('🟢','¡Conexión restaurada! Los datos están sincronizados.',4000);if(myUid&&user){set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now(),profileKey:_profileKey});}}_wasConnected=true;
     }
   });
   setTimeout(()=>showFocusAlert(),2*60*1000);
   setInterval(()=>showFocusAlert(),45*60*1000);
   document.addEventListener('visibilitychange',handleVis);
-  setTimeout(()=>pushMsg('🤖 StudyBot',`¡Bienvenid@ ${name} ${myAvatar}! La sala está activa. 🧠`,true),800);
+  setTimeout(()=>pushMsg('🤖 StudyBot','¡Bienvenid@ '+name+' '+myAvatar+'! La sala está activa. 🧠',true),800);
   setTimeout(()=>requestNotifPermission(),3000);
   setTimeout(()=>tryRestorePomoState(),500);
   cleanFallen();cleanStaleStudents();
@@ -1073,7 +1338,6 @@ function cleanStaleStudents(){
       if(!s||k===myUid)return;
       const lastSeen=s.lastSeen||0;
       if(!lastSeen||(now-lastSeen>STALE_TTL)){
-        // FIX Bug #12: check if fallen entry already exists for this user recently
         onValue(ref(db,'fallen'),fsnap=>{
           const fallen=fsnap.val()||{};
           const alreadyFallen=Object.values(fallen).some(f=>f&&f.name===s.name&&(now-(f.ts||0))<60000);
@@ -1088,13 +1352,12 @@ function cleanStaleStudents(){
 }
 
 // ── FIREBASE LISTENERS ──
-let _unsubStudents=null,_unsubChat=null,_unsubFallen=null;
+let _unsubStudents=null,_unsubChat=null,_unsubFallen=null,_unsubMural=null;
 
 function listenStudents(){
   if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
   _unsubStudents=onValue(ref(db,'students'),snap=>{
     const d=snap.val()||{};const now=Date.now();
-    // FIX Bug #11: also accept entries without lastSeen if they have joinedAt (just joined)
     const entries=Object.entries(d).filter(([k,s])=>s&&s.name&&(s.lastSeen?(now-s.lastSeen<STALE_TTL):true));
     document.getElementById('onlineCount').textContent=entries.length+' en línea';
     const c=document.getElementById('activeStudents');
@@ -1108,18 +1371,18 @@ function listenStudents(){
       const pos=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
       const av=s.avatar||s.name[0].toUpperCase();
       const mins=isMe?Math.floor(chronoSec/60):'—';
-      c.innerHTML+=`<div class="student-card ${isMe?'me':''} ${isTop?'top-rank':''}">
-        <div class="student-header">
-          <div class="s-av"><div class="s-ring"></div>${av}</div>
-          <div style="flex:1"><div class="student-name">${esc(s.name)}${isMe?' (Tú)':''}</div><div class="student-sub">${esc(s.subject||'')}</div></div>
-          <span class="badge-sm badge-pos">${pos}</span>
-        </div>
-        <div class="student-meta">
-          <span class="badge-sm badge-pomo">🍅 ${s.pomos||0}</span>
-          ${isMe?`<span class="badge-sm badge-time">⏱ ${mins}min</span>`:''}
-          <span class="badge-sm badge-rank">${rank.icon} ${rank.name}</span>
-        </div>
-      </div>`;
+      c.innerHTML+='<div class="student-card '+(isMe?'me':'')+' '+(isTop?'top-rank':'')+'">'+
+        '<div class="student-header">'+
+          '<div class="s-av"><div class="s-ring"></div>'+av+'</div>'+
+          '<div style="flex:1"><div class="student-name">'+esc(s.name)+(isMe?' (Tú)':'')+'</div><div class="student-sub">'+esc(s.subject||'')+'</div></div>'+
+          '<span class="badge-sm badge-pos">'+pos+'</span>'+
+        '</div>'+
+        '<div class="student-meta">'+
+          '<span class="badge-sm badge-pomo">🍅 '+(s.pomos||0)+'</span>'+
+          (isMe?'<span class="badge-sm badge-time">⏱ '+mins+'min</span>':'')+
+          '<span class="badge-sm badge-rank">'+rank.icon+' '+rank.name+'</span>'+
+        '</div>'+
+      '</div>';
     });
   });
 }
@@ -1130,7 +1393,7 @@ function listenChat(){
     Object.values(d).filter(m=>m&&m.text&&m.name).sort((a,b)=>(a.ts||0)-(b.ts||0)).slice(-60).forEach(m=>{
       const isMe=m.uid===myUid,isBot=m.uid==='bot',isSys=m.uid==='sys';
       const div=document.createElement('div');div.className='chat-msg';
-      div.innerHTML=`<div class="chat-name ${isMe?'me':''} ${isBot?'bot':''} ${isSys?'sys':''}">${esc(m.name)}</div><div class="chat-text">${esc(m.text)}</div>`;
+      div.innerHTML='<div class="chat-name '+(isMe?'me':'')+' '+(isBot?'bot':'')+' '+(isSys?'sys':'')+'">'+esc(m.name)+'</div><div class="chat-text">'+esc(m.text)+'</div>';
       box.appendChild(div);
     });
     box.scrollTop=box.scrollHeight;
@@ -1145,14 +1408,14 @@ function listenFallen(){
     nf.style.display='none';c.innerHTML='';
     list.forEach(f=>{
       const ago=Math.round((now-(f.ts||now))/60000);
-      const agoStr=ago<1?'ahora':ago<60?`hace ${ago}min`:`hace ${Math.round(ago/60)}h`;
+      const agoStr=ago<1?'ahora':ago<60?'hace '+ago+'min':'hace '+Math.round(ago/60)+'h';
       const icon=f.how==='desconexión'?'🔌':'🚪';const av=f.avatar||f.name[0];
-      c.innerHTML+=`<div class="fallen-card"><div class="fallen-av">${av}</div><div style="flex:1"><div class="fallen-name">${esc(f.name)}</div><div class="fallen-meta">${esc(f.subject||'')} · ${f.pomos||0} 🍅</div><div class="fallen-how">${icon} ${esc(f.how||'salió')} · ${agoStr}</div></div>⚰️</div>`;
+      c.innerHTML+='<div class="fallen-card"><div class="fallen-av">'+av+'</div><div style="flex:1"><div class="fallen-name">'+esc(f.name)+'</div><div class="fallen-meta">'+esc(f.subject||'')+' · '+(f.pomos||0)+' 🍅</div><div class="fallen-how">'+icon+' '+esc(f.how||'salió')+' · '+agoStr+'</div></div>⚰️</div>';
     });
   });
 }
 
-// ── CHAT ── FIX Bug #2: consolidated sendChat into single function
+// ── CHAT ──
 const CHAT_MAX=100;
 function pruneChatIfNeeded(snap){const d=snap.val();if(!d)return;const keys=Object.keys(d);if(keys.length<=CHAT_MAX)return;const sorted=keys.sort((a,b)=>(d[a].ts||0)-(d[b].ts||0));const toRemove=sorted.slice(0,keys.length-CHAT_MAX);toRemove.forEach(k=>remove(ref(db,'chat/'+k)));}
 function pushMsg(name,text,isBot,isSys){
@@ -1167,16 +1430,14 @@ window.sendChat=function(){
   if(now-_lastChatTs<2000){showToast('⏳','Espera un momento antes de enviar otro mensaje.',1500);return;}
   _lastChatTs=now;
   pushMsg(user,txt);inp.value='';
-  // Reset counter
   const el=document.getElementById('chatCounter');if(el){el.textContent='0 / 120';el.style.color='var(--text3)';}
   const bots=["💪 ¡Sigue estudiando!","🔥 ¡Crack! Así se hace.","🧠 Tu hipocampo te lo agradece.","📚 ¡Excelente actitud médica!"];
   if(Math.random()>.7)setTimeout(()=>pushMsg('🤖 StudyBot',bots[Math.floor(Math.random()*bots.length)],true),1500);
 };
 
-// FIX Bug #1: single consolidated updateMyPomos
 function updateMyPomos(){
   if(!myUid)return;
-  set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now()});
+  set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now(),profileKey:_profileKey});
   if(window._myFallenRef)onDisconnect(window._myFallenRef).set({name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});
   updateLeaderboard();
   renderLeaderboard();
@@ -1184,21 +1445,24 @@ function updateMyPomos(){
 
 // ── LEAVE ──
 window.tryLeave=function(){
-  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">⚠️</span><div class="modal-title">¿Seguro que quieres salir?</div><div class="modal-text">Pasarás al panel de <strong>Caídos ⚰️</strong>.</div><div style="display:flex;gap:10px;justify-content:center"><button class="modal-btn" onclick="closeModal()">Quedarme 💪</button><button class="modal-btn modal-btn-red" onclick="leaveRoom()">Salir</button></div></div></div>';
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">⚠️</span><div class="modal-title">¿Seguro que quieres salir?</div><div class="modal-text">Pasarás al panel de <strong>Caídos ⚰️</strong>.<br><br><span style="color:var(--green);">✓ Tus pomodoros de hoy se mantendrán guardados.</span></div><div style="display:flex;gap:10px;justify-content:center"><button class="modal-btn" onclick="closeModal()">Quedarme 💪</button><button class="modal-btn modal-btn-red" onclick="leaveRoom()">Salir</button></div></div></div>';
 };
 window.leaveRoom=function(){
+  saveStats(loadStats());
   if(myUid){
     if(window._cancelFallen)window._cancelFallen();
     push(ref(db,'fallen'),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'salida voluntaria'});
     remove(ref(db,'students/'+myUid));
-    pushMsg('⚰️ Sistema',`${user} ${myAvatar} abandonó la sala con ${pomosHoy} 🍅`,false,true);
+    pushMsg('⚰️ Sistema',user+' '+myAvatar+' abandonó la sala con '+pomosHoy+' 🍅',false,true);
   }
   if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
   if(_unsubChat){_unsubChat();_unsubChat=null;}
   if(_unsubFallen){_unsubFallen();_unsubFallen=null;}
+  if(_unsubMural){_unsubMural();_unsubMural=null;}
   const rb=document.getElementById('reconnBanner');if(rb)rb.remove();
   clearPomoState();clearInterval(pomoInt);clearInterval(chronoInt);
-  stopLofi();saveStats(loadStats());closeModal();closeGame();
+  stopLofi();closeModal();closeGame();
+  document.getElementById('muralPanel').style.display='none';
   document.removeEventListener('visibilitychange',handleVis);
   document.getElementById('app').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
@@ -1209,20 +1473,19 @@ window.leaveRoom=function(){
 
 // ── LOFI ──
 const TRACKS=[{id:'ePka9SwqxGo',name:'MedStudents Lo-Fi • Bioquímica'},{id:'Uov1YSHhqKw',name:'MedStudents Lo-Fi • Estudio'}];
-let curTrack=-1,lofiOn=false,lastPlayedTrack=-1; // FIX Bug #13: remember last track
+let curTrack=-1,lofiOn=false,lastPlayedTrack=-1;
 window.selectTrack=function(i){
   curTrack=i;lastPlayedTrack=i;
   document.querySelectorAll('.lofi-track').forEach((el,j)=>el.classList.toggle('active',j===i));
   document.getElementById('lofiNP').textContent='▶ '+TRACKS[i].name;
   const w=document.getElementById('lofiWrap');w.innerHTML='';w.classList.add('on');
   const f=document.createElement('iframe');
-  f.width='100%';f.height='120';f.src=`https://www.youtube-nocookie.com/embed/${TRACKS[i].id}?autoplay=1&controls=1&rel=0&modestbranding=1&enablejsapi=0`;
+  f.width='100%';f.height='120';f.src='https://www.youtube-nocookie.com/embed/'+TRACKS[i].id+'?autoplay=1&controls=1&rel=0&modestbranding=1&enablejsapi=0';
   f.frameBorder='0';f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope');f.style.borderRadius='7px';f.style.display='block';
   w.appendChild(f);lofiOn=true;document.getElementById('btnLofi').textContent='⏸ Pause';
   document.querySelectorAll('.lofi-track').forEach((el,j)=>{el.querySelector('.playing-bar')?.remove();if(j===i){const b=document.createElement('div');b.className='playing-bar';b.innerHTML='<span></span><span></span><span></span><span></span>';el.appendChild(b);}});
 };
 window.toggleLofi=()=>{
-  // FIX Bug #13: use lastPlayedTrack to resume
   if(!lofiOn){
     const trackToPlay=lastPlayedTrack>=0?lastPlayedTrack:0;
     selectTrack(trackToPlay);
@@ -1236,21 +1499,19 @@ window.stopLofi=function(){
   document.querySelectorAll('.playing-bar').forEach(e=>e.remove());
   document.getElementById('lofiNP').textContent='Selecciona una pista';
   document.querySelectorAll('.lofi-track').forEach(e=>e.classList.remove('active'));
-  curTrack=-1; // FIX Bug #13: don't reset lastPlayedTrack
+  curTrack=-1;
 };
 
 // ── META ──
 function updateMeta(){
   const pct=Math.min(100,(pomosHoy/dailyGoal)*100);
-  // FIX Bug #3: correct class name meta-fill instead of meta-bar-fill
   document.getElementById('metaBar').style.width=pct+'%';
   document.getElementById('metaBar').className='meta-fill'+(pct>=100?' done':'');
   document.getElementById('metaCount').textContent=pomosHoy+' / '+dailyGoal+' pomodoros';
   document.getElementById('metaHdrFill').style.width=pct+'%';
   document.getElementById('metaHdrLbl').textContent=pomosHoy+'/'+dailyGoal+' 🎯';
-  // FIX Bug #9: correct class name ms instead of mstone
   const ms=document.getElementById('metaStones');ms.innerHTML='';
-  [.25,.5,.75,1].forEach(f=>{const n=Math.ceil(dailyGoal*f),ok=pomosHoy>=n;ms.innerHTML+=`<span class="ms ${ok?'ok':'no'}">${ok?'✓':''} ${n} 🍅</span>`;});
+  [.25,.5,.75,1].forEach(f=>{const n=Math.ceil(dailyGoal*f),ok=pomosHoy>=n;ms.innerHTML+='<span class="ms '+(ok?'ok':'no')+'">'+(ok?'✓':'')+' '+n+' 🍅</span>';});
   if(pomosHoy>0&&pomosHoy===dailyGoal)showToast('🎉','¡META DEL DÍA CUMPLIDA! 🔥',6000);
 }
 
@@ -1280,13 +1541,12 @@ function tickPomo(){
       const s=loadStats();s.pomosHoy=pomosHoy;s.totalPomos=(s.totalPomos||0)+1;s.totalMins=(s.totalMins||0)+45;s.studiedYest=true;
       saveStats(s);saveActivity();updateDashboard();updateRank();buildDots();updateMyPomos();updateMeta();
       checkAndAwardBadges();
-      pushMsg('🤖 StudyBot',`🍅 ¡${user} ${myAvatar} completó pomodoro #${pomosHoy}! ${pomosHoy>=dailyGoal?'¡META CUMPLIDA! 🎉':'¡Sigue crack! 🔥'}`,true);
-      sendDesktopNotif('🍅 Pomodoro completado — MedStudents',`¡${user}, completaste el pomodoro #${pomosHoy}! Toma tu descanso 💪`);
+      pushMsg('🤖 StudyBot','🍅 ¡'+user+' '+myAvatar+' completó pomodoro #'+pomosHoy+'! '+(pomosHoy>=dailyGoal?'¡META CUMPLIDA! 🎉':'¡Sigue crack! 🔥'),true);
+      sendDesktopNotif('🍅 Pomodoro completado — MedStudents','¡'+user+', completaste el pomodoro #'+pomosHoy+'! Toma tu descanso 💪');
       clearPomoState();
       showBreakModal();onBreak=true;pomoTime=BREAK;
       document.getElementById('startBtn').textContent='▶ Descanso';
       document.getElementById('timerLbl').textContent='DESCANSO';
-      // FIX Bug #5: correct class pomo p-break
       const pw2=document.getElementById('pomoWrap');if(pw2)pw2.className='pomo p-break';
       document.getElementById('breakSugg').style.display='flex';
       document.getElementById('phaseBadge').textContent='¡Descanso!';
@@ -1305,7 +1565,6 @@ function tickPomo(){
 function updateTimerUI(){const m=Math.floor(pomoTime/60),s=pomoTime%60;document.getElementById('timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
 function updateRing(){
   const tot=onBreak?BREAK:POMO_TOTAL,r=document.getElementById('ringProg');if(!r)return;
-  // FIX Bug #6: correct comment — r=90, circumference=2*PI*90≈565
   const offset=565*(pomoTime/tot);r.style.strokeDashoffset=offset;
   const wrap=document.getElementById('pomoWrap');
   const pct=Math.round(((tot-pomoTime)/tot)*100);
@@ -1337,7 +1596,6 @@ function updatePhase(){
     if(pi)pi.innerHTML='<div class="pi-title">💪 Min 30–45: Sprint</div><div class="pi-text">Casi terminas. No te rajes ahora.</div>';
   }
 }
-// FIX Bug #4: correct class names in resetPomo
 window.resetPomo=function(){
   clearPomoState();clearInterval(pomoInt);pomoRunning=false;onBreak=false;pomoTime=POMO_TOTAL;
   document.getElementById('startBtn').textContent='▶ Iniciar';
@@ -1352,7 +1610,6 @@ window.resetPomo=function(){
   const q=document.getElementById('motivQuote');if(q)q.textContent='▶ Inicia el pomodoro para comenzar';
   lastMotPhase='';
   const fill=document.getElementById('ppbFill');if(fill)fill.style.width='0%';
-  // FIX Bug #4: use 'pomo' not 'pomo-wrap'
   const pw=document.getElementById('pomoWrap');if(pw)pw.className='pomo';
   resetFlameBar();
 };
@@ -1371,7 +1628,7 @@ function updateDashboard(){
   const insStreak=document.getElementById('insStreak');if(insStreak)insStreak.textContent=s.streak||0;
   refreshAnalytics();
 }
-function buildDots(){const d=document.getElementById('pomoDots');d.innerHTML='';for(let i=0;i<4;i++)d.innerHTML+=`<div class="pd ${i<pomosHoy%4?'done':''}"></div>`;}
+function buildDots(){const d=document.getElementById('pomoDots');d.innerHTML='';for(let i=0;i<4;i++)d.innerHTML+='<div class="pd '+(i<pomosHoy%4?'done':'')+'"></div>';}
 function getRank(p){for(let i=RANKS.length-1;i>=0;i--)if(p>=RANKS[i].min)return RANKS[i];return RANKS[0];}
 function updateRank(){
   const s=loadStats(),tot=s.totalPomos||0,rank=getRank(tot),idx=RANKS.indexOf(rank),next=RANKS[idx+1];
@@ -1398,18 +1655,17 @@ window.switchPeriod=function(p,_btn){
 };
 window.switchMetric=function(m,_btn){curMetric=m;document.querySelectorAll('#mtPomos,#mtMins').forEach(b=>b.classList.remove('active'));const mEl=document.getElementById(m==='pomos'?'mtPomos':'mtMins');if(mEl)mEl.classList.add('active');refreshAnalytics();};
 window.refreshAnalytics=function(){
-  const{from,to}=getPR(),data=getDataForRange(from,to),s=loadStats();
+  const pr=getPR();const from=pr.from,to=pr.to;
+  const data=getDataForRange(from,to),s=loadStats();
   const useBk=data.length>20,bk=useBk?aggWeekly(data):data;
   const labels=bk.map(b=>b.label),vals=bk.map(b=>curMetric==='pomos'?b.pomos:+(b.mins/60).toFixed(1));
   const tp=data.reduce((a,d)=>a+d.pomos,0),tm=data.reduce((a,d)=>a+d.mins,0),ad=data.filter(d=>d.pomos>0).length;
   document.getElementById('kpiPomos').textContent=tp;document.getElementById('kpiHours').textContent=(tm/60).toFixed(1)+'h';
   document.getElementById('kpiDays').textContent=ad+'/'+data.length;document.getElementById('kpiAvg').textContent=ad>0?(tp/ad).toFixed(1):'0';
-  // FIX Bug #28: deltas now have HTML elements
   const span=to-from,pf=new Date(from-span-86400000),pt=new Date(from-86400000);
   const prev=getDataForRange(pf,pt),pp=prev.reduce((a,d)=>a+d.pomos,0),pm=prev.reduce((a,d)=>a+d.mins,0),pd=prev.filter(d=>d.pomos>0).length;
-  function setDelta(id,cur,pv,u=''){const el=document.getElementById(id);if(!el)return;if(!pv&&!cur){el.textContent='—';el.className='kpi-delta neutral';return;}const diff=cur-pv;el.textContent=(diff>=0?'+':'')+diff+u;el.className='kpi-delta '+(diff>0?'up':diff<0?'down':'neutral');}
-  setDelta('kpiPomosDelta',tp,pp);setDelta('kpiHoursDelta',Math.round(tm/60),Math.round(pm/60),'h');setDelta('kpiDaysDelta',ad,pd,' días');
-  // FIX Bug #29: insights elements now exist in HTML
+  function setDelta(id,cur,pv,u){const el=document.getElementById(id);if(!el)return;if(!pv&&!cur){el.textContent='—';el.className='kpi-delta neutral';return;}const diff=cur-pv;el.textContent=(diff>=0?'+':'')+diff+(u||'');el.className='kpi-delta '+(diff>0?'up':diff<0?'down':'neutral');}
+  setDelta('kpiPomosDelta',tp,pp,'');setDelta('kpiHoursDelta',Math.round(tm/60),Math.round(pm/60),'h');setDelta('kpiDaysDelta',ad,pd,' días');
   const am=loadAM();let bd=null,bdv=0;Object.entries(am).forEach(([k,v])=>{if(v>bdv){bdv=v;bd=k;}});
   const insBD=document.getElementById('insBestDay');if(insBD)insBD.textContent=bd?new Date(bd).toLocaleDateString('es-MX',{weekday:'short',month:'short',day:'numeric'}):'—';
   const insBDV=document.getElementById('insBestDayV');if(insBDV)insBDV.textContent=bd?bdv+' pomodoros':'sin datos';
@@ -1426,8 +1682,7 @@ function renderChart(labels,vals){
   if(chartInst){chartInst.destroy();chartInst=null;}
   const isP=curMetric==='pomos';
   chartInst=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:isP?'Pomodoros':'Horas',data:vals,backgroundColor:isP?'rgba(239,65,80,0.7)':'rgba(0,212,255,0.65)',borderColor:isP?'#EF4150':'#00d4ff',borderWidth:1.5,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(8,24,48,0.96)',titleColor:'#00d4ff',bodyColor:'#8aabcc',borderColor:'rgba(0,212,255,0.2)',borderWidth:1,padding:9,callbacks:{label:c=>isP?c.parsed.y+' pomodoros':c.parsed.y+'h de estudio'}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6a8a',font:{family:"'DM Mono',monospace",size:10},maxRotation:45,autoSkip:labels.length>14},border:{color:'rgba(255,255,255,0.06)'}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6a8a',font:{family:"'DM Mono',monospace",size:10},precision:0},border:{color:'rgba(255,255,255,0.06)'},beginAtZero:true}}}});
-  // FIX Bug #27: chartLegend element now exists in HTML
-  const lgEl=document.getElementById('chartLegend');if(lgEl)lgEl.innerHTML=`<div class="cleg-item"><div class="cleg-dot" style="background:${isP?'#EF4150':'#00d4ff'}"></div><span>${isP?'Pomodoros':'Horas de estudio'}</span></div>`;
+  const lgEl=document.getElementById('chartLegend');if(lgEl)lgEl.innerHTML='<div class="cleg-item"><div class="cleg-dot" style="background:'+(isP?'#EF4150':'#00d4ff')+'"></div><span>'+(isP?'Pomodoros':'Horas de estudio')+'</span></div>';
 }
 function renderHM(){
   const am=loadAM(),c=document.getElementById('hm30');if(!c)return;c.innerHTML='';
@@ -1436,42 +1691,230 @@ function renderHM(){
     const d=new Date(today);d.setDate(d.getDate()-i);const cnt=am[dk(d)]||0;
     let lv=0;if(cnt>=1)lv=1;if(cnt>=2)lv=2;if(cnt>=4)lv=3;if(cnt>=7)lv=4;
     const el=document.createElement('div');
-    // FIX Bug #20: use l${lv} instead of lv${lv}, FIX Bug #22: use 'today' class
-    el.className=`hmd${lv>0?' l'+lv:''}${i===0?' today':''}`;
+    el.className='hmd'+(lv>0?' l'+lv:'')+(i===0?' today':'');
     el.title=d.toLocaleDateString('es-MX')+' · '+cnt+' pomodoros';c.appendChild(el);
   }
 }
 
 // ── ALERTS ──
 function showFocusAlert(){const a=ALERTS[Math.floor(Math.random()*ALERTS.length)];showToast(a.e,a.m,6000);}
-function showToast(emoji,text,dur=4000){
+function showToast(emoji,text,dur){
+  if(!dur)dur=4000;
   const c=document.getElementById('alertToast'),t=document.createElement('div');t.className='toast';
-  t.innerHTML=`<span class="toast-emoji">${emoji}</span><div class="toast-text">${text}</div>`;
+  t.innerHTML='<span class="toast-emoji">'+emoji+'</span><div class="toast-text">'+text+'</div>';
   c.innerHTML='';c.appendChild(t);
   setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(60px)';t.style.transition='all .4s';setTimeout(()=>{if(c.contains(t))c.removeChild(t);},400);},dur);
 }
 
 // ── MODALS ──
 function showBreakModal(){
-  document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay"><div class="modal-box">
-    <span class="modal-emoji">🎉</span><div class="modal-title">¡Pomodoro #${pomosHoy} Completado!</div>
-    <div class="modal-text">${pomosHoy>=dailyGoal?'<strong style="color:var(--gold)">¡META DEL DÍA! 🏆</strong><br><br>':''}15 minutos de descanso guiado:</div>
-    <ul class="bml"><li>💧 Toma agua ahora</li><li>🧘 Estira cuello y espalda</li><li>👁️ Mira lejos 20 segundos</li><li>🍎 Come algo ligero</li><li>🚽 Ve al baño</li><li>📵 Sin celular</li></ul>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-      <button class="modal-btn" onclick="closeModal();openGame('memorama')" style="font-size:11px;padding:8px 16px;">🧩 Memorama</button>
-      <button class="modal-btn" onclick="closeModal();openGame('trivia')" style="font-size:11px;padding:8px 16px;">🧠 Trivia</button>
-      <button class="modal-btn" onclick="closeModal()" style="background:rgba(255,255,255,0.1);">Descansar 💤</button>
-    </div></div></div>`;
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box">'+
+    '<span class="modal-emoji">🎉</span><div class="modal-title">¡Pomodoro #'+pomosHoy+' Completado!</div>'+
+    '<div class="modal-text">'+(pomosHoy>=dailyGoal?'<strong style="color:var(--gold)">¡META DEL DÍA! 🏆</strong><br><br>':'')+'15 minutos de descanso guiado:</div>'+
+    '<ul class="bml"><li>💧 Toma agua ahora</li><li>🧘 Estira cuello y espalda</li><li>👁️ Mira lejos 20 segundos</li><li>🍎 Come algo ligero</li><li>🚽 Ve al baño</li><li>📵 Sin celular</li></ul>'+
+    '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'+
+      '<button class="modal-btn" onclick="closeModal();openGame(\'memorama\')" style="font-size:11px;padding:8px 16px;">🧩 Memorama</button>'+
+      '<button class="modal-btn" onclick="closeModal();openGame(\'trivia\')" style="font-size:11px;padding:8px 16px;">🧠 Trivia</button>'+
+      '<button class="modal-btn" onclick="closeModal()" style="background:rgba(255,255,255,0.1);">Descansar 💤</button>'+
+    '</div></div></div>';
 }
 function showNeuralWarning(){
-  document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay"><div class="modal-box" style="border-color:rgba(244,200,66,0.4)">
-    <span class="modal-emoji">👀</span><div class="modal-title">¡Te fuiste de la pantalla!</div>
-    <div class="modal-text">Cada interrupción cuesta <strong style="color:var(--gold)">hasta 23 minutos</strong> volver al estado de flujo.</div>
-    <button class="modal-btn" onclick="closeModal()">Volver al estudio 🧠</button></div></div>`;
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box" style="border-color:rgba(244,200,66,0.4)">'+
+    '<span class="modal-emoji">👀</span><div class="modal-title">¡Te fuiste de la pantalla!</div>'+
+    '<div class="modal-text">Cada interrupción cuesta <strong style="color:var(--gold)">hasta 23 minutos</strong> volver al estado de flujo.</div>'+
+    '<button class="modal-btn" onclick="closeModal()">Volver al estudio 🧠</button></div></div>';
 }
 window.closeModal=()=>document.getElementById('modalContainer').innerHTML='';
 function handleVis(){if(document.hidden&&user)showNeuralWarning();}
 function playSound(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(0,ctx.currentTime+i*.15);g.gain.linearRampToValueAtTime(.3,ctx.currentTime+i*.15+.05);g.gain.linearRampToValueAtTime(0,ctx.currentTime+i*.15+.4);o.start(ctx.currentTime+i*.15);o.stop(ctx.currentTime+i*.15+.5);});}catch(e){}}
+
+// ═══════════════════════════════════════
+// MURAL INSTAGRAM (módulo independiente)
+// ═══════════════════════════════════════
+let _muralData={};
+let _muralFilter='all';
+const MURAL_LS='ms_my_mural_ig';
+
+window.openMural=function(){
+  if(!user){showToast('⚠️','Inicia sesión primero',2500);return;}
+  document.getElementById('muralPanel').style.display='flex';
+  const myIg=localStorage.getItem(MURAL_LS);
+  if(myIg){
+    const inp=document.getElementById('muralIgInput');
+    if(inp)inp.value=myIg;
+  }
+  startMuralListener();
+};
+
+window.closeMural=function(){
+  document.getElementById('muralPanel').style.display='none';
+};
+
+function startMuralListener(){
+  if(_unsubMural)return;
+  _unsubMural=onValue(ref(db,'instagram_mural'),snap=>{
+    _muralData=snap.val()||{};
+    updateMuralStats();
+    renderMural();
+    updateMyMuralStatus();
+  });
+}
+
+function updateMyMuralStatus(){
+  const mine=_muralData[_profileKey];
+  const status=document.getElementById('muralMyStatus');
+  const delBtn=document.getElementById('muralDelBtn');
+  if(!status)return;
+  if(mine&&mine.handle){
+    status.innerHTML='✅ Estás en el mural como <strong style="color:#ff6b9d;">@'+esc(mine.handle)+'</strong>';
+    if(delBtn)delBtn.style.display='inline-block';
+  } else {
+    status.textContent='Publica tu @ para que otros estudiantes te sigan en Instagram 💕';
+    if(delBtn)delBtn.style.display='none';
+  }
+}
+
+function updateMuralStats(){
+  const entries=Object.entries(_muralData).filter(([k,v])=>v&&v.handle&&v.name);
+  const total=entries.length;
+  onValue(ref(db,'students'),snap=>{
+    const online=snap.val()||{};
+    const now=Date.now();
+    const onlineKeys=new Set();
+    Object.values(online).forEach(s=>{
+      if(s&&s.profileKey&&s.lastSeen&&(now-s.lastSeen<90000)){
+        onlineKeys.add(s.profileKey);
+      }
+    });
+    const onlineCount=entries.filter(([k])=>onlineKeys.has(k)).length;
+    const c1=document.getElementById('muralCount');if(c1)c1.textContent=total;
+    const c2=document.getElementById('muralOnline');if(c2)c2.textContent=onlineCount;
+    const startOfDay=new Date();startOfDay.setHours(0,0,0,0);
+    const newToday=entries.filter(([k,v])=>(v.updatedAt||0)>=startOfDay.getTime()).length;
+    const c3=document.getElementById('muralNew');if(c3)c3.textContent=newToday;
+  },{onlyOnce:true});
+}
+
+window.setMuralFilter=function(f,btn){
+  _muralFilter=f;
+  ['muralFilterAll','muralFilterOnline','muralFilterRecent'].forEach(id=>{
+    const b=document.getElementById(id);if(!b)return;
+    b.style.background='none';b.style.color='var(--text3)';
+  });
+  if(btn){
+    btn.style.background='rgba(225,48,108,0.18)';
+    btn.style.color='#ff6b9d';
+  }
+  renderMural();
+};
+
+window.renderMural=function(){
+  const grid=document.getElementById('muralGrid');
+  if(!grid)return;
+  let entries=Object.entries(_muralData).filter(([k,v])=>v&&v.handle&&v.name);
+  const search=(document.getElementById('muralSearch')?.value||'').toLowerCase().trim();
+  if(search){
+    entries=entries.filter(([k,v])=>
+      (v.name||'').toLowerCase().includes(search)||
+      (v.handle||'').toLowerCase().includes(search)
+    );
+  }
+  if(_muralFilter==='recent'){
+    const ago=Date.now()-7*24*60*60*1000;
+    entries=entries.filter(([k,v])=>(v.updatedAt||0)>=ago);
+    entries.sort((a,b)=>(b[1].updatedAt||0)-(a[1].updatedAt||0));
+  } else {
+    entries.sort((a,b)=>{
+      if(a[0]===_profileKey)return -1;
+      if(b[0]===_profileKey)return 1;
+      return (b[1].updatedAt||0)-(a[1].updatedAt||0);
+    });
+  }
+  onValue(ref(db,'students'),snap=>{
+    const online=snap.val()||{};
+    const now=Date.now();
+    const onlineKeys=new Set();
+    Object.values(online).forEach(s=>{
+      if(s&&s.profileKey&&s.lastSeen&&(now-s.lastSeen<90000)){
+        onlineKeys.add(s.profileKey);
+      }
+    });
+    let filtered=entries;
+    if(_muralFilter==='online'){
+      filtered=entries.filter(([k])=>onlineKeys.has(k));
+    }
+    drawMuralGrid(filtered,onlineKeys);
+  },{onlyOnce:true});
+};
+
+function drawMuralGrid(entries,onlineKeys){
+  const grid=document.getElementById('muralGrid');
+  if(!grid)return;
+  if(!entries.length){
+    grid.innerHTML='<div class="mural-empty"><div class="mural-empty-em">📸</div><div class="mural-empty-t">El mural está vacío aún</div><div class="mural-empty-s">¡Sé el primero en publicar tu @!</div></div>';
+    return;
+  }
+  grid.innerHTML='';
+  entries.forEach(([key,v],i)=>{
+    const isMe=key===_profileKey;
+    const isOnline=onlineKeys&&onlineKeys.has(key);
+    const card=document.createElement('div');
+    card.className='mural-card'+(isMe?' is-me':'')+(isOnline?' is-online':'');
+    card.style.animationDelay=(i*40)+'ms';
+    const inner=
+      '<div class="mural-avatar">'+esc(v.avatar||'🧑')+'</div>'+
+      '<div class="mural-name">'+esc(v.name)+'</div>'+
+      '<div class="mural-handle">@'+esc(v.handle)+'</div>'+
+      '<div class="mural-subject">'+esc(v.subject||'Estudiante')+'</div>'+
+      (isMe
+        ? '<button class="mural-follow-btn" onclick="document.getElementById(\'muralIgInput\').focus()" style="background:rgba(255,255,255,0.08);">✏️ EDITAR</button>'
+        : '<a href="https://instagram.com/'+encodeURIComponent(v.handle)+'" target="_blank" rel="noopener" class="mural-follow-btn">📸 SEGUIR</a>');
+    card.innerHTML=inner;
+    grid.appendChild(card);
+  });
+}
+
+window.publishToMural=function(){
+  if(!user||!_profileKey){
+    showToast('⚠️','Inicia sesión primero',2500);
+    return;
+  }
+  const inp=document.getElementById('muralIgInput');
+  let handle=(inp.value||'').trim().replace(/^@+/,'').replace(/[^a-zA-Z0-9._]/g,'');
+  if(!handle){
+    showToast('⚠️','Escribe tu @ de Instagram',2500);
+    inp.style.borderColor='var(--red)';
+    return;
+  }
+  if(handle.length<2||handle.length>30){
+    showToast('⚠️','El @ debe tener entre 2 y 30 caracteres',2500);
+    return;
+  }
+  inp.value=handle;
+  inp.style.borderColor='';
+  localStorage.setItem(MURAL_LS,handle);
+  set(ref(db,'instagram_mural/'+_profileKey),{
+    name:user,
+    avatar:myAvatar,
+    handle:handle,
+    subject:subject||'Estudiante',
+    updatedAt:Date.now()
+  }).then(()=>{
+    showToast('💕','¡Tu @ está en el mural! Otros pueden seguirte 📸',4000);
+  }).catch(()=>{
+    showToast('⚠️','Error al publicar. Intenta de nuevo.',3000);
+  });
+};
+
+window.removeFromMural=function(){
+  if(!_profileKey)return;
+  if(!confirm('¿Quitar tu @ del mural? Otros ya no podrán verte aquí.'))return;
+  remove(ref(db,'instagram_mural/'+_profileKey)).then(()=>{
+    localStorage.removeItem(MURAL_LS);
+    const inp=document.getElementById('muralIgInput');if(inp)inp.value='';
+    showToast('✅','Te quitaste del mural',2500);
+  });
+};
 
 // ── GAMES ──
 window.openGame=function(type){
@@ -1483,557 +1926,544 @@ window.openGame=function(type){
 window.closeGame=function(){document.getElementById('gamePanel').classList.remove('open');document.getElementById('gameContent').innerHTML='';if(chessGameInt)clearInterval(chessGameInt);if(memoTimer){clearInterval(memoTimer);memoTimer=null;}};
 
 // ── MEMORAMA ──
-// Modo Clásico: emparejar emojis iguales
-const MEMO_CLASSIC={
-  easy:['🧬','❤️','🧠','💊','🔬','🩺','🦠','💉'],
-  medium:['🧬','❤️','🧠','💊','🔬','🩺','🦠','💉','🫁','🦷','🫀','🦴'],
-  hard:['🧬','❤️','🧠','💊','🔬','🩺','🦠','💉','🫁','🦷','🫀','🦴','🦻','👁️','🩸','💀','🧪','🧫']
-};
-// Modo Médico: emparejar concepto ↔ respuesta
-const MEMO_MEDICAL={
-  easy:[
-    {a:'💊 Paracetamol',b:'🌡️ Analgésico'},{a:'🫀 Corazón',b:'❤️ Bombear sangre'},
-    {a:'🧠 Hipocampo',b:'📝 Memoria'},{a:'🦠 E. coli',b:'🔬 Gram negativa'},
-    {a:'💉 Insulina',b:'📉 Baja glucosa'},{a:'🫁 Pulmones',b:'💨 Intercambio O₂'},
-    {a:'🩸 Hemoglobina',b:'🔴 Transporta O₂'},{a:'🧬 ADN',b:'🔗 Doble hélice'}
-  ],
-  medium:[
-    {a:'💊 Omeprazol',b:'🛡️ IBP gástrico'},{a:'🫀 Corazón',b:'❤️ Bombear sangre'},
-    {a:'🧠 Hipocampo',b:'📝 Memoria'},{a:'🦠 E. coli',b:'🔬 Gram negativa'},
-    {a:'💉 Insulina',b:'📉 Baja glucosa'},{a:'🫁 Pulmones',b:'💨 Intercambio O₂'},
-    {a:'🩸 Hemoglobina',b:'🔴 Transporta O₂'},{a:'🧬 ADN',b:'🔗 Doble hélice'},
-    {a:'💀 Fémur',b:'🦴 Hueso más largo'},{a:'🧪 Piruvato',b:'⚡ Fin glucólisis'},
-    {a:'👁️ Retina',b:'📸 Fotorreceptores'},{a:'🦷 Esmalte',b:'💎 Tejido más duro'}
-  ],
-  hard:[
-    {a:'💊 Omeprazol',b:'🛡️ IBP gástrico'},{a:'🫀 Corazón',b:'❤️ Bombear sangre'},
-    {a:'🧠 Hipocampo',b:'📝 Memoria'},{a:'🦠 E. coli',b:'🔬 Gram negativa'},
-    {a:'💉 Insulina',b:'📉 Baja glucosa'},{a:'🫁 Pulmones',b:'💨 Intercambio O₂'},
-    {a:'🩸 Hemoglobina',b:'🔴 Transporta O₂'},{a:'🧬 ADN',b:'🔗 Doble hélice'},
-    {a:'💀 Fémur',b:'🦴 Hueso más largo'},{a:'🧪 Piruvato',b:'⚡ Fin glucólisis'},
-    {a:'👁️ Retina',b:'📸 Fotorreceptores'},{a:'🦷 Esmalte',b:'💎 Tejido más duro'},
-    {a:'🧫 Mitocondria',b:'🔋 ATP celular'},{a:'💊 Metformina',b:'🍬 Diabetes T2'},
-    {a:'🛡️ IgE',b:'⚠️ Anafilaxia'},{a:'🧠 Wernicke',b:'🗣️ Comprensión'},{a:'🫀 Nodo SA',b:'⏱️ Marcapasos'},{a:'🦠 S. aureus',b:'🟡 Gram positiva'}
-  ]
-};
-let memoCards=[],memoFlipped=[],memoMatched=0,memoMoves=0,memoTimer=null,memoSeconds=0,memoDiff='easy',memoLocked=false,memoMode='classic',memoTotalPairs=0,memoCombo=0,memoBestCombo=0;
-
-function getMemoKey(){return 'ms_memo_best_'+memoMode+'_'+memoDiff;}
-function getMemoBest(){try{return JSON.parse(localStorage.getItem(getMemoKey()))||null;}catch{return null;}}
-function setMemoBest(moves,time){const prev=getMemoBest();if(!prev||moves<prev.moves||(moves===prev.moves&&time<prev.time)){localStorage.setItem(getMemoKey(),JSON.stringify({moves,time}));return true;}return false;}
+const MEMO_CLASSIC={easy:[{e:'🧠',l:'Cerebro'},{e:'❤️',l:'Corazón'},{e:'🫁',l:'Pulmón'},{e:'🦴',l:'Hueso'},{e:'💊',l:'Pastilla'},{e:'🩺',l:'Estetoscopio'},{e:'💉',l:'Jeringa'},{e:'🧬',l:'ADN'}],medium:[{e:'🧠',l:'Cerebro'},{e:'❤️',l:'Corazón'},{e:'🫁',l:'Pulmón'},{e:'🦴',l:'Hueso'},{e:'💊',l:'Pastilla'},{e:'🩺',l:'Estetoscopio'},{e:'💉',l:'Jeringa'},{e:'🧬',l:'ADN'},{e:'🦠',l:'Bacteria'},{e:'🔬',l:'Microscopio'},{e:'🧫',l:'Petri'},{e:'🩻',l:'Rayos X'}],hard:[{e:'🧠',l:'Cerebro'},{e:'❤️',l:'Corazón'},{e:'🫁',l:'Pulmón'},{e:'🦴',l:'Hueso'},{e:'💊',l:'Pastilla'},{e:'🩺',l:'Estetoscopio'},{e:'💉',l:'Jeringa'},{e:'🧬',l:'ADN'},{e:'🦠',l:'Bacteria'},{e:'🔬',l:'Microscopio'},{e:'🧫',l:'Petri'},{e:'🩻',l:'Rayos X'},{e:'🫀',l:'Anatomía'},{e:'🫥',l:'Paciente'},{e:'🥼',l:'Bata'},{e:'🧪',l:'Tubo'},{e:'🧴',l:'Reactivo'},{e:'💧',l:'Solución'}]};
+const MEMO_MEDICAL={easy:[{e:'CO',l:'Monóxido carbono'},{e:'Hb',l:'Hemoglobina'},{e:'Na',l:'Sodio'},{e:'K',l:'Potasio'},{e:'Ca',l:'Calcio'},{e:'Mg',l:'Magnesio'},{e:'Cl',l:'Cloro'},{e:'Fe',l:'Hierro'}],medium:[{e:'CO',l:'Monóxido C.'},{e:'Hb',l:'Hemoglobina'},{e:'Na',l:'Sodio'},{e:'K',l:'Potasio'},{e:'Ca',l:'Calcio'},{e:'Mg',l:'Magnesio'},{e:'Cl',l:'Cloro'},{e:'Fe',l:'Hierro'},{e:'P',l:'Fósforo'},{e:'I',l:'Yodo'},{e:'Zn',l:'Zinc'},{e:'Se',l:'Selenio'}],hard:[{e:'CO',l:'Monóxido C.'},{e:'Hb',l:'Hemoglobina'},{e:'Na',l:'Sodio'},{e:'K',l:'Potasio'},{e:'Ca',l:'Calcio'},{e:'Mg',l:'Magnesio'},{e:'Cl',l:'Cloro'},{e:'Fe',l:'Hierro'},{e:'P',l:'Fósforo'},{e:'I',l:'Yodo'},{e:'Zn',l:'Zinc'},{e:'Se',l:'Selenio'},{e:'Mn',l:'Manganeso'},{e:'Cu',l:'Cobre'},{e:'Mo',l:'Molibdeno'},{e:'Co',l:'Cobalto'},{e:'Cr',l:'Cromo'},{e:'B12',l:'Vit B12'}]};
+let memoFlipped=[],memoMatched=0,memoMoves=0,memoTotal=0,memoTimer=null,memoSeconds=0,memoMode='classic',memoDiff='easy',memoCards=[];
 
 function initMemorama(){
-  const gc=document.getElementById('gameContent');
-  const best=getMemoBest();
-  gc.innerHTML=`<div class="memo-wrap">
-    <div class="memo-modes">
-      <div class="memo-mode-btn ${memoMode==='classic'?'active':''}" onclick="setMemoMode('classic',this)">
-        <span class="memo-mode-ico">🧩</span><div class="memo-mode-nm">Clásico</div><div class="memo-mode-desc">Emojis iguales</div>
+  const html=`
+    <div class="memo-wrap">
+      <div class="memo-header">
+        <div class="memo-header-left">
+          <div><div class="memo-header-title">🧩 Memorama Médico</div><div class="memo-header-sub" id="memoSub">Selecciona modo y dificultad</div></div>
+        </div>
+        <div class="memo-stats-bar">
+          <div class="memo-stat"><div class="memo-stat-v" id="memoMoves">0</div><div class="memo-stat-l">Movs</div></div>
+          <div class="memo-stat green"><div class="memo-stat-v" id="memoMatched">0/0</div><div class="memo-stat-l">Pares</div></div>
+          <div class="memo-stat gold"><div class="memo-stat-v" id="memoTime">0:00</div><div class="memo-stat-l">Tiempo</div></div>
+        </div>
       </div>
-      <div class="memo-mode-btn ${memoMode==='medical'?'active':''}" onclick="setMemoMode('medical',this)">
-        <span class="memo-mode-ico">🩺</span><div class="memo-mode-nm">Médico</div><div class="memo-mode-desc">Concepto ↔ Respuesta</div>
+      <div class="memo-modes">
+        <div class="memo-mode-btn active" id="memoModeClassic" onclick="setMemoMode('classic')"><span class="memo-mode-ico">🩺</span><div class="memo-mode-nm">Clásico</div><div class="memo-mode-desc">Órganos</div></div>
+        <div class="memo-mode-btn" id="memoModeMedical" onclick="setMemoMode('medical')"><span class="memo-mode-ico">🧪</span><div class="memo-mode-nm">Biomédico</div><div class="memo-mode-desc">Elementos</div></div>
       </div>
-    </div>
-    <div class="memo-difficulty" id="memoDiffBtns">
-      <button class="diff-btn ${memoDiff==='easy'?'active':''}" onclick="setMemoDiff('easy',this)"><span class="diff-ico">🟢</span>Fácil</button>
-      <button class="diff-btn ${memoDiff==='medium'?'active':''}" onclick="setMemoDiff('medium',this)"><span class="diff-ico">🟡</span>Medio</button>
-      <button class="diff-btn ${memoDiff==='hard'?'active':''}" onclick="setMemoDiff('hard',this)"><span class="diff-ico">🔴</span>Difícil</button>
-    </div>
-    <div class="memo-stats-bar">
-      <div class="memo-stat"><div class="memo-stat-v" id="memoMoves">0</div><div class="memo-stat-l">Movimientos</div></div>
-      <div class="memo-stat gold"><div class="memo-stat-v" id="memoTime">0s</div><div class="memo-stat-l">Tiempo</div></div>
-      <div class="memo-stat green"><div class="memo-stat-v" id="memoPairs">0</div><div class="memo-stat-l">Pares</div></div>
-      <div class="memo-stat red"><div class="memo-stat-v" id="memoCombo">0</div><div class="memo-stat-l">Combo</div></div>
-    </div>
-    <div class="memo-progress"><div class="memo-progress-fill" id="memoProgressFill" style="width:0%"></div></div>
-    ${best?`<div class="memo-best">🏆 Récord: <span>${best.moves} mov</span> en <span>${best.time}s</span></div>`:''}
-    <div id="memoGridWrap" style="position:relative;"><div id="memoGrid" class="memo-grid memo-grid-4"></div></div>
-    <div class="memo-controls">
-      <button class="btn-memo btn-memo-start" onclick="startMemorama()">▶ Nuevo Juego</button>
-    </div>
-  </div>`;
+      <div class="diff-btns">
+        <div class="diff-btn active" id="memoDiffEasy" onclick="setMemoDiff('easy')"><span class="diff-ico">🟢</span>Fácil 4×4</div>
+        <div class="diff-btn" id="memoDiffMed" onclick="setMemoDiff('medium')"><span class="diff-ico">🟡</span>Medio 6×4</div>
+        <div class="diff-btn" id="memoDiffHard" onclick="setMemoDiff('hard')"><span class="diff-ico">🔴</span>Difícil 6×6</div>
+      </div>
+      <div class="memo-best" id="memoBest"></div>
+      <div class="memo-progress"><div class="memo-progress-fill" id="memoProgress" style="width:0%"></div></div>
+      <div class="memo-grid memo-grid-4" id="memoGrid" style="position:relative;"></div>
+      <div class="memo-controls"><button class="btn-memo btn-memo-start" onclick="startMemorama()">▶ Iniciar</button></div>
+    </div>`;
+  document.getElementById('gameContent').innerHTML=html;
+  updateMemoBest();
   startMemorama();
 }
-
-window.setMemoMode=function(mode,btn){
-  memoMode=mode;
-  document.querySelectorAll('.memo-mode-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  initMemorama();
-};
-window.setMemoDiff=function(d,btn){
-  memoDiff=d;
-  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  // Update best score display
-  const best=getMemoBest();
-  const bestEl=document.querySelector('.memo-best');
-  if(bestEl){bestEl.innerHTML=best?`🏆 Récord: <span>${best.moves} mov</span> en <span>${best.time}s</span>`:'🏆 Sin récord aún';}
-  startMemorama();
-};
-
+window.setMemoMode=function(m){memoMode=m;document.getElementById('memoModeClassic').classList.toggle('active',m==='classic');document.getElementById('memoModeMedical').classList.toggle('active',m==='medical');updateMemoBest();startMemorama();};
+window.setMemoDiff=function(d){memoDiff=d;document.getElementById('memoDiffEasy').classList.toggle('active',d==='easy');document.getElementById('memoDiffMed').classList.toggle('active',d==='medium');document.getElementById('memoDiffHard').classList.toggle('active',d==='hard');updateMemoBest();startMemorama();};
+function updateMemoBest(){
+  const k='ms_memo_best_'+memoMode+'_'+memoDiff;const best=JSON.parse(localStorage.getItem(k)||'null');
+  const el=document.getElementById('memoBest');if(!el)return;
+  if(best)el.innerHTML='🏆 Mejor: <span>'+best.moves+'</span> movs · <span>'+Math.floor(best.time/60)+':'+String(best.time%60).padStart(2,'0')+'</span>';
+  else el.innerHTML='🏆 Sin récord aún · ¡Establece uno!';
+}
 window.startMemorama=function(){
-  if(memoTimer)clearInterval(memoTimer);
-  memoFlipped=[];memoMatched=0;memoMoves=0;memoSeconds=0;memoLocked=false;memoCombo=0;memoBestCombo=0;
-
-  // Remove any victory overlay
-  const oldOverlay=document.querySelector('.memo-complete-overlay');
-  if(oldOverlay)oldOverlay.remove();
-
-  let cards=[];
-  if(memoMode==='classic'){
-    const symbols=MEMO_CLASSIC[memoDiff];
-    memoTotalPairs=symbols.length;
-    symbols.forEach(s=>{cards.push({id:s,display:s,label:''});cards.push({id:s,display:s,label:''});});
-  } else {
-    const pairs=MEMO_MEDICAL[memoDiff];
-    memoTotalPairs=pairs.length;
-    pairs.forEach((p,i)=>{
-      const pairId='pair_'+i;
-      cards.push({id:pairId,display:p.a.split(' ')[0],label:p.a.replace(/^[^\s]+\s/,''),isA:true});
-      cards.push({id:pairId,display:p.b.split(' ')[0],label:p.b.replace(/^[^\s]+\s/,''),isA:false});
-    });
-  }
-  // Shuffle
-  cards.sort(()=>Math.random()-.5);
-  memoCards=cards;
-
-  // Grid columns
-  const total=cards.length;
-  let cols=4;
-  if(total>24)cols=6;
-  else if(total>16)cols=5;
-
+  if(memoTimer){clearInterval(memoTimer);memoTimer=null;}
+  const pool=(memoMode==='classic'?MEMO_CLASSIC:MEMO_MEDICAL)[memoDiff];
+  memoCards=[...pool,...pool].sort(()=>Math.random()-0.5);
+  memoFlipped=[];memoMatched=0;memoMoves=0;memoSeconds=0;memoTotal=memoCards.length/2;
   const grid=document.getElementById('memoGrid');if(!grid)return;
-  grid.className='memo-grid memo-grid-'+cols;grid.innerHTML='';
-
-  cards.forEach((c,i)=>{
-    const card=document.createElement('div');
-    card.className='memo-card entering';
-    card.style.animationDelay=(i*30)+'ms';
-    card.dataset.idx=i;card.dataset.val=c.id;
-    const backContent=c.label
-      ?`<span style="font-size:22px;">${c.display}</span><span class="memo-back-label">${esc(c.label)}</span>`
-      :`<span style="font-size:26px;">${c.display}</span>`;
-    card.innerHTML=`<div class="memo-inner"><div class="memo-front"></div><div class="memo-back">${backContent}</div></div>`;
-    card.onclick=()=>flipMemo(card);
+  grid.className='memo-grid '+(memoDiff==='easy'?'memo-grid-4':memoDiff==='medium'?'memo-grid-6':'memo-grid-6');
+  grid.innerHTML='';
+  memoCards.forEach((c,i)=>{
+    const card=document.createElement('div');card.className='memo-card entering';card.style.animationDelay=(i*30)+'ms';card.dataset.i=i;card.dataset.e=c.e;
+    card.innerHTML='<div class="memo-inner"><div class="memo-front"></div><div class="memo-back"><div style="font-size:24px;">'+c.e+'</div><div class="memo-back-label">'+c.l+'</div></div></div>';
+    card.onclick=()=>flipMemo(i);
     grid.appendChild(card);
   });
-
-  // Reset stats UI
-  const mv=document.getElementById('memoMoves');if(mv)mv.textContent='0';
-  const tm=document.getElementById('memoTime');if(tm)tm.textContent='0s';
-  const pr=document.getElementById('memoPairs');if(pr)pr.textContent='0/'+memoTotalPairs;
-  const cb=document.getElementById('memoCombo');if(cb)cb.textContent='0';
-  const pf=document.getElementById('memoProgressFill');if(pf)pf.style.width='0%';
-
-  memoTimer=setInterval(()=>{
-    memoSeconds++;
-    const el=document.getElementById('memoTime');
-    if(el){
-      if(memoSeconds<60)el.textContent=memoSeconds+'s';
-      else el.textContent=Math.floor(memoSeconds/60)+'m '+memoSeconds%60+'s';
-    }
-  },1000);
+  document.getElementById('memoMoves').textContent='0';
+  document.getElementById('memoMatched').textContent='0/'+memoTotal;
+  document.getElementById('memoTime').textContent='0:00';
+  document.getElementById('memoProgress').style.width='0%';
+  document.getElementById('memoSub').textContent='¡Encuentra los pares!';
+  memoTimer=setInterval(()=>{memoSeconds++;document.getElementById('memoTime').textContent=Math.floor(memoSeconds/60)+':'+String(memoSeconds%60).padStart(2,'0');},1000);
 };
-
-function memoPlaySound(type){
-  try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    if(type==='flip'){o.frequency.value=600;o.type='sine';g.gain.setValueAtTime(.08,ctx.currentTime);g.gain.linearRampToValueAtTime(0,ctx.currentTime+.1);o.start();o.stop(ctx.currentTime+.1);}
-    else if(type==='match'){
-      [523,659,784].forEach((f,i)=>{const o2=ctx.createOscillator(),g2=ctx.createGain();o2.connect(g2);g2.connect(ctx.destination);o2.frequency.value=f;o2.type='sine';g2.gain.setValueAtTime(0,ctx.currentTime+i*.08);g2.gain.linearRampToValueAtTime(.15,ctx.currentTime+i*.08+.03);g2.gain.linearRampToValueAtTime(0,ctx.currentTime+i*.08+.2);o2.start(ctx.currentTime+i*.08);o2.stop(ctx.currentTime+i*.08+.25);});
-    } else if(type==='wrong'){o.frequency.value=200;o.type='sawtooth';g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.linearRampToValueAtTime(0,ctx.currentTime+.15);o.start();o.stop(ctx.currentTime+.15);}
-    else if(type==='win'){
-      [523,659,784,1047].forEach((f,i)=>{const o2=ctx.createOscillator(),g2=ctx.createGain();o2.connect(g2);g2.connect(ctx.destination);o2.frequency.value=f;o2.type='sine';g2.gain.setValueAtTime(0,ctx.currentTime+i*.12);g2.gain.linearRampToValueAtTime(.2,ctx.currentTime+i*.12+.04);g2.gain.linearRampToValueAtTime(0,ctx.currentTime+i*.12+.35);o2.start(ctx.currentTime+i*.12);o2.stop(ctx.currentTime+i*.12+.4);});
-    }
-  }catch(e){}
-}
-
-window.flipMemo=function(card){
-  if(memoLocked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
-  memoPlaySound('flip');
-  card.classList.add('flipped');memoFlipped.push(card);
-
+function memoPlaySound(type){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);if(type==='match'){o.frequency.value=659;o.type='sine';g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.2,ctx.currentTime+.02);g.gain.linearRampToValueAtTime(0,ctx.currentTime+.3);}else{o.frequency.value=220;o.type='square';g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.1,ctx.currentTime+.02);g.gain.linearRampToValueAtTime(0,ctx.currentTime+.15);}o.start();o.stop(ctx.currentTime+.3);}catch(e){}}
+window.flipMemo=function(i){
+  const cards=document.querySelectorAll('.memo-card');const card=cards[i];
+  if(!card||card.classList.contains('flipped')||card.classList.contains('matched')||memoFlipped.length>=2)return;
+  card.classList.add('flipped');memoFlipped.push(i);
   if(memoFlipped.length===2){
-    memoMoves++;
-    const mv=document.getElementById('memoMoves');if(mv)mv.textContent=memoMoves;
-    const c1=memoFlipped[0],c2=memoFlipped[1];
-    const isMatch=c1.dataset.val===c2.dataset.val;
-
-    if(isMatch){
-      memoLocked=true;
+    memoMoves++;document.getElementById('memoMoves').textContent=memoMoves;
+    const [a,b]=memoFlipped;
+    if(memoCards[a].e===memoCards[b].e){
       setTimeout(()=>{
+        cards[a].classList.add('matched','match-anim');cards[b].classList.add('matched','match-anim');
+        memoMatched++;memoFlipped=[];
+        document.getElementById('memoMatched').textContent=memoMatched+'/'+memoTotal;
+        document.getElementById('memoProgress').style.width=(memoMatched/memoTotal*100)+'%';
         memoPlaySound('match');
-        c1.classList.add('matched','match-anim');
-        c2.classList.add('matched','match-anim');
-        memoFlipped=[];memoMatched++;memoCombo++;
-        if(memoCombo>memoBestCombo)memoBestCombo=memoCombo;
-
-        const pr=document.getElementById('memoPairs');if(pr)pr.textContent=memoMatched+'/'+memoTotalPairs;
-        const cb=document.getElementById('memoCombo');if(cb){cb.textContent=memoCombo;if(memoCombo>=3)cb.style.color='var(--gold)';}
-        const pf=document.getElementById('memoProgressFill');if(pf)pf.style.width=Math.round((memoMatched/memoTotalPairs)*100)+'%';
-
-        if(memoCombo>=3)showToast('🔥','¡Combo x'+memoCombo+'! 🧠',2000);
-
-        // Check win
-        if(memoMatched>=memoTotalPairs){
-          clearInterval(memoTimer);
-          memoPlaySound('win');
-          const isRecord=setMemoBest(memoMoves,memoSeconds);
-          setTimeout(()=>showMemoVictory(isRecord),400);
-        }
-        memoLocked=false;
-      },300);
+        if(memoMatched===memoTotal){clearInterval(memoTimer);memoTimer=null;showMemoVictory();}
+      },400);
     } else {
-      memoCombo=0;
-      const cb=document.getElementById('memoCombo');if(cb){cb.textContent='0';cb.style.color='';}
-      memoLocked=true;
       setTimeout(()=>{
+        cards[a].classList.add('wrong-anim');cards[b].classList.add('wrong-anim');
         memoPlaySound('wrong');
-        c1.classList.add('wrong-anim');c2.classList.add('wrong-anim');
         setTimeout(()=>{
-          c1.classList.remove('flipped','wrong-anim');
-          c2.classList.remove('flipped','wrong-anim');
-          memoFlipped=[];memoLocked=false;
-        },400);
+          cards[a].classList.remove('flipped','wrong-anim');cards[b].classList.remove('flipped','wrong-anim');
+          memoFlipped=[];
+        },500);
       },600);
     }
   }
 };
-
-function showMemoVictory(isRecord){
-  const wrap=document.getElementById('memoGridWrap');if(!wrap)return;
-  const timeStr=memoSeconds<60?memoSeconds+'s':Math.floor(memoSeconds/60)+'m '+memoSeconds%60+'s';
-  const stars=memoMoves<=memoTotalPairs?'⭐⭐⭐':memoMoves<=memoTotalPairs*1.5?'⭐⭐':'⭐';
-  const msgs=['¡Memoria de acero!','¡Crack del memorama!','¡Tu hipocampo está en forma!','¡Cerebro de médico élite!'];
-  const msg=msgs[Math.floor(Math.random()*msgs.length)];
-  const overlay=document.createElement('div');
-  overlay.className='memo-complete-overlay';
-  overlay.innerHTML=`
-    <div class="memo-complete-emoji">${stars==='⭐⭐⭐'?'🏆':'🎉'}</div>
-    <div class="memo-complete-title">${msg}</div>
-    <div style="font-size:20px;margin-bottom:6px;">${stars}</div>
-    <div class="memo-complete-stats">${memoMoves} movimientos · ${timeStr}</div>
-    <div class="memo-complete-stats">Mejor combo: x${memoBestCombo}</div>
-    <div class="memo-complete-record">${isRecord?'🥇 ¡NUEVO RÉCORD PERSONAL!':''}</div>
-    <div style="display:flex;gap:8px;">
-      <button class="btn-memo btn-memo-start" onclick="startMemorama()">▶ Jugar de nuevo</button>
-      <button class="btn-memo" onclick="closeGame()">← Volver</button>
-    </div>`;
-  wrap.appendChild(overlay);
-  showToast('🧩',`Memorama completado: ${memoMoves} mov, ${timeStr} ${isRecord?'· ¡NUEVO RÉCORD! 🥇':''}`,5000);
+function showMemoVictory(){
+  const k='ms_memo_best_'+memoMode+'_'+memoDiff;const best=JSON.parse(localStorage.getItem(k)||'null');
+  let isNewRecord=false;
+  if(!best||memoMoves<best.moves||(memoMoves===best.moves&&memoSeconds<best.time)){
+    localStorage.setItem(k,JSON.stringify({moves:memoMoves,time:memoSeconds}));
+    isNewRecord=true;
+  }
+  const grid=document.getElementById('memoGrid');
+  const ov=document.createElement('div');ov.className='memo-complete-overlay';
+  ov.innerHTML=`
+    <div class="memo-complete-emoji">🎉</div>
+    <div class="memo-complete-title">¡Completado!</div>
+    <div class="memo-complete-stats">${memoMoves} movs · ${Math.floor(memoSeconds/60)}:${String(memoSeconds%60).padStart(2,'0')}</div>
+    <div class="memo-complete-record">${isNewRecord?'🏆 ¡Nuevo récord!':'Vuelve a intentar para mejorar 💪'}</div>
+    <button class="btn-memo btn-memo-start" onclick="startMemorama()">↺ Jugar de nuevo</button>`;
+  grid.appendChild(ov);
+  updateMemoBest();
 }
 
 // ── CHESS ──
-let chessBoard=[],chessSelected=null,chessTurn='white',chessGameOver=false,chessGameInt=null,chessMode='local',chessLastMove=null;
-const CHESS_PIECES={wK:'♔',wQ:'♕',wR:'♖',wB:'♗',wN:'♘',wP:'♙',bK:'♚',bQ:'♛',bR:'♜',bB:'♝',bN:'♞',bP:'♟'};
+const CHESS_PIECES={'wK':'♔','wQ':'♕','wR':'♖','wB':'♗','wN':'♘','wP':'♙','bK':'♚','bQ':'♛','bR':'♜','bB':'♝','bN':'♞','bP':'♟'};
+let chessBoard=null,chessTurn='w',chessSelected=null,chessLastMove=null,chessCaptured={w:[],b:[]},chessMode='ai',chessGameInt=null;
 function initChess(){
-  const gc=document.getElementById('gameContent');
-  gc.innerHTML=`<div class="chess-wrap">
-      <div class="chess-mode-bar"><button class="chess-mode-btn active" onclick="setChessMode('local',this)">👥 2 Jugadores</button><button class="chess-mode-btn" onclick="setChessMode('ai',this)">🤖 vs IA (fácil)</button></div>
-      <div class="chess-info"><div>Turno: <strong id="chessTurnLbl" style="color:var(--cyan)">Blancas ♔</strong></div><button class="btn-chess" onclick="resetChess()">↺ Nueva partida</button></div>
-      <div class="chess-status" id="chessStatus"></div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:6px;">Capturadas: <span id="chessCaptured" class="chess-captured"></span></div>
-      <div id="chessBoard" class="chess-board"></div></div>`;
+  const html=`<div class="chess-wrap">
+    <div class="chess-mode-bar">
+      <button class="chess-mode-btn active" id="chessModeAI" onclick="setChessMode('ai')">🤖 vs CPU</button>
+      <button class="chess-mode-btn" id="chessModePvp" onclick="setChessMode('pvp')">👥 2 jugadores</button>
+    </div>
+    <div class="chess-info"><span>Capturadas blancas:</span><div class="chess-captured" id="chessCapWhite"></div></div>
+    <div class="chess-status" id="chessStatus">Turno: Blancas ♔</div>
+    <div class="chess-board" id="chessBoard"></div>
+    <div class="chess-info" style="margin-top:8px;"><span>Capturadas negras:</span><div class="chess-captured" id="chessCapBlack"></div></div>
+    <div style="display:flex;gap:8px;margin-top:10px;justify-content:center;"><button class="btn-chess" onclick="resetChess()">↺ Nueva partida</button></div>
+  </div>`;
+  document.getElementById('gameContent').innerHTML=html;
   resetChess();
 }
-window.setChessMode=function(m,btn){chessMode=m;document.querySelectorAll('.chess-mode-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');resetChess();};
+window.setChessMode=function(m){chessMode=m;document.getElementById('chessModeAI').classList.toggle('active',m==='ai');document.getElementById('chessModePvp').classList.toggle('active',m==='pvp');resetChess();};
 window.resetChess=function(){
-  chessTurn='white';chessSelected=null;chessGameOver=false;chessLastMove=null;
-  if(chessGameInt)clearInterval(chessGameInt);
-  chessBoard=[['bR','bN','bB','bQ','bK','bB','bN','bR'],['bP','bP','bP','bP','bP','bP','bP','bP'],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],['wP','wP','wP','wP','wP','wP','wP','wP'],['wR','wN','wB','wQ','wK','wB','wN','wR']];
+  chessBoard=[
+    ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+    ['bP','bP','bP','bP','bP','bP','bP','bP'],
+    ['','','','','','','',''],
+    ['','','','','','','',''],
+    ['','','','','','','',''],
+    ['','','','','','','',''],
+    ['wP','wP','wP','wP','wP','wP','wP','wP'],
+    ['wR','wN','wB','wQ','wK','wB','wN','wR']
+  ];
+  chessTurn='w';chessSelected=null;chessLastMove=null;chessCaptured={w:[],b:[]};
   renderChess();
-  const tl=document.getElementById('chessTurnLbl');if(tl)tl.textContent='Blancas ♔';
-  const cs=document.getElementById('chessStatus');if(cs)cs.textContent='';
-  const cc=document.getElementById('chessCaptured');if(cc)cc.textContent='';
 };
 function renderChess(){
-  const board=document.getElementById('chessBoard');if(!board)return;board.innerHTML='';
-  const validMoves=chessSelected?getValidMoves(chessSelected.r,chessSelected.c):[];
-  // FIX Bug #14: handle null chessLastMove safely
-  const lmSet=chessLastMove?new Set([chessLastMove.fr+','+chessLastMove.fc,chessLastMove.tr+','+chessLastMove.tc]):new Set();
+  const b=document.getElementById('chessBoard');if(!b)return;b.innerHTML='';
   for(let r=0;r<8;r++)for(let c=0;c<8;c++){
-    const cell=document.createElement('div');const isLight=(r+c)%2===0;
-    // FIX Bug #14: use chess-cell, light/dark, selected, valid-move, last-move
-    cell.className='chess-cell '+(isLight?'light':'dark');
-    const piece=chessBoard[r][c];if(piece)cell.textContent=CHESS_PIECES[piece];
-    if(chessSelected&&chessSelected.r===r&&chessSelected.c===c)cell.classList.add('selected');
-    if(validMoves.some(m=>m.r===r&&m.c===c))cell.classList.add('valid-move');
-    if(lmSet.has(r+','+c))cell.classList.add('last-move');
-    cell.onclick=()=>handleChessClick(r,c);board.appendChild(cell);
+    const cell=document.createElement('div');
+    cell.className='chess-cell '+((r+c)%2===0?'light':'dark');
+    if(chessSelected&&chessSelected[0]===r&&chessSelected[1]===c)cell.classList.add('selected');
+    if(chessLastMove&&((chessLastMove.from[0]===r&&chessLastMove.from[1]===c)||(chessLastMove.to[0]===r&&chessLastMove.to[1]===c)))cell.classList.add('last-move');
+    if(chessSelected){
+      const moves=getValidMoves(chessSelected[0],chessSelected[1]);
+      if(moves.some(m=>m[0]===r&&m[1]===c))cell.classList.add('valid-move');
+    }
+    const p=chessBoard[r][c];if(p)cell.textContent=CHESS_PIECES[p];
+    cell.onclick=()=>handleChessClick(r,c);
+    b.appendChild(cell);
   }
+  document.getElementById('chessStatus').textContent='Turno: '+(chessTurn==='w'?'Blancas ♔':'Negras ♚');
+  document.getElementById('chessCapWhite').textContent=chessCaptured.w.map(p=>CHESS_PIECES[p]).join(' ');
+  document.getElementById('chessCapBlack').textContent=chessCaptured.b.map(p=>CHESS_PIECES[p]).join(' ');
 }
-window.handleChessClick=function(r,c){
-  if(chessGameOver)return;const piece=chessBoard[r][c];const color=piece?piece[0]==='w'?'white':'black':null;
+function handleChessClick(r,c){
+  const p=chessBoard[r][c];
   if(chessSelected){
-    const valid=getValidMoves(chessSelected.r,chessSelected.c);const move=valid.find(m=>m.r===r&&m.c===c);
-    if(move){const fromR=chessSelected.r,fromC=chessSelected.c;applyMove(fromR,fromC,r,c);chessSelected=null;chessTurn=chessTurn==='white'?'black':'white';chessLastMove={fr:fromR,fc:fromC,tr:r,tc:c};const tl=document.getElementById('chessTurnLbl');if(tl)tl.textContent=chessTurn==='white'?'Blancas ♔':'Negras ♚';renderChess();if(chessMode==='ai'&&chessTurn==='black'&&!chessGameOver)setTimeout(()=>aiMoveChess(),600);return;}
-    chessSelected=null;
-  }
-  if(piece&&color===chessTurn)chessSelected={r,c};renderChess();
-};
+    const moves=getValidMoves(chessSelected[0],chessSelected[1]);
+    if(moves.some(m=>m[0]===r&&m[1]===c)){
+      applyMove(chessSelected[0],chessSelected[1],r,c);
+      chessSelected=null;
+      renderChess();
+      if(chessMode==='ai'&&chessTurn==='b'){setTimeout(aiMoveChess,500);}
+    } else if(p&&p[0]===chessTurn){chessSelected=[r,c];renderChess();}
+    else{chessSelected=null;renderChess();}
+  } else if(p&&p[0]===chessTurn){chessSelected=[r,c];renderChess();}
+}
 function applyMove(fr,fc,tr,tc){
-  const piece=chessBoard[fr][fc],captured=chessBoard[tr][tc];
-  chessBoard[tr][tc]=piece;chessBoard[fr][fc]=null;chessLastMove={fr,fc,tr,tc};
-  if(piece==='wP'&&tr===0)chessBoard[tr][tc]='wQ';if(piece==='bP'&&tr===7)chessBoard[tr][tc]='bQ';
-  if(captured==='wK'||captured==='bK'){chessGameOver=true;const winner=captured==='wK'?'Negras':'Blancas';setTimeout(()=>{const cs=document.getElementById('chessStatus');if(cs){cs.textContent='¡'+winner+' ganan! 🎉';cs.style.color='var(--gold)';}showToast('♟️',`¡${winner} ganaron la partida!`,5000);},100);}
-  const cc=document.getElementById('chessCaptured');if(cc&&captured)cc.textContent+=(CHESS_PIECES[captured]||'');
+  const piece=chessBoard[fr][fc];const captured=chessBoard[tr][tc];
+  if(captured)chessCaptured[chessTurn==='w'?'b':'w'].push(captured);
+  chessBoard[tr][tc]=piece;chessBoard[fr][fc]='';
+  // promote pawn to queen automatic
+  if(piece==='wP'&&tr===0)chessBoard[tr][tc]='wQ';
+  if(piece==='bP'&&tr===7)chessBoard[tr][tc]='bQ';
+  chessLastMove={from:[fr,fc],to:[tr,tc]};
+  chessTurn=chessTurn==='w'?'b':'w';
+  if(captured&&(captured==='wK'||captured==='bK')){
+    setTimeout(()=>{
+      document.getElementById('chessStatus').innerHTML='👑 ¡'+(captured==='wK'?'Negras':'Blancas')+' ganan!';
+    },50);
+  }
 }
 function getValidMoves(r,c){
-  const piece=chessBoard[r][c];if(!piece)return[];const color=piece[0],type=piece[1],moves=[];
-  const inBounds=(r,c)=>r>=0&&r<8&&c>=0&&c<8;const isEmpty=(r,c)=>inBounds(r,c)&&!chessBoard[r][c];
-  const isEnemy=(r,c,col)=>inBounds(r,c)&&chessBoard[r][c]&&chessBoard[r][c][0]!==col;
-  const slide=(dr,dc)=>{let nr=r+dr,nc=c+dc;while(inBounds(nr,nc)){if(!chessBoard[nr][nc])moves.push({r:nr,c:nc});else{if(isEnemy(nr,nc,color))moves.push({r:nr,c:nc});break;}nr+=dr;nc+=dc;}};
-  if(type==='P'){const dir=color==='w'?-1:1;const start=color==='w'?6:1;if(isEmpty(r+dir,c))moves.push({r:r+dir,c});if(r===start&&isEmpty(r+dir,c)&&isEmpty(r+2*dir,c))moves.push({r:r+2*dir,c});if(isEnemy(r+dir,c-1,color))moves.push({r:r+dir,c:c-1});if(isEnemy(r+dir,c+1,color))moves.push({r:r+dir,c:c+1});}
-  else if(type==='N'){[[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]].forEach(([dr,dc])=>{if(inBounds(r+dr,c+dc)&&(!chessBoard[r+dr][c+dc]||isEnemy(r+dr,c+dc,color)))moves.push({r:r+dr,c:c+dc});});}
-  else if(type==='R'){[[1,0],[-1,0],[0,1],[0,-1]].forEach(([dr,dc])=>slide(dr,dc));}
-  else if(type==='B'){[[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>slide(dr,dc));}
-  else if(type==='Q'){[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>slide(dr,dc));}
-  else if(type==='K'){[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>{if(inBounds(r+dr,c+dc)&&(!chessBoard[r+dr][c+dc]||isEnemy(r+dr,c+dc,color)))moves.push({r:r+dr,c:c+dc});});}
+  const p=chessBoard[r][c];if(!p)return[];const color=p[0],type=p[1];const moves=[];
+  function add(r2,c2){if(r2<0||r2>7||c2<0||c2>7)return false;const dest=chessBoard[r2][c2];if(!dest){moves.push([r2,c2]);return true;}if(dest[0]!==color)moves.push([r2,c2]);return false;}
+  function ray(dr,dc){let r2=r+dr,c2=c+dc;while(r2>=0&&r2<8&&c2>=0&&c2<8){const dest=chessBoard[r2][c2];if(!dest){moves.push([r2,c2]);}else{if(dest[0]!==color)moves.push([r2,c2]);break;}r2+=dr;c2+=dc;}}
+  if(type==='P'){
+    const dir=color==='w'?-1:1;const startRow=color==='w'?6:1;
+    if(r+dir>=0&&r+dir<8&&!chessBoard[r+dir][c]){moves.push([r+dir,c]);if(r===startRow&&!chessBoard[r+2*dir][c])moves.push([r+2*dir,c]);}
+    for(const dc of[-1,1]){const r2=r+dir,c2=c+dc;if(r2>=0&&r2<8&&c2>=0&&c2<8&&chessBoard[r2][c2]&&chessBoard[r2][c2][0]!==color)moves.push([r2,c2]);}
+  } else if(type==='N'){[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>add(r+dr,c+dc));}
+  else if(type==='B'){ray(-1,-1);ray(-1,1);ray(1,-1);ray(1,1);}
+  else if(type==='R'){ray(-1,0);ray(1,0);ray(0,-1);ray(0,1);}
+  else if(type==='Q'){ray(-1,-1);ray(-1,1);ray(1,-1);ray(1,1);ray(-1,0);ray(1,0);ray(0,-1);ray(0,1);}
+  else if(type==='K'){for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)if(dr||dc)add(r+dr,c+dc);}
   return moves;
 }
 function aiMoveChess(){
-  if(chessGameOver)return;const allMoves=[];
-  for(let r=0;r<8;r++)for(let c=0;c<8;c++){const p=chessBoard[r][c];if(p&&p[0]==='b'){const moves=getValidMoves(r,c);moves.forEach(m=>allMoves.push({fr:r,fc:c,tr:m.r,tc:m.c,piece:p,target:chessBoard[m.r][m.c]}));}}
-  if(!allMoves.length)return;const captures=allMoves.filter(m=>m.target);
-  const chosen=captures.length>0?captures[Math.floor(Math.random()*captures.length)]:allMoves[Math.floor(Math.random()*allMoves.length)];
-  applyMove(chosen.fr,chosen.fc,chosen.tr,chosen.tc);chessTurn='white';chessSelected=null;
-  const tl=document.getElementById('chessTurnLbl');if(tl)tl.textContent='Blancas ♔';renderChess();
+  const allMoves=[];
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    if(chessBoard[r][c]&&chessBoard[r][c][0]==='b'){
+      const valid=getValidMoves(r,c);
+      valid.forEach(m=>{
+        let score=Math.random();
+        const target=chessBoard[m[0]][m[1]];
+        if(target){const vals={'P':1,'N':3,'B':3,'R':5,'Q':9,'K':100};score+=vals[target[1]]*10;}
+        allMoves.push({fr:r,fc:c,tr:m[0],tc:m[1],score});
+      });
+    }
+  }
+  if(!allMoves.length)return;
+  allMoves.sort((a,b)=>b.score-a.score);
+  const best=allMoves[0];
+  applyMove(best.fr,best.fc,best.tr,best.tc);
+  renderChess();
 }
 
 // ── TRIVIA ──
 const TRIVIA_QUESTIONS=[
-  {cat:'Bioquímica',q:'¿Cuál es el producto final de la glucólisis?',opts:['Piruvato','Lactato','Acetil-CoA','Glucosa-6-P'],ans:0,exp:'La glucólisis convierte 1 mol de glucosa en 2 mol de piruvato, produciendo 2 ATP netos.'},
-  {cat:'Bioquímica',q:'¿Qué vitamina actúa como cofactor en la descarboxilación oxidativa del piruvato?',opts:['Vitamina C','Tiamina (B1)','Riboflavina (B2)','Niacina (B3)'],ans:1,exp:'La tiamina pirofosfato (TPP) es cofactor del complejo piruvato deshidrogenasa.'},
-  {cat:'Fisiología',q:'¿Cuál es el valor normal del pH arterial?',opts:['7.25-7.35','7.35-7.45','7.45-7.55','7.15-7.25'],ans:1,exp:'El pH arterial normal oscila entre 7.35 y 7.45.'},
-  {cat:'Anatomía',q:'¿Cuántos huesos tiene el carpo?',opts:['6','7','8','9'],ans:2,exp:'El carpo tiene 8 huesos distribuidos en 2 filas.'},
-  {cat:'Farmacología',q:'¿Cuál es el mecanismo de acción de los IBPs?',opts:['Bloquean receptor H2','Inhiben la H+/K+ ATPasa','Neutralizan el ácido','Estimulan la mucosa'],ans:1,exp:'Los IBPs inhiben irreversiblemente la H+/K+ ATPasa de las células parietales gástricas.'},
-  {cat:'Bioquímica',q:'¿Dónde ocurre el ciclo de Krebs?',opts:['Citoplasma','Membrana plasmática','Matriz mitocondrial','Retículo endoplásmico'],ans:2,exp:'El ciclo de Krebs ocurre en la matriz mitocondrial.'},
-  {cat:'Microbiología',q:'¿Qué tipo de bacteria es gram-negativa y en forma de bastón?',opts:['Staphylococcus aureus','E. coli','Streptococcus pneumoniae','Bacillus anthracis'],ans:1,exp:'E. coli es un bacilo gram-negativo de la familia Enterobacteriaceae.'},
-  {cat:'Fisiología',q:'¿Qué hormona secretan las células beta del páncreas?',opts:['Glucagón','Insulina','Somatostatina','Amilina'],ans:1,exp:'Las células beta de los islotes de Langerhans secretan insulina.'},
-  {cat:'Patología',q:'¿Cuál es el marcador tumoral del cáncer de próstata?',opts:['CEA','AFP','PSA','CA-125'],ans:2,exp:'El PSA se usa como marcador tumoral para el cáncer de próstata.'},
-  {cat:'Anatomía',q:'¿Por qué vaso pasa la bilis hacia el duodeno?',opts:['Conducto pancreático','Conducto de Wirsung','Conducto colédoco','Conducto hepático izquierdo'],ans:2,exp:'El conducto colédoco transporta la bilis hacia el duodeno.'},
-  {cat:'Embriología',q:'¿En qué semana se cierra el tubo neural?',opts:['Semana 2','Semana 4','Semana 6','Semana 8'],ans:1,exp:'El tubo neural cierra entre la 3ª y 4ª semanas (días 22-28).'},
-  {cat:'Bioquímica',q:'¿Cuántos ATP produce la oxidación completa de una glucosa?',opts:['2 ATP','20 ATP','30-32 ATP','36-38 ATP'],ans:2,exp:'La oxidación completa produce aproximadamente 30-32 ATP.'},
-  {cat:'Farmacología',q:'¿Cuál es el antídoto para la sobredosis de paracetamol?',opts:['Atropina','N-acetilcisteína','Naloxona','Flumazenil'],ans:1,exp:'La N-acetilcisteína restaura el glutatión hepático.'},
-  {cat:'Inmunología',q:'¿Qué tipo de hipersensibilidad es la reacción anafiláctica?',opts:['Tipo I','Tipo II','Tipo III','Tipo IV'],ans:0,exp:'La anafilaxia es hipersensibilidad Tipo I, mediada por IgE.'},
-  {cat:'Genética',q:'¿Cuántos cromosomas tiene el cariotipo humano normal?',opts:['44','46','48','23'],ans:1,exp:'El cariotipo humano normal es 46 cromosomas (44 autosomas + 2 sexuales).'},
+  {cat:'Bioquímica',q:'¿Cuál es la principal fuente de energía celular?',opts:['ADN','ATP','ARN','Glucosa'],correct:1,exp:'El ATP (adenosín trifosfato) es la molécula energética principal de la célula.'},
+  {cat:'Anatomía',q:'¿Cuántos huesos tiene un adulto humano?',opts:['206','220','185','198'],correct:0,exp:'El esqueleto adulto tiene 206 huesos (el bebé nace con ~270 que se fusionan).'},
+  {cat:'Fisiología',q:'¿Qué hormona regula la glucosa en sangre?',opts:['Adrenalina','Insulina','Cortisol','Tiroxina'],correct:1,exp:'La insulina, producida por el páncreas, regula los niveles de glucosa.'},
+  {cat:'Farmacología',q:'¿Cuál es el mecanismo de la aspirina?',opts:['Inhibe COX','Inhibe ECA','Bloquea receptores β','Activa receptores μ'],correct:0,exp:'La aspirina inhibe la ciclooxigenasa (COX), reduciendo la síntesis de prostaglandinas.'},
+  {cat:'Microbiología',q:'¿Qué tipo de microorganismo causa la tuberculosis?',opts:['Virus','Bacteria','Hongo','Parásito'],correct:1,exp:'Mycobacterium tuberculosis es una bacteria ácido-alcohol resistente.'},
+  {cat:'Anatomía',q:'¿Cuál es el hueso más largo del cuerpo?',opts:['Tibia','Húmero','Fémur','Cúbito'],correct:2,exp:'El fémur es el hueso más largo y fuerte del cuerpo humano.'},
+  {cat:'Patología',q:'¿Qué es la apoptosis?',opts:['Necrosis','Muerte celular programada','Mitosis','Hipertrofia'],correct:1,exp:'La apoptosis es la muerte celular programada y controlada.'},
+  {cat:'Fisiología',q:'¿Qué órgano produce la bilis?',opts:['Vesícula','Páncreas','Hígado','Bazo'],correct:2,exp:'El hígado produce la bilis; la vesícula solo la almacena.'},
+  {cat:'Inmunología',q:'¿Qué célula es la principal del sistema inmune adaptativo?',opts:['Macrófago','Linfocito','Neutrófilo','Basófilo'],correct:1,exp:'Los linfocitos B y T conforman el sistema inmune adaptativo.'},
+  {cat:'Bioquímica',q:'¿Qué vitamina se sintetiza con luz solar?',opts:['A','B12','C','D'],correct:3,exp:'La vitamina D se sintetiza en la piel con la exposición a UVB.'}
 ];
-let triviaIdx=0,triviaScore=0,triviaAnswered=false,triviaOrder=[];
-window.initTrivia=function(){
-  triviaScore=0;triviaAnswered=false;triviaOrder=[...Array(TRIVIA_QUESTIONS.length).keys()].sort(()=>Math.random()-.5);triviaIdx=0;
-  const gc=document.getElementById('gameContent');
-  gc.innerHTML=`<div class="trivia-wrap"><div class="trivia-score-bar"><span>Pregunta <span id="trQ">1</span>/${TRIVIA_QUESTIONS.length}</span><span>Puntos: <span id="trScore">0</span></span></div><div class="trivia-progress" id="trProgress"></div><div id="triviaQuestionWrap"></div><div id="triviaExplanation" class="trivia-explanation"></div><div style="display:flex;justify-content:center;"><button id="trNext" class="modal-btn" onclick="triviaNext()" style="display:none;">Siguiente →</button></div></div>`;
+let triviaCur=0,triviaScore=0,triviaAnswered=false,triviaPool=[];
+function initTrivia(){
+  triviaPool=[...TRIVIA_QUESTIONS].sort(()=>Math.random()-0.5).slice(0,10);
+  triviaCur=0;triviaScore=0;
+  const html=`<div class="trivia-wrap">
+    <div class="trivia-score-bar"><div>Pregunta <span id="triviaCur">1</span>/10</div><div>Puntaje: <span id="triviaScore">0</span></div></div>
+    <div class="trivia-progress" id="triviaProgress"></div>
+    <div class="trivia-question" id="triviaQ"></div>
+    <div class="trivia-options" id="triviaOpts"></div>
+    <div class="trivia-explanation" id="triviaExp"></div>
+    <div style="text-align:center;"><button class="btn-g btn-g-prim" id="triviaNext" onclick="triviaNext()" style="display:none;">Siguiente →</button></div>
+  </div>`;
+  document.getElementById('gameContent').innerHTML=html;
   renderTriviaQuestion();
-};
-function renderTriviaQuestion(){
-  if(triviaIdx>=TRIVIA_QUESTIONS.length){const pct=Math.round((triviaScore/TRIVIA_QUESTIONS.length)*100);const gc=document.getElementById('triviaQuestionWrap');if(!gc)return;gc.innerHTML=`<div style="text-align:center;padding:30px 0;"><div style="font-size:52px;margin-bottom:12px;">${pct>=80?'🏆':pct>=60?'🎯':'📚'}</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px;">${triviaScore}/${TRIVIA_QUESTIONS.length} correctas</div><div style="color:var(--text2);font-size:15px;margin-bottom:20px;">${pct>=80?'¡Excelente dominio!':pct>=60?'¡Muy bien! Sigue repasando.':'Hay áreas de oportunidad.'}</div><button class="modal-btn" onclick="initTrivia()">▶ Jugar de nuevo</button></div>`;document.getElementById('trNext').style.display='none';return;}
-  const q=TRIVIA_QUESTIONS[triviaOrder[triviaIdx]];triviaAnswered=false;
-  const wp=document.getElementById('triviaQuestionWrap');if(!wp)return;
-  wp.innerHTML=`<div class="trivia-question"><div class="trivia-category">${q.cat}</div><div class="trivia-q-text">${q.q}</div></div><div class="trivia-options">${q.opts.map((o,i)=>`<button class="trivia-opt" onclick="answerTrivia(${i},${q.ans})">${o}</button>`).join('')}</div>`;
-  document.getElementById('trQ').textContent=triviaIdx+1;document.getElementById('trNext').style.display='none';document.getElementById('triviaExplanation').style.display='none';
-  const prog=document.getElementById('trProgress');if(prog){prog.innerHTML='';triviaOrder.forEach((_,i)=>{const d=document.createElement('div');d.className='tpd'+(i<triviaIdx?' done-ok':'')+(i===triviaIdx?' current':'');prog.appendChild(d);});}
 }
-window.answerTrivia=function(chosen,correct){
+function renderTriviaQuestion(){
+  const q=triviaPool[triviaCur];if(!q){showTriviaEnd();return;}
+  triviaAnswered=false;
+  document.getElementById('triviaCur').textContent=triviaCur+1;
+  document.getElementById('triviaQ').innerHTML='<div class="trivia-category">'+q.cat+'</div><div class="trivia-q-text">'+esc(q.q)+'</div>';
+  const opts=document.getElementById('triviaOpts');opts.innerHTML='';
+  q.opts.forEach((opt,i)=>{
+    const b=document.createElement('button');b.className='trivia-opt';b.textContent=opt;b.onclick=()=>answerTrivia(i);
+    opts.appendChild(b);
+  });
+  const exp=document.getElementById('triviaExp');exp.style.display='none';exp.textContent='';
+  document.getElementById('triviaNext').style.display='none';
+  const prog=document.getElementById('triviaProgress');prog.innerHTML='';
+  for(let i=0;i<10;i++){const d=document.createElement('div');d.className='tpd '+(i<triviaCur?'ok':i===triviaCur?'cur':'');prog.appendChild(d);}
+}
+window.answerTrivia=function(i){
   if(triviaAnswered)return;triviaAnswered=true;
-  const q=TRIVIA_QUESTIONS[triviaOrder[triviaIdx]];
-  document.querySelectorAll('.trivia-opt').forEach((btn,i)=>{btn.disabled=true;if(i===correct)btn.classList.add('correct');else if(i===chosen)btn.classList.add('wrong');});
-  const ex=document.getElementById('triviaExplanation');if(ex){ex.textContent='💡 '+q.exp;ex.style.display='block';}
-  if(chosen===correct){triviaScore++;const s=document.getElementById('trScore');if(s)s.textContent=triviaScore;}
-  const nt=document.getElementById('trNext');if(nt)nt.style.display='block';
+  const q=triviaPool[triviaCur];const opts=document.querySelectorAll('.trivia-opt');
+  opts.forEach((b,j)=>{b.disabled=true;if(j===q.correct)b.classList.add('correct');else if(j===i)b.classList.add('wrong');});
+  if(i===q.correct){triviaScore++;document.getElementById('triviaScore').textContent=triviaScore;}
+  const exp=document.getElementById('triviaExp');exp.style.display='block';exp.innerHTML='<strong style="color:'+(i===q.correct?'var(--green)':'var(--red)')+';">'+(i===q.correct?'✓ Correcto.':'✗ Incorrecto.')+'</strong> '+esc(q.exp);
+  document.getElementById('triviaNext').style.display='inline-block';
 };
-window.triviaNext=function(){triviaIdx++;renderTriviaQuestion();};
-
-document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')enterRoom();});
+window.triviaNext=function(){triviaCur++;if(triviaCur>=triviaPool.length){showTriviaEnd();}else{renderTriviaQuestion();}};
+function showTriviaEnd(){
+  document.getElementById('gameContent').innerHTML=`<div class="trivia-wrap" style="text-align:center;">
+    <div style="font-size:60px;margin-bottom:14px;">${triviaScore>=8?'🏆':triviaScore>=5?'👏':'💪'}</div>
+    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">${triviaScore>=8?'¡Excelente!':triviaScore>=5?'¡Bien!':'¡Sigue estudiando!'}</div>
+    <div style="font-size:14px;color:var(--text2);margin-bottom:20px;">Puntaje: <strong style="color:var(--gold);font-size:20px;">${triviaScore}/10</strong></div>
+    <button class="btn-g btn-g-prim" onclick="initTrivia()">↺ Jugar de nuevo</button>
+  </div>`;
+}
 
 // ── LEADERBOARD ──
 let lbMode='day';
-window.switchLb=function(mode,btn){lbMode=mode;document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderLeaderboard();};
+window.switchLb=function(m,btn){lbMode=m;document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');renderLeaderboard();};
 function renderLeaderboard(){
-  const c=document.getElementById('lbList');if(!c)return;
+  if(!user)return;
   onValue(ref(db,'students'),snap=>{
-    const live=snap.val()||{};let entries=[];
-    if(lbMode==='day'){
-      Object.entries(live).forEach(([uid,s])=>{if(!s||!s.name)return;entries.push({uid,name:s.name,avatar:s.avatar||'🧑',subject:s.subject||'',pomos:s.pomos||0,hours:Math.round((s.pomos||0)*45/60*10)/10,online:true});});
-      if(myUid&&!entries.find(e=>e.uid===myUid))entries.push({uid:myUid,name:user,avatar:myAvatar,subject,pomos:pomosHoy,hours:Math.round(pomosHoy*45/60*10)/10,online:true});
+    const data=snap.val()||{};
+    const arr=Object.values(data).filter(s=>s&&s.name).map(s=>({name:s.name,subject:s.subject||'',avatar:s.avatar||'🧑',pomos:s.pomos||0,isMe:s.name===user}));
+    if(lbMode==='all'){
+      onValue(ref(db,'profiles'),psnap=>{
+        const profiles=psnap.val()||{};
+        const allTime=Object.entries(profiles).map(([k,p])=>{
+          const total=p.stats?.totalPomos||0;
+          let nm='';try{nm=k.replace(/^p_/,'').replace(/_\d{4}$/,'').replace(/_/g,' ');}catch(e){}
+          return {name:nm,subject:'',avatar:'🧑',pomos:total,isMe:k===_profileKey};
+        }).filter(x=>x.pomos>0);
+        allTime.sort((a,b)=>b.pomos-a.pomos);
+        drawLb(allTime.slice(0,8));
+      },{onlyOnce:true});
     } else {
-      onValue(ref(db,'leaderboard'),snap2=>{
-        const hist=snap2.val()||{};
-        Object.entries(hist).forEach(([uid,d])=>{if(!d||!d.name)return;entries.push({uid,name:d.name,avatar:d.avatar||'🧑',subject:d.subject||'',pomos:d.totalPomos||0,hours:Math.round((d.totalMins||0)/60*10)/10,online:!!live[uid]});});
-        if(!entries.length)entries.push({uid:myUid,name:user||'Tú',avatar:myAvatar,subject,pomos:loadStats().totalPomos||0,hours:Math.round((loadStats().totalMins||0)/60*10)/10,online:true});
-        drawLb(entries,c);
-      },{onlyOnce:true});return;
+      arr.sort((a,b)=>b.pomos-a.pomos);
+      drawLb(arr.slice(0,8));
     }
-    drawLb(entries,c);
   },{onlyOnce:true});
 }
-function drawLb(entries,c){
-  entries.sort((a,b)=>b.pomos-a.pomos);
-  if(!entries.length){c.innerHTML='<div class="lb-empty">Sin datos aún 📊</div>';return;}
-  const max=entries[0].pomos||1;c.innerHTML='';
-  entries.slice(0,10).forEach((e,i)=>{
-    const isMe=e.uid===myUid;const pos=i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}`;
-    const pct=Math.round((e.pomos/max)*100);
-    const div=document.createElement('div');
-    // FIX Bug #17: correct class names me and t1
-    div.className=`lb-row ${isMe?'me':''} ${i===0&&e.pomos>0?'t1':''}`;
-    div.innerHTML=`<div class="lb-pos">${pos}</div><div class="lb-av">${e.avatar}</div>
-      <div class="lb-info"><div class="lb-name">${esc(e.name)}${isMe?' <span style="font-size:9px;color:var(--cyan);">(Tú)</span>':''}</div>
-        <div class="lb-sub">${esc(e.subject)}${e.online?'<span style="color:var(--green);margin-left:4px;">●</span>':''}</div>
-        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${pct}%"></div></div></div>
-      <div class="lb-stats"><div class="lb-pomos">🍅 ${e.pomos}</div><div class="lb-hours">⏱ ${e.hours}h</div></div>`;
-    c.appendChild(div);
+function drawLb(arr){
+  const c=document.getElementById('lbList');if(!c)return;
+  if(!arr.length){c.innerHTML='<div class="lb-empty">Sin datos aún 🌱</div>';return;}
+  const max=Math.max(...arr.map(a=>a.pomos),1);
+  c.innerHTML='';
+  arr.forEach((s,i)=>{
+    const pos=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
+    const cls='lb-row'+(s.isMe?' me':'')+(i===0&&s.pomos>0?' t1':'');
+    c.innerHTML+=`<div class="${cls}">
+      <span class="lb-pos">${pos}</span>
+      <span class="lb-av">${s.avatar}</span>
+      <div class="lb-info">
+        <div class="lb-name">${esc(s.name)}${s.isMe?' (Tú)':''}</div>
+        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${(s.pomos/max*100)}%"></div></div>
+      </div>
+      <div class="lb-stats"><div class="lb-pomos">${s.pomos}🍅</div></div>
+    </div>`;
   });
 }
-function updateLeaderboard(){
-  if(!myUid||!user)return;const s=loadStats();
-  set(ref(db,`leaderboard/${myUid}`),{name:user,avatar:myAvatar,subject,totalPomos:s.totalPomos||0,totalMins:s.totalMins||0,lastSeen:Date.now()});
-}
+function updateLeaderboard(){renderLeaderboard();}
 
 // ── BREATHING ──
 const BREATH_TECHNIQUES={
-  '478':{name:'4-7-8',phases:[{label:'INHALA',duration:4,instruction:'Inhala lentamente por la nariz',color:'var(--cyan)'},{label:'RETÉN',duration:7,instruction:'Mantén el aire, sin tensión',color:'var(--gold)'},{label:'EXHALA',duration:8,instruction:'Exhala completamente por la boca',color:'var(--green)'}],totalCycles:4,desc:'Activa el nervio vago. Reduce ansiedad en 60 segundos.'},
-  'box':{name:'Box Breathing',phases:[{label:'INHALA',duration:4,instruction:'Inhala profundo por la nariz',color:'var(--cyan)'},{label:'RETÉN',duration:4,instruction:'Retén con pulmones llenos',color:'var(--gold)'},{label:'EXHALA',duration:4,instruction:'Exhala lento por la boca',color:'var(--red)'},{label:'RETÉN',duration:4,instruction:'Retén con pulmones vacíos',color:'var(--purple)'}],totalCycles:4,desc:'Técnica Navy SEAL. Recupera el control instantáneamente.'},
-  'coherent':{name:'Coherencia Cardiaca',phases:[{label:'INHALA',duration:5,instruction:'Inhala suavemente, llena el pecho',color:'var(--cyan)'},{label:'EXHALA',duration:5,instruction:'Exhala suavemente, vacía el pecho',color:'var(--green)'}],totalCycles:6,desc:'6 ciclos/min = coherencia corazón-cerebro. Calma profunda.'}
+  '478':{name:'4-7-8',phases:[{name:'Inhala',dur:4},{name:'Sostén',dur:7},{name:'Exhala',dur:8}],cycles:4,desc:'Relajación profunda. Reduce ansiedad rápido.'},
+  'box':{name:'Box 4×4',phases:[{name:'Inhala',dur:4},{name:'Sostén',dur:4},{name:'Exhala',dur:4},{name:'Pausa',dur:4}],cycles:5,desc:'Equilibrio mental. Usado por militares.'},
+  'coherent':{name:'Coherencia',phases:[{name:'Inhala',dur:5},{name:'Exhala',dur:5}],cycles:6,desc:'Sincroniza corazón y cerebro.'}
 };
-let breathTech=null,breathRunning=false,breathInt=null,breathPhaseIdx=0,breathCount=0,breathCycles=0;
-const BREATH_CIRCUMFERENCE=295; // 2*PI*47≈295
-
-// FIX Bug #7 & #8: use 'on' for arena and 'ab' for button
-window.selectBreath=function(tech,btn){
+let breathRunning=false,breathInt=null,breathCyclesDone=0,curBreathTech='478';
+window.selectBreath=function(t,btn){
+  curBreathTech=t;
   document.querySelectorAll('.breath-btn').forEach(b=>b.classList.remove('ab'));
-  btn.classList.add('ab');
-  breathTech=tech;if(breathRunning)stopBreath();
+  if(btn)btn.classList.add('ab');
   document.getElementById('breathArena').classList.add('on');
-  document.getElementById('breathPhaseLbl').textContent='Listo';
-  document.getElementById('breathCount').textContent='—';
-  document.getElementById('breathInstruction').textContent=BREATH_TECHNIQUES[tech].desc;
-  document.getElementById('breathCycles').textContent='';
-  document.getElementById('btnBreath').textContent='▶ Iniciar';
-  document.getElementById('breathRing').style.strokeDashoffset=BREATH_CIRCUMFERENCE;
-  document.getElementById('breathRing').style.stroke='var(--green)';
+  document.getElementById('breathInstruction').textContent=BREATH_TECHNIQUES[t].desc;
+  document.getElementById('breathCycles').textContent='Ciclos: 0/'+BREATH_TECHNIQUES[t].cycles;
 };
-window.toggleBreath=function(){if(!breathTech){showToast('🌬️','Elige una técnica primero',3000);return;}if(breathRunning)stopBreath();else startBreath();};
-function startBreath(){breathRunning=true;breathPhaseIdx=0;breathCount=0;breathCycles=0;document.getElementById('btnBreath').textContent='⏹ Detener';runBreathPhase();}
-function runBreathPhase(){
-  if(!breathRunning)return;const tech=BREATH_TECHNIQUES[breathTech];const phase=tech.phases[breathPhaseIdx];
-  breathCount=phase.duration;
-  document.getElementById('breathPhaseLbl').textContent=phase.label;document.getElementById('breathPhaseLbl').style.color=phase.color;
-  document.getElementById('breathInstruction').textContent=phase.instruction;document.getElementById('breathRing').style.stroke=phase.color;
-  document.getElementById('breathCount').textContent=breathCount;
-  const totalDur=phase.duration;let elapsed=0;
-  document.getElementById('breathRing').style.strokeDashoffset=BREATH_CIRCUMFERENCE;
-  if(breathInt)clearInterval(breathInt);
-  breathInt=setInterval(()=>{
-    if(!breathRunning){clearInterval(breathInt);return;}
-    elapsed++;breathCount=phase.duration-elapsed;document.getElementById('breathCount').textContent=breathCount;
-    document.getElementById('breathRing').style.strokeDashoffset=BREATH_CIRCUMFERENCE*(1-elapsed/totalDur);
-    if(elapsed>=totalDur){
-      clearInterval(breathInt);breathPhaseIdx=(breathPhaseIdx+1)%tech.phases.length;
-      if(breathPhaseIdx===0){breathCycles++;document.getElementById('breathCycles').textContent=`Ciclo ${breathCycles} / ${tech.totalCycles}`;
-        if(breathCycles>=tech.totalCycles){stopBreath();showToast('💙','¡Ejercicio completado! Tu sistema nervioso está más calmado 🌿',5000);return;}}
-      setTimeout(runBreathPhase,300);
+window.toggleBreath=function(){
+  if(breathRunning){stopBreath();}
+  else{
+    if(!document.getElementById('breathArena').classList.contains('on'))selectBreath('478',document.querySelector('.breath-btn'));
+    startBreath();
+  }
+};
+function startBreath(){
+  breathRunning=true;breathCyclesDone=0;
+  document.getElementById('btnBreath').textContent='⏸ Detener';
+  runBreathPhase(0);
+}
+function runBreathPhase(idx){
+  if(!breathRunning)return;
+  const tech=BREATH_TECHNIQUES[curBreathTech];
+  if(idx>=tech.phases.length){
+    breathCyclesDone++;
+    document.getElementById('breathCycles').textContent='Ciclos: '+breathCyclesDone+'/'+tech.cycles;
+    if(breathCyclesDone>=tech.cycles){
+      stopBreath();
+      showToast('🌬️','¡Sesión de respiración completa! 💚',3000);
+      return;
     }
+    idx=0;
+  }
+  const phase=tech.phases[idx];
+  document.getElementById('breathPhaseLbl').textContent=phase.name;
+  let sec=phase.dur;
+  document.getElementById('breathCount').textContent=sec;
+  const ring=document.getElementById('breathRing');
+  if(ring){ring.style.strokeDashoffset=297;ring.style.transition='stroke-dashoffset '+phase.dur+'s linear';setTimeout(()=>{ring.style.strokeDashoffset=0;},20);}
+  breathInt=setInterval(()=>{
+    sec--;
+    if(sec<=0){clearInterval(breathInt);runBreathPhase(idx+1);}
+    else{document.getElementById('breathCount').textContent=sec;}
   },1000);
 }
-function stopBreath(){breathRunning=false;if(breathInt)clearInterval(breathInt);document.getElementById('btnBreath').textContent='▶ Iniciar';document.getElementById('breathPhaseLbl').textContent='Listo';document.getElementById('breathCount').textContent='—';document.getElementById('breathRing').style.strokeDashoffset=BREATH_CIRCUMFERENCE;}
+function stopBreath(){breathRunning=false;if(breathInt){clearInterval(breathInt);breathInt=null;}document.getElementById('btnBreath').textContent='▶ Iniciar';document.getElementById('breathPhaseLbl').textContent='Listo';document.getElementById('breathCount').textContent='—';const r=document.getElementById('breathRing');if(r){r.style.transition='none';r.style.strokeDashoffset=297;}}
 
-// ── FLAME BAR & MOTIVATION ──
-const MOT_MSGS={danger:['🧠 Minutos 0-25: los más difíciles. ¡Resiste!','📵 Apaga notificaciones. Tu cerebro aún calienta.','💪 Cada segundo que aguantas fortalece tu foco.','⚡ El cerebro tarda 23 min en recuperar el foco. ¡No lo interrumpas!','🔥 Estos primeros minutos definen todo el pomodoro.'],gold:['⚡ ¡ZONA DORADA! Tu corteza prefrontal está en FLUJO.','🎯 Ahora sí — aprovecha para lo más difícil.','🏆 Aquí es donde ocurre el aprendizaje real.','🔥 ¡Imparable! Estás en el pico de concentración.','🧬 Tu hipocampo consolida memoria en este momento.'],push:['💪 ¡ÚLTIMO SPRINT! El final está cerca.','🦁 No te rajes ahora, ¡casi llegas!','⏱ Solo unos minutos más. ¡Tú puedes!','🚀 Los últimos minutos son los más valiosos.','🎖️ Los campeones terminan lo que empiezan.']};
-let flameBuilt=false;
-function buildFlameBar(){const bar=document.getElementById('flameBar');if(!bar||flameBuilt)return;bar.innerHTML='';for(let i=0;i<20;i++){const seg=document.createElement('div');seg.id=`fs${i}`;seg.style.cssText='flex:1;border-radius:2px 2px 0 0;background:rgba(255,255,255,0.06);transition:height .5s ease,background .5s ease;height:3px;';bar.appendChild(seg);}flameBuilt=true;}
-function resetFlameBar(){for(let i=0;i<20;i++){const s=document.getElementById(`fs${i}`);if(s){s.style.height='3px';s.style.background='rgba(255,255,255,0.06)';}}}
-function updateFlameBar(){
-  if(!pomoRunning||onBreak)return;const elapsed=POMO_TOTAL-pomoTime;const pct=elapsed/POMO_TOTAL;const segs=20;const filled=Math.round(pct*segs);
-  const phase=elapsed/60<15?'danger':elapsed/60<30?'gold':'push';const colors={danger:'#EF4150',gold:'#F4C842',push:'#9b59b6'};
-  for(let i=0;i<segs;i++){const el=document.getElementById(`fs${i}`);if(!el)continue;if(i<filled){const intensity=0.3+0.7*(i/segs);el.style.height=Math.round(4+intensity*24)+'px';el.style.background=colors[phase];el.style.opacity=0.4+intensity*0.6+'';}else{el.style.height='3px';el.style.background='rgba(255,255,255,0.06)';el.style.opacity='1';}}
+// ── BADGES ──
+const BADGES=[
+  {id:'first_pomo',e:'🌱',name:'Primer paso',desc:'Tu primer pomodoro',check:s=>(s.totalPomos||0)>=1},
+  {id:'streak_3',e:'🔥',name:'3 días',desc:'Racha de 3 días',check:s=>(s.streak||0)>=3},
+  {id:'streak_7',e:'⚡',name:'Una semana',desc:'Racha de 7 días',check:s=>(s.streak||0)>=7},
+  {id:'streak_30',e:'💎',name:'Un mes',desc:'Racha de 30 días',check:s=>(s.streak||0)>=30},
+  {id:'pomos_10',e:'🍅',name:'10 pomodoros',desc:'Total de 10',check:s=>(s.totalPomos||0)>=10},
+  {id:'pomos_50',e:'🚀',name:'50 pomodoros',desc:'Total de 50',check:s=>(s.totalPomos||0)>=50},
+  {id:'pomos_100',e:'🏆',name:'100 pomodoros',desc:'Total de 100',check:s=>(s.totalPomos||0)>=100},
+  {id:'pomos_500',e:'👑',name:'500 pomodoros',desc:'Total de 500',check:s=>(s.totalPomos||0)>=500},
+  {id:'goal_today',e:'🎯',name:'Meta diaria',desc:'Cumpliste meta del día',check:s=>(s.pomosHoy||0)>=dailyGoal},
+  {id:'hours_10',e:'⏱️',name:'10 horas',desc:'10h totales',check:s=>(s.totalMins||0)>=600},
+  {id:'hours_50',e:'⏰',name:'50 horas',desc:'50h totales',check:s=>(s.totalMins||0)>=3000}
+];
+function checkAndAwardBadges(){
+  const s=loadStats();const owned=loadBadges();let changed=false;
+  BADGES.forEach(b=>{if(b.check(s)&&!owned.includes(b.id)){owned.push(b.id);changed=true;showBadgeToast(b);}});
+  if(changed){saveBadges(owned);renderBadges();}
 }
-function updateMotivationText(){
-  if(!pomoRunning||onBreak)return;const elapsed=POMO_TOTAL-pomoTime;
-  const phase=elapsed/60<15?'danger':elapsed/60<30?'gold':'push';
-  const q=document.getElementById('motivQuote');if(!q)return;
-  if(phase!==lastMotPhase)lastMotPhase=phase;
-  const msgInterval=90;const msgNum=Math.floor((elapsed%((MOT_MSGS[phase].length)*msgInterval))/msgInterval);
-  const msg=MOT_MSGS[phase][msgNum%MOT_MSGS[phase].length];
-  if(q.textContent!==msg){q.style.opacity='0';setTimeout(()=>{q.textContent=msg;q.style.opacity='1';q.style.transition='opacity .5s';},300);}
+function showBadgeToast(b){showToast(b.e,'¡Nueva insignia! '+b.name,5000);}
+function renderBadges(){
+  const c=document.getElementById('badgesWrap');if(!c)return;
+  const owned=loadBadges();c.innerHTML='';
+  BADGES.forEach(b=>{
+    const e=document.createElement('div');e.className='badge-i '+(owned.includes(b.id)?'earned':'locked');
+    e.textContent=b.e;e.title=b.name+': '+b.desc;c.appendChild(e);
+  });
 }
-
-// ── CLOCK ──
-function startClock(){
-  function tick(){const now=new Date();const h=String(now.getHours()).padStart(2,'0');const m=String(now.getMinutes()).padStart(2,'0');const s=String(now.getSeconds()).padStart(2,'0');const timeStr=`${h}:${m}:${s}`;const dateStr=now.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});const el=document.getElementById('clockDisplay');const del=document.getElementById('dateDisplay');const hel=document.getElementById('headerDateTime');if(el)el.textContent=timeStr;if(del)del.textContent=dateStr;if(hel)hel.innerHTML=`${timeStr}<br>${now.toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short'})}`;}
-  tick();setInterval(tick,1000);
-}
-
-// ── FULLSCREEN ──
-window.toggleFullscreen=function(){
-  if(!document.fullscreenElement){const target=document.documentElement;const req=target.requestFullscreen||target.webkitRequestFullscreen||target.mozRequestFullScreen||target.msRequestFullscreen;if(req){req.call(target).then(()=>{hideFullscreenBanner();}).catch(()=>{showFullscreenInstructions();});}else{showFullscreenInstructions();}}else{const exit=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;if(exit)exit.call(document).catch(()=>{});}
-};
-document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)showFullscreenBanner();});
-function showFullscreenInstructions(){document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay"><div class="modal-box" style="border-color:rgba(0,212,255,0.4);"><span class="modal-emoji">🖥️</span><div class="modal-title">Pantalla completa</div><div class="modal-text" style="text-align:left;">Presiona <strong style="color:var(--gold);">F11</strong> en tu teclado o <a href="${window.location.href}" target="_blank" style="color:var(--gold);font-weight:700;">abre en nueva pestaña</a> y luego F11.</div><button class="modal-btn" onclick="closeModal()">Entendido ✓</button></div></div>`;}
-function showFullscreenBanner(){const existing=document.getElementById('fullscreenBanner');if(existing||document.fullscreenElement)return;const banner=document.createElement('div');banner.id='fullscreenBanner';banner.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(4,45,90,0.98);border-top:1px solid rgba(0,212,255,0.28);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;';banner.innerHTML=`<div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">🖥️</span><div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--text);">¡Mejor experiencia en pantalla completa!</div><div style="font-size:11px;color:var(--text2);">Presiona <strong style="color:var(--gold);">F11</strong> o abre en nueva pestaña.</div></div></div><div style="display:flex;gap:8px;flex-shrink:0;"><a href="${window.location.href}" target="_blank" style="background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:8px;padding:7px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:white;text-decoration:none;">↗ Nueva pestaña</a><button onclick="hideFullscreenBanner()" style="background:rgba(255,255,255,0.08);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;">✕</button></div>`;document.body.appendChild(banner);}
-window.hideFullscreenBanner=function(){const b=document.getElementById('fullscreenBanner');if(b)b.remove();};
 
 // ── DOUBTS ──
 function loadDoubts(){return JSON.parse(localStorage.getItem('ms_doubts')||'[]');}
 function saveDoubts(d){localStorage.setItem('ms_doubts',JSON.stringify(d));}
-window.addDoubt=function(){const inp=document.getElementById('doubtInput');const txt=(inp?.value||'').trim();if(!txt)return;const doubts=loadDoubts();doubts.unshift({text:txt,ts:Date.now(),subject:subject||'General',resolved:false});if(doubts.length>50)doubts.length=50;saveDoubts(doubts);inp.value='';renderDoubts();showToast('🤔','Duda guardada para después 📝',2500);};
-function renderDoubts(){const c=document.getElementById('doubtList');if(!c)return;const doubts=loadDoubts();if(!doubts.length){c.innerHTML='<div style="font-size:11px;color:var(--text3);padding:4px 0;">Sin dudas registradas ✓</div>';return;}c.innerHTML='';doubts.slice(0,6).forEach((d,i)=>{const div=document.createElement('div');div.style.cssText='display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;';div.innerHTML=`<span style="cursor:pointer;font-size:13px;flex-shrink:0;" onclick="resolveDoubt(${i})" title="Marcar resuelta">${d.resolved?'✅':'❓'}</span><span style="flex:1;color:${d.resolved?'var(--text3)':'var(--text2)'};text-decoration:${d.resolved?'line-through':'none'};line-height:1.4;">${esc(d.text)}</span><span style="cursor:pointer;color:var(--text3);flex-shrink:0;" onclick="deleteDoubt(${i})">✕</span>`;c.appendChild(div);});if(doubts.length>6){const more=document.createElement('div');more.style.cssText='font-size:10px;color:var(--text3);text-align:center;padding:4px 0;';more.textContent=`+${doubts.length-6} más guardadas`;c.appendChild(more);}}
-window.resolveDoubt=function(i){const d=loadDoubts();if(d[i])d[i].resolved=!d[i].resolved;saveDoubts(d);renderDoubts();};
-window.deleteDoubt=function(i){const d=loadDoubts();d.splice(i,1);saveDoubts(d);renderDoubts();};
-
-// ── BADGES ──
-const BADGES=[
-  {id:'firstPomo',icon:'🍅',name:'Primer Pomodoro',desc:'Completaste tu primer pomodoro',check:s=>s.totalPomos>=1},
-  {id:'fivePomos',icon:'🔥',name:'En llamas',desc:'5 pomodoros completados',check:s=>s.totalPomos>=5},
-  {id:'tenPomos',icon:'💪',name:'Modo bestia',desc:'10 pomodoros completados',check:s=>s.totalPomos>=10},
-  {id:'twentyPomos',icon:'⚡',name:'Imparable',desc:'20 pomodoros completados',check:s=>s.totalPomos>=20},
-  {id:'fiftyPomos',icon:'🏆',name:'Leyenda',desc:'50 pomodoros completados',check:s=>s.totalPomos>=50},
-  {id:'streak3',icon:'📅',name:'3 días seguidos',desc:'Racha de 3 días de estudio',check:s=>(s.streak||0)>=3},
-  {id:'streak7',icon:'🗓️',name:'Semana completa',desc:'7 días de racha consecutivos',check:s=>(s.streak||0)>=7},
-  {id:'streak30',icon:'🌟',name:'Mes de acero',desc:'30 días de racha',check:s=>(s.streak||0)>=30},
-  {id:'earlyBird',icon:'🌅',name:'Madrugador',desc:'Estudiaste antes de las 7am',check:()=>new Date().getHours()<7},
-  {id:'nightOwl',icon:'🦉',name:'Búho nocturno',desc:'Estudiaste después de las 11pm',check:()=>new Date().getHours()>=23},
-  {id:'goalDay',icon:'🎯',name:'Meta del día',desc:'Cumpliste tu meta diaria',check:s=>(s.pomosHoy||0)>=dailyGoal&&dailyGoal>0},
-  {id:'doubter',icon:'🤔',name:'Mente curiosa',desc:'Registraste 5 dudas',check:()=>loadDoubts().length>=5},
-];
-function checkAndAwardBadges(){const s=loadStats();const awarded=loadBadges();let changed=false;BADGES.forEach(b=>{if(!awarded.includes(b.id)&&b.check(s)){awarded.push(b.id);changed=true;showBadgeToast(b);}});if(changed)saveBadges(awarded);renderBadges();}
-function showBadgeToast(badge){const c=document.getElementById('alertToast');const t=document.createElement('div');t.className='toast';t.style.borderColor='rgba(244,200,66,0.5)';t.innerHTML=`<span class="toast-emoji">${badge.icon}</span><div class="toast-text" style="color:var(--gold);">¡Insignia desbloqueada!<br><span style="color:var(--text);font-size:12px;">${badge.name}</span></div>`;c.innerHTML='';c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='all .4s';setTimeout(()=>{if(c.contains(t))c.removeChild(t);},400);},5000);}
-function renderBadges(){const c=document.getElementById('badgesWrap');if(!c)return;const awarded=loadBadges();c.innerHTML='';BADGES.forEach(b=>{const earned=awarded.includes(b.id);const div=document.createElement('div');div.title=`${b.name}: ${b.desc}`;div.style.cssText=`width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid ${earned?'rgba(244,200,66,0.5)':'rgba(255,255,255,0.08)'};background:${earned?'rgba(244,200,66,0.12)':'rgba(255,255,255,0.03)'};cursor:pointer;transition:all .2s;filter:${earned?'none':'grayscale(1) opacity(0.3)'};`;div.textContent=b.icon;div.onclick=()=>showToast(b.icon,`${b.name}: ${b.desc}`,3000);c.appendChild(div);});const summary=document.createElement('div');summary.style.cssText='width:100%;font-size:10px;color:var(--text3);font-family:DM Mono,monospace;margin-top:4px;';summary.textContent=`${awarded.length}/${BADGES.length} insignias desbloqueadas`;c.appendChild(summary);}
-
-// ── BREAK GUIDES ──
-window.showBreakGuide=function(type){const guides={agua:{emoji:'💧',title:'Hidratación',steps:['Levántate de tu silla','Ve por un vaso de agua fría','Bebe despacio, sin prisa','Regresa y toma 3 respiraciones profundas']},estiramiento:{emoji:'🧘',title:'Estiramiento',steps:['Inclina la cabeza a la derecha 10s → izquierda 10s','Gira los hombros 5 veces','Estira los brazos hacia arriba 10 segundos','De pie: toca tus pies o llega lo más lejos']},ojos:{emoji:'👁️',title:'Descanso Visual (20-20-20)',steps:['Para tu vista de la pantalla','Enfoca un objeto a 6 metros','Mantén esa vista por 20 segundos','Parpadea 10 veces rápido y cierra ojos 5s']}};const g=guides[type];if(!g)return;document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">${g.emoji}</span><div class="modal-title">${g.title}</div><div style="text-align:left;margin-bottom:20px;">${g.steps.map((s,i)=>`<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);"><span style="width:22px;height:22px;border-radius:50%;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--cyan);flex-shrink:0;">${i+1}</span><span>${s}</span></div>`).join('')}</div><button class="modal-btn" onclick="closeModal()">Listo ✓</button></div></div>`;};
+window.addDoubt=function(){const inp=document.getElementById('doubtInput'),t=inp.value.trim();if(!t)return;const ds=loadDoubts();ds.unshift({t,ts:Date.now(),done:false});if(ds.length>20)ds.length=20;saveDoubts(ds);inp.value='';renderDoubts();};
+window.resolveDoubt=function(i){const ds=loadDoubts();if(!ds[i])return;ds[i].done=!ds[i].done;saveDoubts(ds);renderDoubts();};
+window.deleteDoubt=function(i){const ds=loadDoubts();ds.splice(i,1);saveDoubts(ds);renderDoubts();};
+function renderDoubts(){
+  const ds=loadDoubts();const c=document.getElementById('doubtList');if(!c)return;c.innerHTML='';
+  if(!ds.length){c.innerHTML='<div style="font-size:9px;color:var(--text3);text-align:center;padding:4px;">Sin dudas aún</div>';return;}
+  ds.forEach((d,i)=>{
+    c.innerHTML+=`<div style="display:flex;gap:4px;align-items:center;padding:3px 0;border-bottom:1px solid var(--border);font-size:10px;${d.done?'opacity:.5;':''}">
+      <button onclick="resolveDoubt(${i})" style="background:none;border:1px solid ${d.done?'var(--green)':'var(--text3)'};border-radius:3px;width:14px;height:14px;cursor:pointer;color:${d.done?'var(--green)':'transparent'};font-size:9px;line-height:1;">${d.done?'✓':''}</button>
+      <span style="flex:1;${d.done?'text-decoration:line-through;':''}color:var(--text2);">${esc(d.t)}</span>
+      <button onclick="deleteDoubt(${i})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;">×</button>
+    </div>`;
+  });
+}
 
 // ── MOTIVATIONAL QUOTES ──
-const MOTIVATIONAL_QUOTES=[{text:'"El médico del futuro ya está estudiando hoy."',author:'MedStudents MX'},{text:'"Cada pomodoro es un ladrillo en tu carrera médica."',author:''},{text:'"No estudias para el examen. Estudias para el paciente."',author:''},{text:'"La constancia hace al médico, no el talento."',author:''},{text:'"Tu cerebro crea nuevas conexiones cada vez que estudias."',author:'Neurociencia'},{text:'"El éxito es la suma de pequeños esfuerzos repetidos día a día."',author:'R. Collier'},{text:'"Saber no es suficiente; debemos aplicarlo."',author:'Goethe'},{text:'"El conocimiento médico que adquieres hoy puede salvar una vida mañana."',author:''},{text:'"Cada minuto que estudias es un minuto que te acerca a quien quieres ser."',author:''},{text:'"Los mejores médicos no nacen. Se forjan hora a hora, pomodoro a pomodoro."',author:'MedStudents MX'},{text:'"Regresa al tema. Tu cerebro intenta escapar — tú decides si lo dejas."',author:''},{text:'"Sin celular. El conocimiento vive en los libros, no en las notificaciones."',author:''}];
-let quoteIdx=0;
-function startMotivationalQuotes(){showMotivationalQuote();setInterval(showMotivationalQuote,60000);}
-function showMotivationalQuote(){const el=document.getElementById('motivQuote');if(!el||pomoRunning)return;const q=MOTIVATIONAL_QUOTES[quoteIdx%MOTIVATIONAL_QUOTES.length];el.style.opacity='0';setTimeout(()=>{el.innerHTML=`${q.text}${q.author?`<br><span style="font-size:10px;color:var(--text3);font-style:normal;">— ${q.author}</span>`:''}`;el.style.opacity='1';el.style.transition='opacity .8s';},400);quoteIdx++;}
+const MOTIVATIONAL_QUOTES=[
+  '"El éxito es la suma de pequeños esfuerzos repetidos día tras día." — R. Collier',
+  '"No estudias para ser el mejor, estudias para ser mejor que ayer."',
+  '"La medicina se aprende con disciplina, no con talento."',
+  '"Tu paciente del futuro depende de cada pomodoro de hoy."',
+  '"Un día sin estudiar es un día de retraso."',
+  '"Los mejores médicos fueron antes los mejores estudiantes."',
+  '"El conocimiento médico no se hereda, se conquista."',
+  '"Cada hora de estudio es una vida que podrás salvar mañana."'
+];
+let _motQuoteIdx=0,_motQuoteInt=null;
+function startMotivationalQuotes(){if(_motQuoteInt)clearInterval(_motQuoteInt);showMotivationalQuote();_motQuoteInt=setInterval(showMotivationalQuote,45000);}
+function showMotivationalQuote(){const q=document.getElementById('motivQuote');if(!q||pomoRunning)return;_motQuoteIdx=(_motQuoteIdx+1)%MOTIVATIONAL_QUOTES.length;q.style.opacity='0';setTimeout(()=>{q.textContent=MOTIVATIONAL_QUOTES[_motQuoteIdx];q.style.opacity='1';},400);}
 
 // ── FOCUS ALERTS ──
-const SOFT_ALERTS=[{e:'📵',m:'Regresa al tema. Sin celular.'},{e:'🧠',m:'¿Estás enfocado? Cada minuto cuenta.'},{e:'💧',m:'Recuerda hidratarte.'},{e:'🔥',m:'¡Sigue! Estás construyendo el médico que quieres ser.'},{e:'⚡',m:'Vuelve al material.'},{e:'🎯',m:'¿En qué estás pensando? Regresa al tema.'}];
-function startFocusAlerts(){setInterval(()=>{if(pomoRunning&&!onBreak){const a=SOFT_ALERTS[Math.floor(Math.random()*SOFT_ALERTS.length)];showToast(a.e,a.m,5000);}},12*60*1000);}
+const SOFT_ALERTS=[{e:"💧",m:"Toma agua, hidrátate"},{e:"👁️",m:"Mira lejos 20 segundos (regla 20-20-20)"},{e:"🧘",m:"Postura: endereza la espalda"},{e:"🌬️",m:"Respira profundo 3 veces"}];
+function startFocusAlerts(){setInterval(()=>{if(pomoRunning&&Math.random()<.3){const a=SOFT_ALERTS[Math.floor(Math.random()*SOFT_ALERTS.length)];showToast(a.e,a.m,3500);}},15*60*1000);}
 
 // ── CHAT COUNTER ──
-window.updateChatCounter=function(inp){const len=inp.value.length;const el=document.getElementById('chatCounter');if(!el)return;el.textContent=len+' / 120';el.style.color=len>=100?'var(--red)':len>=80?'var(--gold)':'var(--text3)';};
+window.updateChatCounter=function(inp){const el=document.getElementById('chatCounter');if(!el)return;const n=inp.value.length;el.textContent=n+' / 120';el.style.color=n>100?'var(--red)':n>80?'var(--gold)':'var(--text3)';}
 
-// ── BEFOREUNLOAD ──
-window.addEventListener('beforeunload',function(e){if(!user)return;e.preventDefault();e.returnValue='';return '';});
+// ── CLOCK ──
+function startClock(){
+  function tick(){
+    const d=new Date();
+    const cd=document.getElementById('clockDisplay');if(cd)cd.textContent=d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    const dd=document.getElementById('dateDisplay');if(dd)dd.textContent=d.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+    const hdt=document.getElementById('headerDateTime');if(hdt)hdt.innerHTML=d.toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short'})+'<br>'+d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',hour12:false});
+  }
+  tick();setInterval(tick,1000);
+}
 
-// ── DESKTOP NOTIFICATIONS ──
-function requestNotifPermission(){if(!('Notification' in window))return;if(Notification.permission==='default')Notification.requestPermission().catch(()=>{});}
+// ── FLAME BAR & MOTIVATION TEXT ──
+function buildFlameBar(){
+  const c=document.getElementById('flameBar');if(!c)return;c.innerHTML='';
+  for(let i=0;i<45;i++){const b=document.createElement('div');b.style.cssText='flex:1;background:rgba(255,255,255,0.06);border-radius:1px;height:6px;transition:all .4s;';c.appendChild(b);}
+}
+function resetFlameBar(){buildFlameBar();}
+function updateFlameBar(){
+  const c=document.getElementById('flameBar');if(!c||!pomoRunning||onBreak)return;
+  const e=Math.floor((POMO_TOTAL-pomoTime)/60);
+  const bars=c.children;
+  for(let i=0;i<bars.length;i++){
+    if(i<e){let col,h;if(i<15){col='var(--red)';h=10;}else if(i<30){col='var(--gold)';h=18;}else{col='#9b59b6';h=24;}bars[i].style.background=col;bars[i].style.height=h+'px';}
+    else{bars[i].style.background='rgba(255,255,255,0.06)';bars[i].style.height='6px';}
+  }
+}
+function updateMotivationText(){
+  if(!pomoRunning||onBreak)return;
+  const e=(POMO_TOTAL-pomoTime)/60;let phase;
+  if(e<15)phase='danger';else if(e<30)phase='gold';else phase='push';
+  if(phase===lastMotPhase)return;lastMotPhase=phase;
+  const msgs={danger:['Aguanta crack, el cerebro está despertando.','Los primeros 15 min son los más duros. ¡Resiste!','No te rindas. Esto es solo el comienzo.'],gold:['¡Estás en la zona dorada! Aprovecha el flujo.','Tu corteza prefrontal está activa. ¡Sigue!','Este es el momento de máximo aprendizaje.'],push:['Último sprint. ¡No te rajes ahora!','Casi terminas. ¡Dale con todo!','Los últimos minutos son los que definen al crack.']};
+  const arr=msgs[phase];const q=document.getElementById('motivQuote');if(q){q.style.opacity='0';setTimeout(()=>{q.textContent=arr[Math.floor(Math.random()*arr.length)];q.style.opacity='1';},300);}
+}
+
+// ── FULLSCREEN ──
+window.toggleFullscreen=function(){
+  if(!document.fullscreenElement&&!document.webkitFullscreenElement){
+    const el=document.documentElement;
+    if(el.requestFullscreen)el.requestFullscreen().catch(()=>showFullscreenInstructions());
+    else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+    else showFullscreenInstructions();
+  } else {
+    if(document.exitFullscreen)document.exitFullscreen();
+    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+  }
+};
+function showFullscreenInstructions(){
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">⛶</span><div class="modal-title">Pantalla Completa</div><div class="modal-text">Presiona <strong style="color:var(--gold)">F11</strong> en tu teclado para entrar en pantalla completa.<br><br>Tu navegador no permite activarlo desde un botón.</div><button class="modal-btn" onclick="closeModal()">Entendido 👍</button></div></div>';
+}
+function showFullscreenBanner(){if(document.getElementById('fsBanner'))return;const b=document.createElement('div');b.id='fsBanner';b.style.cssText='position:fixed;bottom:14px;right:14px;background:rgba(8,24,48,0.97);border:1px solid rgba(0,212,255,0.28);border-radius:11px;padding:10px 14px;display:flex;align-items:center;gap:9px;z-index:9000;animation:sUp .4s ease;font-size:12px;color:var(--text);max-width:280px;';b.innerHTML='<span style="font-size:18px;">⛶</span><div style="flex:1"><div style="font-family:Syne,sans-serif;font-weight:700;color:var(--cyan);font-size:11px;">Pantalla completa</div><div style="font-size:10px;color:var(--text2);">Presiona <strong style="color:var(--gold)">F11</strong> para máximo enfoque</div></div><button onclick="hideFullscreenBanner()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;">×</button>';document.body.appendChild(b);setTimeout(()=>hideFullscreenBanner(),8000);}
+function hideFullscreenBanner(){const b=document.getElementById('fsBanner');if(b)b.remove();}
+
+// ── DESKTOP NOTIFS ──
+function requestNotifPermission(){if(!('Notification' in window))return;if(Notification.permission==='default'){Notification.requestPermission();}}
 const NOTIF_ICON='https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp';
-function sendDesktopNotif(title,body){if(!('Notification' in window)||Notification.permission!=='granted')return;try{const n=new Notification(title,{body,icon:NOTIF_ICON,silent:false});n.onclick=()=>window.focus();setTimeout(()=>n.close(),8000);}catch(err){}}
+function sendDesktopNotif(title,body){if(!('Notification' in window))return;if(Notification.permission==='granted'){try{new Notification(title,{body,icon:NOTIF_ICON,silent:false});}catch(e){}}}
 
 // ── POMO STATE PERSISTENCE ──
-const SS_POMO='ms_pomo_v1';
-function savePomoState(){if(!user||!pomoRunning)return;sessionStorage.setItem(SS_POMO,JSON.stringify({pomoTime,onBreak,savedAt:Date.now()}));}
-function clearPomoState(){sessionStorage.removeItem(SS_POMO);}
-function tryRestorePomoState(){
-  try{const raw=sessionStorage.getItem(SS_POMO);if(!raw)return false;const s=JSON.parse(raw);const elapsed=Math.floor((Date.now()-s.savedAt)/1000);if(elapsed>120){clearPomoState();return false;}pomoTime=Math.max(0,(s.pomoTime||POMO_TOTAL)-elapsed);onBreak=s.onBreak||false;updateTimerUI();updateRing();updatePhase();pomoRunning=true;document.getElementById('startBtn').textContent='⏸ Pausar';document.getElementById('startBtn').className='btn-po btn-start running';pomoInt=setInterval(tickPomo,1000);clearPomoState();if(onBreak){document.getElementById('timerLbl').textContent='DESCANSO';document.getElementById('breakSugg').style.display='flex';document.getElementById('phaseBadge').textContent='¡Descanso!';document.getElementById('phaseBadge').className='phase-badge ph-break';showToast('⏳','¡Descanso restaurado!',3000);}else{showToast('⏳','Pomodoro restaurado. ¡Sigue! 🔥',3000);}return true;}catch(err){clearPomoState();return false;}
-}
+const SS_POMO='ms_pomo_state';
+function savePomoState(){if(!pomoRunning)return;try{sessionStorage.setItem(SS_POMO,JSON.stringify({t:pomoTime,onB:onBreak,saved:Date.now()}));}catch(e){}}
+function clearPomoState(){try{sessionStorage.removeItem(SS_POMO);}catch(e){}}
+function tryRestorePomoState(){try{const d=JSON.parse(sessionStorage.getItem(SS_POMO)||'null');if(!d)return;const elapsed=Math.floor((Date.now()-d.saved)/1000);const newTime=Math.max(0,d.t-elapsed);if(newTime<=0){clearPomoState();return;}pomoTime=newTime;onBreak=d.onB;updateTimerUI();updateRing();updatePhase();showToast('⏱️','Pomodoro restaurado: '+Math.floor(newTime/60)+':'+String(newTime%60).padStart(2,'0')+' restantes',4000);}catch(e){}}
+
+// ── BREAK GUIDES ──
+window.showBreakGuide=function(type){
+  const guides={
+    agua:{e:'💧',t:'Hidratación durante el descanso',m:'Toma 250-500ml de agua. La deshidratación reduce el rendimiento cognitivo hasta un 25%. El cerebro es 75% agua.'},
+    estiramiento:{e:'🧘',t:'Estiramiento (3-5 min)',m:'1. Cuello: gira lento 5 veces a cada lado<br>2. Hombros: rota hacia atrás 10 veces<br>3. Espalda: levanta brazos y arquéate<br>4. Piernas: ponte de pie y camina'},
+    ojos:{e:'👁️',t:'Regla 20-20-20',m:'Cada 20 minutos, mira algo a <strong>20 pies (6m)</strong> de distancia durante <strong>20 segundos</strong>. Esto reduce la fatiga ocular digital.'}
+  };
+  const g=guides[type];if(!g)return;
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">'+g.e+'</span><div class="modal-title">'+g.t+'</div><div class="modal-text">'+g.m+'</div><button class="modal-btn" onclick="closeModal()">Listo 💪</button></div></div>';
+};
+
+// ── BEFORE UNLOAD ──
+window.addEventListener('beforeunload',()=>{
+  if(user&&myUid){
+    try{saveStats(loadStats());}catch(e){}
+  }
+});
 
 </script>
 </body>
