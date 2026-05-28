@@ -70,6 +70,15 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .sidebar::-webkit-scrollbar,.right-panel::-webkit-scrollbar{width:3px;}
 .sidebar::-webkit-scrollbar-thumb,.right-panel::-webkit-scrollbar-thumb{background:var(--navy-light);border-radius:3px;}
 .sidebar{border-right:1px solid var(--border);}
+.news-wall{display:flex;flex-direction:column;gap:7px;}
+.news-item{background:linear-gradient(135deg,rgba(0,212,255,0.06),rgba(155,89,182,0.05));border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:9px;padding:8px 10px;position:relative;}
+.news-item.is-new{border-left-color:var(--red);}
+.news-head{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
+.news-ico{font-size:14px;}
+.news-title{font-family:"Syne",sans-serif;font-size:11px;font-weight:800;color:var(--text);line-height:1.2;}
+.news-badge{font-size:7px;font-weight:800;letter-spacing:.5px;color:white;background:var(--red);border-radius:5px;padding:1px 5px;margin-left:auto;flex-shrink:0;}
+.news-desc{font-size:9.5px;color:var(--text2);line-height:1.4;}
+.news-date{font-size:8px;color:var(--text3);font-family:"DM Mono",monospace;margin-top:3px;}
 .right-panel{border-left:1px solid var(--border);}
 
 .center-col{display:flex;flex-direction:column;overflow:hidden;}
@@ -178,6 +187,9 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .bs-r,.badge-time{background:rgba(0,212,255,0.08);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);}
 .badge-rank{background:rgba(244,200,66,0.08);color:var(--gold);border:1px solid rgba(244,200,66,0.15);}
 .bs-pos,.badge-pos{background:rgba(244,200,66,0.12);color:var(--gold);border:1px solid rgba(244,200,66,0.2);font-weight:700;}
+.pomo-count-inline{font-family:"DM Mono",monospace;font-size:11px;font-weight:700;color:var(--red);background:rgba(239,65,80,0.12);border:1px solid rgba(239,65,80,0.25);border-radius:10px;padding:1px 7px;white-space:nowrap;flex-shrink:0;}
+.badge-challenge{font-size:9px;font-family:"Syne",sans-serif;font-weight:700;padding:1px 7px;border-radius:12px;background:rgba(155,89,182,0.14);color:#c39bd3;border:1px solid rgba(155,89,182,0.3);cursor:pointer;transition:all .15s;}
+.badge-challenge:hover{background:rgba(155,89,182,0.28);}
 .fallen-c,.fallen-card{background:rgba(239,65,80,0.04);border:1px solid rgba(239,65,80,0.09);border-radius:8px;padding:6px 8px;margin-bottom:4px;display:flex;align-items:flex-start;gap:6px;opacity:.6;}
 .fav,.fallen-av{width:20px;height:20px;border-radius:50%;background:rgba(239,65,80,0.1);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
 .fname,.fallen-name{font-size:10px;color:var(--text2);text-decoration:line-through;}
@@ -201,6 +213,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .clock-c{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:9px;padding:9px 12px;margin-bottom:10px;text-align:center;}
 .clock-t{font-family:"DM Mono",monospace;font-size:18px;color:var(--cyan);letter-spacing:2px;}
 .clock-d{font-size:9px;color:var(--text3);margin-top:1px;text-transform:capitalize;}
+.clock-loc{font-size:9px;color:var(--cyan);margin-top:3px;opacity:.85;}
 
 /* LEADERBOARD */
 .lb-tabs{display:flex;gap:3px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:7px;padding:2px;margin-bottom:8px;}
@@ -236,6 +249,12 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .cn.sys,.chat-name.sys{color:var(--text3);}
 .chat-text{display:inline;color:var(--text2);}
 .chat-row{display:flex;gap:5px;margin-bottom:10px;}
+.rpt-tab{flex:1;background:none;border:none;padding:5px 6px;border-radius:5px;font-family:"Syne",sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;}
+.rpt-tab.active{background:rgba(0,212,255,0.14);color:var(--cyan);}
+.btn-report{background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.25);border-radius:7px;padding:6px 14px;font-family:"Syne",sans-serif;font-size:10px;font-weight:700;color:var(--cyan);cursor:pointer;white-space:nowrap;}
+.btn-report:hover{background:rgba(0,212,255,0.2);}
+.btn-whatsapp{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#25D366,#128C7E);border:none;border-radius:8px;padding:9px;font-family:"Syne",sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;letter-spacing:.5px;box-shadow:0 2px 8px rgba(37,211,102,0.25);transition:filter .2s;}
+.btn-whatsapp:hover{filter:brightness(1.1);}
 .cinput{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-family:"Space Grotesk",sans-serif;font-size:10px;color:var(--text);outline:none;}
 .btn-chat{background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.22);border-radius:7px;padding:5px 10px;color:var(--cyan);cursor:pointer;font-size:12px;font-weight:700;}
 
@@ -467,6 +486,23 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 /* FLAME BAR */
 .flame-bar{display:flex;align-items:flex-end;gap:1px;height:28px;margin-bottom:8px;}
 
+/* REPORTE SEMANAL */
+.week-podium{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:8px;align-items:end;}
+.wp-spot{background:var(--glass);border:1px solid var(--border);border-radius:11px;padding:10px 6px;text-align:center;position:relative;}
+.wp-spot.g1{border-color:rgba(244,200,66,0.4);background:rgba(244,200,66,0.06);transform:translateY(-6px);}
+.wp-spot.g2{border-color:rgba(190,200,210,0.3);}
+.wp-spot.g3{border-color:rgba(205,127,50,0.3);}
+.wp-medal{font-size:20px;display:block;margin-bottom:2px;}
+.wp-av{font-size:22px;}
+.wp-name{font-size:10px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.wp-pomos{font-family:"DM Mono",monospace;font-size:14px;color:var(--red);font-weight:700;margin-top:2px;}
+.wp-empty{grid-column:1/-1;text-align:center;font-size:11px;color:var(--text3);padding:18px;}
+.wr-row{display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:7px;background:rgba(255,255,255,0.02);margin-bottom:3px;}
+.wr-row.me{border:1px solid rgba(0,212,255,0.22);}
+.wr-pos{font-family:"DM Mono",monospace;font-size:11px;color:var(--text3);width:20px;text-align:center;}
+.wr-name{flex:1;font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wr-pomos{font-family:"DM Mono",monospace;font-size:11px;color:var(--red);font-weight:700;}
+
 /* ═══════ MURAL ═══════ */
 .mural-card{background:linear-gradient(145deg,rgba(8,24,48,0.85),rgba(20,10,30,0.85));border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all .25s;position:relative;overflow:hidden;animation:muralIn .4s ease-out backwards;}
 .mural-card:hover{transform:translateY(-2px);border-color:rgba(225,48,108,0.35);box-shadow:0 8px 20px rgba(225,48,108,0.12);}
@@ -484,6 +520,20 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 .mural-empty-em{font-size:56px;margin-bottom:14px;opacity:.5;}
 .mural-empty-t{font-family:"Syne",sans-serif;font-size:15px;color:var(--text2);margin-bottom:6px;font-weight:700;}
 .mural-empty-s{font-size:12px;color:var(--text3);}
+
+/* ═══════ MURAL EMBEBIDO (página principal, hasta abajo) ═══════ */
+.mural-embed{width:100%;border-top:1px solid var(--border);background:linear-gradient(135deg,rgba(8,24,48,0.6),rgba(20,8,30,0.6));padding:26px 18px 40px;}
+.mural-embed-inner{max-width:1000px;margin:0 auto;}
+.mural-embed-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;}
+.mural-embed-title-wrap{display:flex;align-items:center;gap:12px;}
+.mural-embed-ico{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#e1306c,#c13584,#833ab4,#fcb045);display:flex;align-items:center;justify-content:center;font-size:23px;box-shadow:0 4px 16px rgba(225,48,108,0.3);}
+.mural-embed-h{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;background:linear-gradient(90deg,#fcb045,#e1306c,#c13584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2px;}
+.mural-embed-sub{font-size:11px;color:var(--text2);}
+.mural-embed-publish{background:linear-gradient(135deg,rgba(225,48,108,0.08),rgba(131,58,180,0.06));border:1px solid rgba(225,48,108,0.22);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.mural-embed-publish-row{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;}
+.mural-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.mural-stat-box{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;}
+.mural-stat-box-v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;}
 
 @keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
@@ -515,6 +565,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <option value="Bioquímica">🧬 Bioquímica</option>
       <option value="Embriología">🧫 Embriología</option>
       <option value="Anatomía">💀 Anatomía</option>
+      <option value="Histología">🔬 Histología</option>
       <option value="Fisiología">❤️ Fisiología</option>
       <option value="Farmacología">💊 Farmacología</option>
       <option value="Microbiología">🦠 Microbiología</option>
@@ -533,7 +584,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
     </div>
     <button class="btn-enter" id="btnEnter" onclick="enterRoom()">ENTRAR A LA SALA 🚀</button>
     <p style="font-size:10px;color:var(--text3);margin-top:9px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:7px;padding:6px 10px;line-height:1.6;">
-      💡 <strong style="color:var(--cyan)">Mejor experiencia:</strong> Presiona <strong style="color:var(--gold)">F11</strong> en tu teclado para pantalla completa.
+      💡 <strong style="color:var(--cyan)">Mejor experiencia:</strong> Presiona el botón <strong style="color:var(--gold)">⛶ Full</strong> arriba a la derecha para pantalla completa.
     </p>
     <p id="loginStatus"></p>
   </div>
@@ -556,7 +607,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       </div>
       <div class="live-badge"><div class="live-dot"></div><span id="onlineCount">0 en línea</span></div>
       <div class="user-badge"><div class="user-av" id="userAvCircle">🧑</div><span id="userNameHdr"></span></div>
-      <button class="btn-mural" onclick="openMural()">📸 Mural</button>
+      <button class="btn-mural" onclick="scrollToMural()">📸 Mural</button>
       <button class="btn-fs" onclick="toggleFullscreen()" id="btnFs">⛶ Full</button>
       <button class="btn-leave" onclick="tryLeave()">Salir</button>
     </div>
@@ -567,7 +618,9 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 
     <!-- IZQUIERDA -->
     <div class="sidebar">
-      <div class="sec"><div class="odot"></div>Usuarios Conectados</div>
+      <div class="sec">📣 Novedades</div>
+      <div class="news-wall" id="newsWall"></div>
+      <div class="sec" style="margin-top:14px;"><div class="odot"></div>Usuarios Conectados</div>
       <div id="activeStudents"><div style="font-size:11px;color:var(--text3);text-align:center;padding:12px;">Conectando...</div></div>
       <div class="sec" style="margin-top:14px;">⚰️ Caídos Hoy</div>
       <div id="fallenStudents"></div>
@@ -661,6 +714,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
             <div><div class="mf-lbl">Materia</div>
               <select class="mf-sel" id="manualSubject">
                 <option>Bioquímica</option><option>Embriología</option><option>Anatomía</option>
+                <option>Histología</option>
                 <option>Fisiología</option><option>Farmacología</option><option>Patología</option>
                 <option>Med. Interna</option><option>Otra</option>
               </select></div>
@@ -769,6 +823,16 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
           </div>
         </div>
 
+        <div class="card" id="weeklyReportCard">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:5px;">
+            <div class="card-ttl" style="margin-bottom:0;">📅 Reporte Semanal · Top Pomodoros</div>
+            <div style="font-size:9px;color:var(--text3);font-family:DM Mono,monospace;" id="weekRangeLbl"></div>
+          </div>
+          <div class="week-podium" id="weekPodium"></div>
+          <div id="weekRest" style="margin-top:8px;"></div>
+          <div style="font-size:9px;color:var(--text3);text-align:center;margin-top:8px;">🏅 Suma de pomodoros de los últimos 7 días · se actualiza solo</div>
+        </div>
+
       </div>
     </div>
 
@@ -777,6 +841,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <div class="clock-c">
         <div class="clock-t" id="clockDisplay">00:00:00</div>
         <div class="clock-d" id="dateDisplay"></div>
+        <div class="clock-loc" id="locDisplay">📍 Obteniendo ubicación...</div>
       </div>
       <div class="sec">⏰ Tiempo en Sala</div>
       <div class="chrono-c">
@@ -786,6 +851,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
       <div class="sec">🏆 Leaderboard</div>
       <div class="lb-tabs">
         <button class="lb-tab active" onclick="switchLb('day',this)">Hoy</button>
+        <button class="lb-tab" onclick="switchLb('week',this)">Semana</button>
         <button class="lb-tab" onclick="switchLb('all',this)">Histórico</button>
       </div>
       <div id="lbList" style="margin-bottom:10px;"><div style="font-size:10px;color:var(--text3);text-align:center;padding:8px;">Cargando...</div></div>
@@ -794,13 +860,22 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
         <div class="neuro-l">💡 Tip del Pomodoro</div>
         <div class="neuro-t" id="neuroTip">El pomodoro aprovecha el enfoque profundo.</div>
       </div>
-      <div class="sec">💬 Chat <span style="font-size:7px;color:var(--green);font-weight:700;letter-spacing:1px;">EN VIVO</span></div>
-      <div class="chat-box" id="chatBox"></div>
-      <div class="chat-row">
-        <input class="cinput" id="chatInput" placeholder="Mensaje para todos..." maxlength="120" onkeydown="if(event.key==='Enter')sendChat()" oninput="updateChatCounter(this)">
-        <button class="btn-chat" onclick="sendChat()">↑</button>
+      <div class="sec">🛠️ Reportar / Sugerir</div>
+      <div style="background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.14);border-radius:10px;padding:10px;margin-bottom:10px;">
+        <div style="display:flex;gap:4px;margin-bottom:7px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:7px;padding:2px;">
+          <button id="rptTabBug" class="rpt-tab active" onclick="setReportType('bug',this)">🐞 Fallo</button>
+          <button id="rptTabIdea" class="rpt-tab" onclick="setReportType('idea',this)">💡 Mejora</button>
+        </div>
+        <textarea id="reportInput" placeholder="Describe el fallo que encontraste..." maxlength="400" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:7px;padding:7px 9px;font-family:Space Grotesk,sans-serif;font-size:11px;color:var(--text);resize:none;height:62px;outline:none;margin-bottom:6px;" oninput="updateReportCounter(this)"></textarea>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:7px;">
+          <span id="reportCounter" style="font-size:9px;color:var(--text3);font-family:DM Mono,monospace;">0 / 400</span>
+          <button class="btn-report" onclick="submitReport()">📨 Enviar</button>
+        </div>
+        <button class="btn-whatsapp" onclick="contactWhatsApp()">
+          <span style="font-size:15px;">💬</span> Escríbeme por WhatsApp
+        </button>
+        <div id="reportStatus" style="font-size:9px;color:var(--text3);text-align:center;margin-top:6px;min-height:12px;"></div>
       </div>
-      <div style="text-align:right;"><span id="chatCounter" style="font-size:9px;color:var(--text3);font-family:DM Mono,monospace;">0 / 120</span></div>
       <div class="sec">🎯 Mi Objetivo Hoy</div>
       <textarea id="objectiveInput" placeholder="¿Qué quiero lograr hoy?" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:8px;font-family:Space Grotesk,sans-serif;font-size:11px;color:var(--text);resize:none;height:56px;outline:none;margin-bottom:10px;" oninput="saveObj()"></textarea>
       <div class="sec">🤔 Registro de Dudas</div>
@@ -827,62 +902,55 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
     </div>
 
   </div>
-</div>
 
-<!-- ═══════════ MURAL PANEL ═══════════ -->
-<div id="muralPanel" style="display:none;position:fixed;inset:0;z-index:600;background:linear-gradient(135deg,rgba(4,15,30,0.97),rgba(20,8,30,0.97));flex-direction:column;padding:20px;overflow-y:auto;">
-  <div style="width:100%;max-width:900px;margin:0 auto 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#e1306c,#c13584,#833ab4,#fcb045);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 16px rgba(225,48,108,0.3);">📸</div>
-      <div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(90deg,#fcb045,#e1306c,#c13584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2px;">Mural Instagram</h2>
-        <div style="font-size:11px;color:var(--text2);">Conecta con tus compañeros de sala 💕</div>
+  <!-- ═══════════ MURAL EMBEBIDO — PÁGINA PRINCIPAL, HASTA ABAJO ═══════════ -->
+  <div class="mural-embed" id="muralEmbed">
+    <div class="mural-embed-inner">
+      <div class="mural-embed-head">
+        <div class="mural-embed-title-wrap">
+          <div class="mural-embed-ico">📸</div>
+          <div>
+            <div class="mural-embed-h">Mural Instagram</div>
+            <div class="mural-embed-sub">Conecta con tus compañeros de sala 💕 Publica tu @ y síguelos.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mural-embed-publish">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:18px;">✨</span>
+          <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--text);">Tu perfil en el mural</h3>
+        </div>
+        <div class="mural-embed-publish-row">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:0 12px;display:flex;align-items:center;font-size:18px;color:#ff6b9d;font-weight:700;">@</div>
+          <input id="muralIgInput" placeholder="tu_usuario_de_instagram" maxlength="30" style="flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')publishToMural()">
+          <button onclick="publishToMural()" style="background:linear-gradient(135deg,#e1306c,#c13584,#833ab4);border:none;border-radius:10px;padding:10px 22px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:white;cursor:pointer;letter-spacing:1px;box-shadow:0 3px 10px rgba(225,48,108,0.3);">💾 PUBLICAR</button>
+          <button id="muralDelBtn" onclick="removeFromMural()" style="display:none;background:rgba(239,65,80,0.1);border:1px solid rgba(239,65,80,0.28);border-radius:10px;padding:10px 16px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;">🗑️ Quitar</button>
+        </div>
+        <div id="muralMyStatus" style="font-size:11px;color:var(--text3);margin-top:10px;">Publica tu @ para que otros estudiantes te sigan en Instagram 💕</div>
+      </div>
+
+      <div class="mural-stats-row">
+        <div class="mural-stat-box"><div class="mural-stat-box-v" style="color:#ff6b9d;" id="muralCount">0</div><div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Estudiantes en el mural</div></div>
+        <div class="mural-stat-box"><div class="mural-stat-box-v" style="color:var(--green);" id="muralOnline">0</div><div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Activos ahora en la sala</div></div>
+        <div class="mural-stat-box"><div class="mural-stat-box-v" style="color:var(--gold);" id="muralNew">0</div><div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Nuevos hoy</div></div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
+        <input id="muralSearch" placeholder="🔍 Buscar por nombre o @..." oninput="renderMural()" style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--text);outline:none;">
+        <div style="display:flex;gap:3px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:9px;padding:3px;">
+          <button id="muralFilterAll" onclick="setMuralFilter('all',this)" style="background:rgba(225,48,108,0.18);border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:#ff6b9d;cursor:pointer;">Todos</button>
+          <button id="muralFilterOnline" onclick="setMuralFilter('online',this)" style="background:none;border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;">Activos ahora</button>
+          <button id="muralFilterRecent" onclick="setMuralFilter('recent',this)" style="background:none;border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;">Recientes</button>
+        </div>
+      </div>
+
+      <div id="muralGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+        <div style="grid-column:1/-1;font-size:13px;color:var(--text3);text-align:center;padding:40px 20px;">Cargando mural...</div>
       </div>
     </div>
-    <button onclick="closeMural()" style="background:rgba(239,65,80,0.13);border:1px solid rgba(239,65,80,0.28);border-radius:8px;padding:8px 16px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;">✕ Volver a estudiar</button>
   </div>
 
-  <div style="width:100%;max-width:900px;margin:0 auto 18px;background:linear-gradient(135deg,rgba(225,48,108,0.08),rgba(131,58,180,0.06));border:1px solid rgba(225,48,108,0.22);border-radius:16px;padding:18px 22px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-      <span style="font-size:18px;">✨</span>
-      <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--text);">Tu perfil en el mural</h3>
-    </div>
-    <div style="display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;">
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:0 12px;display:flex;align-items:center;font-size:18px;color:#ff6b9d;font-weight:700;">@</div>
-      <input id="muralIgInput" placeholder="tu_usuario_de_instagram" maxlength="30" style="flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')publishToMural()">
-      <button onclick="publishToMural()" style="background:linear-gradient(135deg,#e1306c,#c13584,#833ab4);border:none;border-radius:10px;padding:10px 22px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:white;cursor:pointer;letter-spacing:1px;box-shadow:0 3px 10px rgba(225,48,108,0.3);">💾 PUBLICAR</button>
-      <button id="muralDelBtn" onclick="removeFromMural()" style="display:none;background:rgba(239,65,80,0.1);border:1px solid rgba(239,65,80,0.28);border-radius:10px;padding:10px 16px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;">🗑️ Quitar</button>
-    </div>
-    <div id="muralMyStatus" style="font-size:11px;color:var(--text3);margin-top:10px;">Publica tu @ para que otros estudiantes te sigan en Instagram 💕</div>
-  </div>
-
-  <div style="width:100%;max-width:900px;margin:0 auto 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;">
-      <div style="font-family:'DM Mono',monospace;font-size:22px;color:#ff6b9d;font-weight:700;" id="muralCount">0</div>
-      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Estudiantes en el mural</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;">
-      <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--green);font-weight:700;" id="muralOnline">0</div>
-      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Activos ahora en la sala</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;padding:12px 14px;text-align:center;">
-      <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--gold);font-weight:700;" id="muralNew">0</div>
-      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Nuevos hoy</div>
-    </div>
-  </div>
-
-  <div style="width:100%;max-width:900px;margin:0 auto 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-    <input id="muralSearch" placeholder="🔍 Buscar por nombre o @..." oninput="renderMural()" style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--text);outline:none;">
-    <div style="display:flex;gap:3px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:9px;padding:3px;">
-      <button id="muralFilterAll" onclick="setMuralFilter('all',this)" style="background:rgba(225,48,108,0.18);border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:#ff6b9d;cursor:pointer;">Todos</button>
-      <button id="muralFilterOnline" onclick="setMuralFilter('online',this)" style="background:none;border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;">Activos ahora</button>
-      <button id="muralFilterRecent" onclick="setMuralFilter('recent',this)" style="background:none;border:none;padding:6px 12px;border-radius:6px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);cursor:pointer;">Recientes</button>
-    </div>
-  </div>
-
-  <div id="muralGrid" style="width:100%;max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding-bottom:30px;">
-    <div style="grid-column:1/-1;font-size:13px;color:var(--text3);text-align:center;padding:40px 20px;">Cargando mural...</div>
-  </div>
 </div>
 
 <!-- GAME PANEL -->
@@ -945,14 +1013,12 @@ const ALERTS=[{e:"📵",m:"¡No estés en el celular, crack!"},{e:"🧠",m:"¡CO
 
 // ═══════════════════════════════════════
 // IDENTIDAD: clave = nombre + código de 4 dígitos
-// (el avatar puede cambiar sin afectar la identidad)
 // ═══════════════════════════════════════
 function makeProfileKey(name,code){
   const raw=(name||'').toLowerCase().trim().replace(/[^a-z0-9]/g,'_');
   const c=(code||'0000').toString().replace(/[^0-9]/g,'').padStart(4,'0').slice(0,4);
   return 'p_'+raw.slice(0,24)+'_'+c;
 }
-// Claves viejas (para migrar datos existentes)
 function makeOldProfileKey_emoji(name,avatar){
   const raw=(name||'').toLowerCase().replace(/[^a-z0-9]/g,'_')+'_'+(avatar||'x').codePointAt(0).toString(16);
   return 'p_'+raw.slice(0,30);
@@ -998,7 +1064,6 @@ function saveBadges(awarded){
   if(_profileKey&&typeof db!=='undefined'){set(ref(db,'profiles/'+_profileKey+'/badges'),awarded).catch(()=>{});}
 }
 
-// Restaurar perfil desde Firebase
 function tryRestoreFromFirebase(profileKey,onDone){
   if(!profileKey||typeof db==='undefined'){onDone(false);return;}
   onValue(ref(db,'profiles/'+profileKey),snap=>{
@@ -1064,7 +1129,6 @@ function tryRestoreFromFirebase(profileKey,onDone){
   },{onlyOnce:true});
 }
 
-// Migración desde sistemas viejos (nombre+emoji, o solo nombre)
 function migrateOldProfileIfNeeded(name,avatar,code,callback){
   if(typeof db==='undefined'){callback();return;}
   const newKey=makeProfileKey(name,code);
@@ -1142,7 +1206,6 @@ window.saveObj=()=>localStorage.setItem('ms_obj',document.getElementById('object
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function dk(d){return d.toDateString();}
 
-// Generador de código aleatorio
 window.generateCode=function(){
   const code=String(Math.floor(1000+Math.random()*9000));
   const inp=document.getElementById('codeInput');
@@ -1217,7 +1280,7 @@ function initQuickLogin(){
 setTimeout(initQuickLogin,80);
 
 // ═══════════════════════════════════════
-// ENTER ROOM (async para esperar Firebase)
+// ENTER ROOM
 // ═══════════════════════════════════════
 window.enterRoom=async function(){
   const name=document.getElementById('nameInput').value.trim();
@@ -1251,10 +1314,8 @@ window.enterRoom=async function(){
   _profileKey=makeProfileKey(name,myCode);
   saveProfile(name,subj,myAvatar,dailyGoal,myCode);
 
-  // Migrar perfiles viejos si existen
   await new Promise(resolveMig=>migrateOldProfileIfNeeded(name,myAvatar,myCode,resolveMig));
 
-  // Esperar a Firebase ANTES de leer pomosHoy
   await new Promise(resolve=>{
     let resolved=false;
     tryRestoreFromFirebase(_profileKey,(restored)=>{
@@ -1300,7 +1361,10 @@ window.enterRoom=async function(){
       if(myUid)set(ref(db,'students/'+myUid),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,online:true,lastSeen:Date.now(),profileKey:_profileKey});
     }
   },1000);
-  listenStudents();listenChat();listenFallen();
+  listenStudents();listenFallen();
+  startMuralListener();
+  initReportSystem();
+  listenGameInvites();
   let _wasConnected=true;
   onValue(ref(db,'.info/connected'),snap=>{
     const connected=snap.val();const badge=document.getElementById('onlineCount');const existing=document.getElementById('reconnBanner');
@@ -1314,13 +1378,13 @@ window.enterRoom=async function(){
   setTimeout(()=>showFocusAlert(),2*60*1000);
   setInterval(()=>showFocusAlert(),45*60*1000);
   document.addEventListener('visibilitychange',handleVis);
-  setTimeout(()=>pushMsg('🤖 StudyBot','¡Bienvenid@ '+name+' '+myAvatar+'! La sala está activa. 🧠',true),800);
+  setTimeout(()=>showToast('🧠','¡Bienvenid@ '+name+' '+myAvatar+'! La sala está activa.',4000),800);
   setTimeout(()=>requestNotifPermission(),3000);
   setTimeout(()=>tryRestorePomoState(),500);
   cleanFallen();cleanStaleStudents();
   setInterval(cleanStaleStudents,60*1000);
   setTimeout(()=>{
-    buildFlameBar();renderLeaderboard();setInterval(renderLeaderboard,30000);startClock();
+    buildFlameBar();renderLeaderboard();renderWeeklyReport();renderNews();setInterval(()=>{renderLeaderboard();renderWeeklyReport();},30000);startClock();
     document.getElementById('headerDateTime').style.display='block';
     renderBadges();renderDoubts();startMotivationalQuotes();startFocusAlerts();
     setTimeout(()=>{if(!document.fullscreenElement&&!document.webkitFullscreenElement)showFullscreenBanner();},3000);
@@ -1358,6 +1422,7 @@ function listenStudents(){
   if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
   _unsubStudents=onValue(ref(db,'students'),snap=>{
     const d=snap.val()||{};const now=Date.now();
+    window._studentsCache=d;
     const entries=Object.entries(d).filter(([k,s])=>s&&s.name&&(s.lastSeen?(now-s.lastSeen<STALE_TTL):true));
     document.getElementById('onlineCount').textContent=entries.length+' en línea';
     const c=document.getElementById('activeStudents');
@@ -1371,32 +1436,21 @@ function listenStudents(){
       const pos=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
       const av=s.avatar||s.name[0].toUpperCase();
       const mins=isMe?Math.floor(chronoSec/60):'—';
+      const pomCount=(s.pomos||0);
       c.innerHTML+='<div class="student-card '+(isMe?'me':'')+' '+(isTop?'top-rank':'')+'">'+
         '<div class="student-header">'+
           '<div class="s-av"><div class="s-ring"></div>'+av+'</div>'+
-          '<div style="flex:1"><div class="student-name">'+esc(s.name)+(isMe?' (Tú)':'')+'</div><div class="student-sub">'+esc(s.subject||'')+'</div></div>'+
-          '<span class="badge-sm badge-pos">'+pos+'</span>'+
+          '<div style="flex:1;min-width:0;"><div class="student-name">'+esc(s.name)+(isMe?' (Tú)':'')+'</div><div class="student-sub">'+esc(s.subject||'')+'</div></div>'+
+          '<span class="pomo-count-inline" title="Pomodoros completados">🍅 '+pomCount+'</span>'+
         '</div>'+
         '<div class="student-meta">'+
-          '<span class="badge-sm badge-pomo">🍅 '+(s.pomos||0)+'</span>'+
+          '<span class="badge-sm badge-pos">'+pos+'</span>'+
           (isMe?'<span class="badge-sm badge-time">⏱ '+mins+'min</span>':'')+
           '<span class="badge-sm badge-rank">'+rank.icon+' '+rank.name+'</span>'+
+          (!isMe?'<span class="badge-challenge" title="Retar a un juego" onclick="openChallengeMenu(\''+uid+'\')">⚔️ Retar</span>':'')+
         '</div>'+
       '</div>';
     });
-  });
-}
-function listenChat(){
-  if(_unsubChat){_unsubChat();_unsubChat=null;}
-  _unsubChat=onValue(ref(db,'chat'),snap=>{
-    const d=snap.val()||{};const box=document.getElementById('chatBox');box.innerHTML='';
-    Object.values(d).filter(m=>m&&m.text&&m.name).sort((a,b)=>(a.ts||0)-(b.ts||0)).slice(-60).forEach(m=>{
-      const isMe=m.uid===myUid,isBot=m.uid==='bot',isSys=m.uid==='sys';
-      const div=document.createElement('div');div.className='chat-msg';
-      div.innerHTML='<div class="chat-name '+(isMe?'me':'')+' '+(isBot?'bot':'')+' '+(isSys?'sys':'')+'">'+esc(m.name)+'</div><div class="chat-text">'+esc(m.text)+'</div>';
-      box.appendChild(div);
-    });
-    box.scrollTop=box.scrollHeight;
   });
 }
 function listenFallen(){
@@ -1415,25 +1469,9 @@ function listenFallen(){
   });
 }
 
-// ── CHAT ──
-const CHAT_MAX=100;
-function pruneChatIfNeeded(snap){const d=snap.val();if(!d)return;const keys=Object.keys(d);if(keys.length<=CHAT_MAX)return;const sorted=keys.sort((a,b)=>(d[a].ts||0)-(d[b].ts||0));const toRemove=sorted.slice(0,keys.length-CHAT_MAX);toRemove.forEach(k=>remove(ref(db,'chat/'+k)));}
-function pushMsg(name,text,isBot,isSys){
-  push(ref(db,'chat'),{name,text,uid:isBot?'bot':isSys?'sys':myUid,ts:Date.now()});
-  if(Math.random()<0.1)onValue(ref(db,'chat'),pruneChatIfNeeded,{onlyOnce:true});
-}
-let _lastChatTs=0;
-window.sendChat=function(){
-  const inp=document.getElementById('chatInput'),txt=inp.value.trim();
-  if(!txt||!user)return;
-  const now=Date.now();
-  if(now-_lastChatTs<2000){showToast('⏳','Espera un momento antes de enviar otro mensaje.',1500);return;}
-  _lastChatTs=now;
-  pushMsg(user,txt);inp.value='';
-  const el=document.getElementById('chatCounter');if(el){el.textContent='0 / 120';el.style.color='var(--text3)';}
-  const bots=["💪 ¡Sigue estudiando!","🔥 ¡Crack! Así se hace.","🧠 Tu hipocampo te lo agradece.","📚 ¡Excelente actitud médica!"];
-  if(Math.random()>.7)setTimeout(()=>pushMsg('🤖 StudyBot',bots[Math.floor(Math.random()*bots.length)],true),1500);
-};
+// ── (Chat removido) stubs no-op para compatibilidad ──
+function pushMsg(){}
+window.sendChat=function(){};
 
 function updateMyPomos(){
   if(!myUid)return;
@@ -1441,6 +1479,7 @@ function updateMyPomos(){
   if(window._myFallenRef)onDisconnect(window._myFallenRef).set({name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'desconexión'});
   updateLeaderboard();
   renderLeaderboard();
+  renderWeeklyReport();
 }
 
 // ── LEAVE ──
@@ -1453,7 +1492,7 @@ window.leaveRoom=function(){
     if(window._cancelFallen)window._cancelFallen();
     push(ref(db,'fallen'),{name:user,subject,avatar:myAvatar,pomos:pomosHoy,ts:Date.now(),how:'salida voluntaria'});
     remove(ref(db,'students/'+myUid));
-    pushMsg('⚰️ Sistema',user+' '+myAvatar+' abandonó la sala con '+pomosHoy+' 🍅',false,true);
+    showToast('⚰️','Saliste de la sala con '+pomosHoy+' 🍅',3000);
   }
   if(_unsubStudents){_unsubStudents();_unsubStudents=null;}
   if(_unsubChat){_unsubChat();_unsubChat=null;}
@@ -1462,7 +1501,6 @@ window.leaveRoom=function(){
   const rb=document.getElementById('reconnBanner');if(rb)rb.remove();
   clearPomoState();clearInterval(pomoInt);clearInterval(chronoInt);
   stopLofi();closeModal();closeGame();
-  document.getElementById('muralPanel').style.display='none';
   document.removeEventListener('visibilitychange',handleVis);
   document.getElementById('app').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
@@ -1541,7 +1579,7 @@ function tickPomo(){
       const s=loadStats();s.pomosHoy=pomosHoy;s.totalPomos=(s.totalPomos||0)+1;s.totalMins=(s.totalMins||0)+45;s.studiedYest=true;
       saveStats(s);saveActivity();updateDashboard();updateRank();buildDots();updateMyPomos();updateMeta();
       checkAndAwardBadges();
-      pushMsg('🤖 StudyBot','🍅 ¡'+user+' '+myAvatar+' completó pomodoro #'+pomosHoy+'! '+(pomosHoy>=dailyGoal?'¡META CUMPLIDA! 🎉':'¡Sigue crack! 🔥'),true);
+      showToast('🍅','¡Pomodoro #'+pomosHoy+' completado! '+(pomosHoy>=dailyGoal?'¡META CUMPLIDA! 🎉':'¡Sigue crack! 🔥'),4000);
       sendDesktopNotif('🍅 Pomodoro completado — MedStudents','¡'+user+', completaste el pomodoro #'+pomosHoy+'! Toma tu descanso 💪');
       clearPomoState();
       showBreakModal();onBreak=true;pomoTime=BREAK;
@@ -1639,830 +1677,1354 @@ function updateRank(){
 function updateChrono(){const h=Math.floor(chronoSec/3600),m=Math.floor((chronoSec%3600)/60),s=chronoSec%60;document.getElementById('chronoDisplay').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
 
 // ── ANALYTICS ──
-let curPeriod='day',curMetric='pomos',chartInst=null;
-function dateRange(from,to){const days=[],c=new Date(from);c.setHours(0,0,0,0);const e=new Date(to);e.setHours(23,59,59,999);while(c<=e){days.push(new Date(c));c.setDate(c.getDate()+1);}return days;}
-function getPR(){
-  const today=new Date();let from,to=new Date(today);to.setHours(23,59,59,999);
-  if(curPeriod==='day'){from=new Date();from.setHours(0,0,0,0);}
-  else if(curPeriod==='week'){from=new Date();from.setDate(from.getDate()-6);from.setHours(0,0,0,0);}
-  else{from=new Date();from.setDate(from.getDate()-29);from.setHours(0,0,0,0);}
-  return{from,to};
+let curPeriod='day',curMetric='pomos',_chart=null;
+function dateRange(period){
+  const out=[],today=new Date();today.setHours(0,0,0,0);
+  let n=period==='day'?1:period==='week'?7:30;
+  for(let i=n-1;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);out.push(d);}
+  return out;
 }
-function getDataForRange(from,to){const am=loadAM();return dateRange(from,to).map(d=>({date:d,label:d.toLocaleDateString('es-MX',{month:'short',day:'numeric'}),pomos:am[dk(d)]||0,mins:(am[dk(d)]||0)*60}));}
-function aggWeekly(data){const w={};data.forEach(d=>{const s=new Date(d.date);s.setDate(s.getDate()-s.getDay());const k=dk(s);if(!w[k])w[k]={label:s.toLocaleDateString('es-MX',{month:'short',day:'numeric'}),pomos:0,mins:0};w[k].pomos+=d.pomos;w[k].mins+=d.mins;});return Object.values(w);}
-window.switchPeriod=function(p,_btn){
-  curPeriod=p;document.querySelectorAll('#ptDay,#ptWeek,#ptMonth').forEach(t=>t.classList.remove('active'));const ptMap={'day':'ptDay','week':'ptWeek','month':'ptMonth'};const ptEl=document.getElementById(ptMap[p]);if(ptEl)ptEl.classList.add('active');refreshAnalytics();
+function getPR(d){const am=loadAM();return am[d.toDateString()]||0;}
+function getDataForRange(period,metric){
+  const days=dateRange(period);
+  return days.map(d=>{const p=getPR(d);return metric==='pomos'?p:Math.round(p*45/60*10)/10;});
+}
+function aggWeekly(){
+  const am=loadAM(),weeks={};
+  Object.entries(am).forEach(([k,v])=>{
+    const d=new Date(k);const onejan=new Date(d.getFullYear(),0,1);
+    const wk=d.getFullYear()+'-W'+Math.ceil((((d-onejan)/86400000)+onejan.getDay()+1)/7);
+    weeks[wk]=(weeks[wk]||0)+v;
+  });
+  return weeks;
+}
+window.switchPeriod=function(p,el){
+  curPeriod=p;document.querySelectorAll('#ptDay,#ptWeek,#ptMonth').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');refreshAnalytics();
 };
-window.switchMetric=function(m,_btn){curMetric=m;document.querySelectorAll('#mtPomos,#mtMins').forEach(b=>b.classList.remove('active'));const mEl=document.getElementById(m==='pomos'?'mtPomos':'mtMins');if(mEl)mEl.classList.add('active');refreshAnalytics();};
-window.refreshAnalytics=function(){
-  const pr=getPR();const from=pr.from,to=pr.to;
-  const data=getDataForRange(from,to),s=loadStats();
-  const useBk=data.length>20,bk=useBk?aggWeekly(data):data;
-  const labels=bk.map(b=>b.label),vals=bk.map(b=>curMetric==='pomos'?b.pomos:+(b.mins/60).toFixed(1));
-  const tp=data.reduce((a,d)=>a+d.pomos,0),tm=data.reduce((a,d)=>a+d.mins,0),ad=data.filter(d=>d.pomos>0).length;
-  document.getElementById('kpiPomos').textContent=tp;document.getElementById('kpiHours').textContent=(tm/60).toFixed(1)+'h';
-  document.getElementById('kpiDays').textContent=ad+'/'+data.length;document.getElementById('kpiAvg').textContent=ad>0?(tp/ad).toFixed(1):'0';
-  const span=to-from,pf=new Date(from-span-86400000),pt=new Date(from-86400000);
-  const prev=getDataForRange(pf,pt),pp=prev.reduce((a,d)=>a+d.pomos,0),pm=prev.reduce((a,d)=>a+d.mins,0),pd=prev.filter(d=>d.pomos>0).length;
-  function setDelta(id,cur,pv,u){const el=document.getElementById(id);if(!el)return;if(!pv&&!cur){el.textContent='—';el.className='kpi-delta neutral';return;}const diff=cur-pv;el.textContent=(diff>=0?'+':'')+diff+(u||'');el.className='kpi-delta '+(diff>0?'up':diff<0?'down':'neutral');}
-  setDelta('kpiPomosDelta',tp,pp,'');setDelta('kpiHoursDelta',Math.round(tm/60),Math.round(pm/60),'h');setDelta('kpiDaysDelta',ad,pd,' días');
-  const am=loadAM();let bd=null,bdv=0;Object.entries(am).forEach(([k,v])=>{if(v>bdv){bdv=v;bd=k;}});
-  const insBD=document.getElementById('insBestDay');if(insBD)insBD.textContent=bd?new Date(bd).toLocaleDateString('es-MX',{weekday:'short',month:'short',day:'numeric'}):'—';
-  const insBDV=document.getElementById('insBestDayV');if(insBDV)insBDV.textContent=bd?bdv+' pomodoros':'sin datos';
-  const insS=document.getElementById('insStreak');if(insS)insS.textContent=s.streak||0;
-  const aw=aggWeekly(getDataForRange(new Date(Date.now()-90*86400000),new Date()));
-  const bw=aw.reduce((b,w)=>w.pomos>b.pomos?w:b,{pomos:0,label:'—'});
-  const insBW=document.getElementById('insBestWeek');if(insBW)insBW.textContent=bw.pomos||'—';
-  const insBWV=document.getElementById('insBestWeekV');if(insBWV)insBWV.textContent=bw.pomos?'sem. del '+bw.label:'sin datos';
-  const ctEl=document.getElementById('chartTitle');if(ctEl)ctEl.textContent=(curMetric==='pomos'?'Pomodoros':'Horas')+' · '+({day:'Hoy',week:'Últimos 7 días',month:'Últimos 30 días'}[curPeriod]||'');
-  renderChart(labels,vals);renderHM();
+window.switchMetric=function(m,el){
+  curMetric=m;document.querySelectorAll('#mtPomos,#mtMins').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');refreshAnalytics();
 };
-function renderChart(labels,vals){
-  const ctx=document.getElementById('analyticsChart');if(!ctx)return;
-  if(chartInst){chartInst.destroy();chartInst=null;}
-  const isP=curMetric==='pomos';
-  chartInst=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:isP?'Pomodoros':'Horas',data:vals,backgroundColor:isP?'rgba(239,65,80,0.7)':'rgba(0,212,255,0.65)',borderColor:isP?'#EF4150':'#00d4ff',borderWidth:1.5,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(8,24,48,0.96)',titleColor:'#00d4ff',bodyColor:'#8aabcc',borderColor:'rgba(0,212,255,0.2)',borderWidth:1,padding:9,callbacks:{label:c=>isP?c.parsed.y+' pomodoros':c.parsed.y+'h de estudio'}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6a8a',font:{family:"'DM Mono',monospace",size:10},maxRotation:45,autoSkip:labels.length>14},border:{color:'rgba(255,255,255,0.06)'}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6a8a',font:{family:"'DM Mono',monospace",size:10},precision:0},border:{color:'rgba(255,255,255,0.06)'},beginAtZero:true}}}});
-  const lgEl=document.getElementById('chartLegend');if(lgEl)lgEl.innerHTML='<div class="cleg-item"><div class="cleg-dot" style="background:'+(isP?'#EF4150':'#00d4ff')+'"></div><span>'+(isP?'Pomodoros':'Horas de estudio')+'</span></div>';
+function refreshAnalytics(){
+  const data=getDataForRange(curPeriod,curMetric);
+  const days=dateRange(curPeriod);
+  const labels=days.map(d=>curPeriod==='day'?d.toLocaleDateString('es-MX',{weekday:'short'}):curPeriod==='week'?d.toLocaleDateString('es-MX',{weekday:'short'}):d.getDate());
+  const total=data.reduce((a,b)=>a+b,0);
+  const am=loadAM();
+  const totalPomosAll=Object.values(am).reduce((a,b)=>a+b,0);
+  const totalHours=Math.round(totalPomosAll*45/60*10)/10;
+  const daysActive=Object.keys(am).length;
+  const avg=daysActive?Math.round(totalPomosAll/daysActive*10)/10:0;
+  const setT=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setT('kpiPomos',curPeriod==='day'?getPR(new Date()):total);
+  setT('kpiHours',totalHours);
+  setT('kpiDays',daysActive);
+  setT('kpiAvg',avg);
+  const ct=document.getElementById('chartTitle');
+  if(ct)ct.textContent=(curMetric==='pomos'?'Pomodoros':'Horas')+' · '+(curPeriod==='day'?'Hoy':curPeriod==='week'?'Semana':'Mes');
+  // best day / best week insights
+  let bestDay='—',bestDayV=0;
+  Object.entries(am).forEach(([k,v])=>{if(v>bestDayV){bestDayV=v;bestDay=new Date(k).toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short'});}});
+  setT('insBestDay',bestDayV||'—');setT('insBestDayV',bestDayV?bestDay:'sin datos');
+  const weeks=aggWeekly();let bestWeekV=0;
+  Object.values(weeks).forEach(v=>{if(v>bestWeekV)bestWeekV=v;});
+  setT('insBestWeek',bestWeekV||'—');setT('insBestWeekV',bestWeekV?bestWeekV+' pomodoros':'sin datos');
+  renderChart(labels,data);
+  renderHM();
+}
+function renderChart(labels,data){
+  const cv=document.getElementById('analyticsChart');if(!cv||typeof Chart==='undefined')return;
+  if(_chart){_chart.destroy();_chart=null;}
+  const ctx=cv.getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,140);
+  grad.addColorStop(0,'rgba(0,212,255,0.45)');grad.addColorStop(1,'rgba(0,212,255,0.02)');
+  _chart=new Chart(ctx,{
+    type:'bar',
+    data:{labels,datasets:[{label:curMetric==='pomos'?'Pomodoros':'Horas',data,backgroundColor:grad,borderColor:'rgba(0,212,255,0.8)',borderWidth:1,borderRadius:5,maxBarThickness:38}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7a8ba3',font:{size:9}}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7a8ba3',font:{size:9},precision:0}}}}
+  });
+  const lg=document.getElementById('chartLegend');
+  if(lg)lg.innerHTML='<div class="cleg-item"><span class="cleg-dot" style="background:rgba(0,212,255,0.7)"></span>'+(curMetric==='pomos'?'Pomodoros':'Horas')+' por día</div>';
 }
 function renderHM(){
-  const am=loadAM(),c=document.getElementById('hm30');if(!c)return;c.innerHTML='';
-  const today=new Date();
+  const c=document.getElementById('hm30');if(!c)return;c.innerHTML='';
+  const am=loadAM();const today=new Date();today.setHours(0,0,0,0);
   for(let i=29;i>=0;i--){
-    const d=new Date(today);d.setDate(d.getDate()-i);const cnt=am[dk(d)]||0;
-    let lv=0;if(cnt>=1)lv=1;if(cnt>=2)lv=2;if(cnt>=4)lv=3;if(cnt>=7)lv=4;
-    const el=document.createElement('div');
-    el.className='hmd'+(lv>0?' l'+lv:'')+(i===0?' today':'');
-    el.title=d.toLocaleDateString('es-MX')+' · '+cnt+' pomodoros';c.appendChild(el);
+    const d=new Date(today);d.setDate(d.getDate()-i);
+    const v=am[d.toDateString()]||0;
+    let lvl='';if(v>=8)lvl='l4';else if(v>=5)lvl='l3';else if(v>=3)lvl='l2';else if(v>=1)lvl='l1';
+    const isToday=i===0?' today':'';
+    c.innerHTML+='<div class="hmd '+lvl+isToday+'" title="'+d.toLocaleDateString('es-MX')+': '+v+' 🍅"></div>';
   }
 }
 
-// ── ALERTS ──
-function showFocusAlert(){const a=ALERTS[Math.floor(Math.random()*ALERTS.length)];showToast(a.e,a.m,6000);}
-function showToast(emoji,text,dur){
-  if(!dur)dur=4000;
-  const c=document.getElementById('alertToast'),t=document.createElement('div');t.className='toast';
-  t.innerHTML='<span class="toast-emoji">'+emoji+'</span><div class="toast-text">'+text+'</div>';
-  c.innerHTML='';c.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(60px)';t.style.transition='all .4s';setTimeout(()=>{if(c.contains(t))c.removeChild(t);},400);},dur);
+// ── ALERTS / TOAST ──
+function showFocusAlert(){
+  if(document.hidden){const a=ALERTS[Math.floor(Math.random()*ALERTS.length)];showToast(a.e,a.m,5000);}
 }
+window.showToast=function(emoji,text,dur){
+  const w=document.getElementById('alertToast');if(!w)return;
+  const t=document.createElement('div');t.className='toast';
+  t.innerHTML='<span class="toast-emoji">'+emoji+'</span><div class="toast-text">'+text+'</div>';
+  w.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .4s';setTimeout(()=>t.remove(),400);},dur||3500);
+};
+function showToast(e,t,d){return window.showToast(e,t,d);}
 
 // ── MODALS ──
 function showBreakModal(){
-  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box">'+
-    '<span class="modal-emoji">🎉</span><div class="modal-title">¡Pomodoro #'+pomosHoy+' Completado!</div>'+
-    '<div class="modal-text">'+(pomosHoy>=dailyGoal?'<strong style="color:var(--gold)">¡META DEL DÍA! 🏆</strong><br><br>':'')+'15 minutos de descanso guiado:</div>'+
-    '<ul class="bml"><li>💧 Toma agua ahora</li><li>🧘 Estira cuello y espalda</li><li>👁️ Mira lejos 20 segundos</li><li>🍎 Come algo ligero</li><li>🚽 Ve al baño</li><li>📵 Sin celular</li></ul>'+
-    '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'+
-      '<button class="modal-btn" onclick="closeModal();openGame(\'memorama\')" style="font-size:11px;padding:8px 16px;">🧩 Memorama</button>'+
-      '<button class="modal-btn" onclick="closeModal();openGame(\'trivia\')" style="font-size:11px;padding:8px 16px;">🧠 Trivia</button>'+
-      '<button class="modal-btn" onclick="closeModal()" style="background:rgba(255,255,255,0.1);">Descansar 💤</button>'+
-    '</div></div></div>';
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">🎉</span><div class="modal-title">¡Pomodoro completado!</div><div class="modal-text">Tómate 15 min de descanso guiado. Tu cerebro consolida lo aprendido durante la pausa.</div><ul class="bml"><li>💧 Hidrátate</li><li>🧘 Estírate</li><li>👁️ Descansa la vista</li><li>📵 Sin celular</li></ul><button class="modal-btn" onclick="closeModal()">¡Entendido! 💪</button></div></div>';
 }
 function showNeuralWarning(){
-  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box" style="border-color:rgba(244,200,66,0.4)">'+
-    '<span class="modal-emoji">👀</span><div class="modal-title">¡Te fuiste de la pantalla!</div>'+
-    '<div class="modal-text">Cada interrupción cuesta <strong style="color:var(--gold)">hasta 23 minutos</strong> volver al estado de flujo.</div>'+
-    '<button class="modal-btn" onclick="closeModal()">Volver al estudio 🧠</button></div></div>';
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">🧠</span><div class="modal-title">¡No te distraigas!</div><div class="modal-text">Cada interrupción reinicia tu enfoque. Vuelve al material, crack.</div><button class="modal-btn modal-btn-red" onclick="closeModal()">Volver a estudiar</button></div></div>';
 }
-window.closeModal=()=>document.getElementById('modalContainer').innerHTML='';
-function handleVis(){if(document.hidden&&user)showNeuralWarning();}
-function playSound(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(0,ctx.currentTime+i*.15);g.gain.linearRampToValueAtTime(.3,ctx.currentTime+i*.15+.05);g.gain.linearRampToValueAtTime(0,ctx.currentTime+i*.15+.4);o.start(ctx.currentTime+i*.15);o.stop(ctx.currentTime+i*.15+.5);});}catch(e){}}
-
-// ═══════════════════════════════════════
-// MURAL INSTAGRAM (módulo independiente)
-// ═══════════════════════════════════════
-let _muralData={};
-let _muralFilter='all';
-const MURAL_LS='ms_my_mural_ig';
-
-window.openMural=function(){
-  if(!user){showToast('⚠️','Inicia sesión primero',2500);return;}
-  document.getElementById('muralPanel').style.display='flex';
-  const myIg=localStorage.getItem(MURAL_LS);
-  if(myIg){
-    const inp=document.getElementById('muralIgInput');
-    if(inp)inp.value=myIg;
+window.closeModal=function(){document.getElementById('modalContainer').innerHTML='';};
+let _visStrikes=0;
+function handleVis(){
+  if(document.hidden&&pomoRunning&&!onBreak){
+    _visStrikes++;
+    if(_visStrikes>=2){showNeuralWarning();_visStrikes=0;}
   }
-  startMuralListener();
-};
+}
+function playSound(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [0,0.15,0.3].forEach((delay,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=[523,659,784][i];o.type='sine';
+      g.gain.setValueAtTime(0.0001,ctx.currentTime+delay);
+      g.gain.exponentialRampToValueAtTime(0.2,ctx.currentTime+delay+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+delay+0.4);
+      o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+0.4);
+    });
+  }catch(e){}
+}
 
-window.closeMural=function(){
-  document.getElementById('muralPanel').style.display='none';
+// ══════ MURAL (embebido en página principal) ══════
+let _muralData={},_muralFilter='all';
+const MURAL_LS='ms_mural_handle_v1';
+window.scrollToMural=function(){
+  const el=document.getElementById('muralEmbed');
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
 };
-
 function startMuralListener(){
   if(_unsubMural)return;
-  _unsubMural=onValue(ref(db,'instagram_mural'),snap=>{
+  _unsubMural=onValue(ref(db,'mural'),snap=>{
     _muralData=snap.val()||{};
-    updateMuralStats();
-    renderMural();
-    updateMyMuralStatus();
+    updateMuralStats();updateMyMuralStatus();renderMural();
   });
 }
-
 function updateMyMuralStatus(){
-  const mine=_muralData[_profileKey];
-  const status=document.getElementById('muralMyStatus');
+  const mine=localStorage.getItem(MURAL_LS);
+  const st=document.getElementById('muralMyStatus');
   const delBtn=document.getElementById('muralDelBtn');
-  if(!status)return;
-  if(mine&&mine.handle){
-    status.innerHTML='✅ Estás en el mural como <strong style="color:#ff6b9d;">@'+esc(mine.handle)+'</strong>';
+  const inp=document.getElementById('muralIgInput');
+  if(mine){
+    if(st)st.innerHTML='✅ Estás en el mural como <strong style="color:#ff6b9d">@'+esc(mine)+'</strong>';
     if(delBtn)delBtn.style.display='inline-block';
+    if(inp&&!inp.value)inp.value=mine;
   } else {
-    status.textContent='Publica tu @ para que otros estudiantes te sigan en Instagram 💕';
+    if(st)st.textContent='Publica tu @ para que otros estudiantes te sigan en Instagram 💕';
     if(delBtn)delBtn.style.display='none';
   }
 }
-
 function updateMuralStats(){
-  const entries=Object.entries(_muralData).filter(([k,v])=>v&&v.handle&&v.name);
-  const total=entries.length;
-  onValue(ref(db,'students'),snap=>{
-    const online=snap.val()||{};
-    const now=Date.now();
-    const onlineKeys=new Set();
-    Object.values(online).forEach(s=>{
-      if(s&&s.profileKey&&s.lastSeen&&(now-s.lastSeen<90000)){
-        onlineKeys.add(s.profileKey);
-      }
-    });
-    const onlineCount=entries.filter(([k])=>onlineKeys.has(k)).length;
-    const c1=document.getElementById('muralCount');if(c1)c1.textContent=total;
-    const c2=document.getElementById('muralOnline');if(c2)c2.textContent=onlineCount;
-    const startOfDay=new Date();startOfDay.setHours(0,0,0,0);
-    const newToday=entries.filter(([k,v])=>(v.updatedAt||0)>=startOfDay.getTime()).length;
-    const c3=document.getElementById('muralNew');if(c3)c3.textContent=newToday;
-  },{onlyOnce:true});
+  const arr=Object.values(_muralData).filter(m=>m&&m.handle);
+  const setT=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setT('muralCount',arr.length);
+  // online: handles whose name matches an online student
+  let onlineNames=[];
+  onValue(ref(db,'students'),s=>{const d=s.val()||{};onlineNames=Object.values(d).filter(x=>x&&x.name).map(x=>x.name.toLowerCase());},{onlyOnce:true});
+  const now=Date.now();
+  const newToday=arr.filter(m=>m.ts&&(now-m.ts)<24*60*60*1000).length;
+  setT('muralNew',newToday);
+  setTimeout(()=>{
+    const onCount=arr.filter(m=>m.name&&onlineNames.includes(m.name.toLowerCase())).length;
+    setT('muralOnline',onCount);
+  },300);
 }
-
-window.setMuralFilter=function(f,btn){
+window.setMuralFilter=function(f,el){
   _muralFilter=f;
   ['muralFilterAll','muralFilterOnline','muralFilterRecent'].forEach(id=>{
-    const b=document.getElementById(id);if(!b)return;
-    b.style.background='none';b.style.color='var(--text3)';
+    const b=document.getElementById(id);if(b){b.style.background='none';b.style.color='var(--text3)';}
   });
-  if(btn){
-    btn.style.background='rgba(225,48,108,0.18)';
-    btn.style.color='#ff6b9d';
-  }
+  if(el){el.style.background='rgba(225,48,108,0.18)';el.style.color='#ff6b9d';}
   renderMural();
 };
-
 window.renderMural=function(){
-  const grid=document.getElementById('muralGrid');
-  if(!grid)return;
-  let entries=Object.entries(_muralData).filter(([k,v])=>v&&v.handle&&v.name);
-  const search=(document.getElementById('muralSearch')?.value||'').toLowerCase().trim();
-  if(search){
-    entries=entries.filter(([k,v])=>
-      (v.name||'').toLowerCase().includes(search)||
-      (v.handle||'').toLowerCase().includes(search)
-    );
-  }
-  if(_muralFilter==='recent'){
-    const ago=Date.now()-7*24*60*60*1000;
-    entries=entries.filter(([k,v])=>(v.updatedAt||0)>=ago);
-    entries.sort((a,b)=>(b[1].updatedAt||0)-(a[1].updatedAt||0));
-  } else {
-    entries.sort((a,b)=>{
-      if(a[0]===_profileKey)return -1;
-      if(b[0]===_profileKey)return 1;
-      return (b[1].updatedAt||0)-(a[1].updatedAt||0);
-    });
-  }
-  onValue(ref(db,'students'),snap=>{
-    const online=snap.val()||{};
-    const now=Date.now();
-    const onlineKeys=new Set();
-    Object.values(online).forEach(s=>{
-      if(s&&s.profileKey&&s.lastSeen&&(now-s.lastSeen<90000)){
-        onlineKeys.add(s.profileKey);
-      }
-    });
-    let filtered=entries;
-    if(_muralFilter==='online'){
-      filtered=entries.filter(([k])=>onlineKeys.has(k));
-    }
-    drawMuralGrid(filtered,onlineKeys);
-  },{onlyOnce:true});
+  const grid=document.getElementById('muralGrid');if(!grid)return;
+  let arr=Object.entries(_muralData).map(([k,v])=>({key:k,...v})).filter(m=>m&&m.handle);
+  const q=(document.getElementById('muralSearch')?.value||'').toLowerCase().trim();
+  if(q)arr=arr.filter(m=>(m.name||'').toLowerCase().includes(q)||(m.handle||'').toLowerCase().includes(q));
+  const now=Date.now();
+  let onlineNames=[];
+  onValue(ref(db,'students'),s=>{const d=s.val()||{};onlineNames=Object.values(d).filter(x=>x&&x.name).map(x=>x.name.toLowerCase());drawMuralGrid(arr,onlineNames,now);},{onlyOnce:true});
 };
-
-function drawMuralGrid(entries,onlineKeys){
-  const grid=document.getElementById('muralGrid');
-  if(!grid)return;
-  if(!entries.length){
-    grid.innerHTML='<div class="mural-empty"><div class="mural-empty-em">📸</div><div class="mural-empty-t">El mural está vacío aún</div><div class="mural-empty-s">¡Sé el primero en publicar tu @!</div></div>';
+function drawMuralGrid(arr,onlineNames,now){
+  const grid=document.getElementById('muralGrid');if(!grid)return;
+  const mine=localStorage.getItem(MURAL_LS);
+  if(_muralFilter==='online')arr=arr.filter(m=>m.name&&onlineNames.includes(m.name.toLowerCase()));
+  else if(_muralFilter==='recent')arr=arr.filter(m=>m.ts&&(now-m.ts)<24*60*60*1000);
+  arr.sort((a,b)=>(b.ts||0)-(a.ts||0));
+  if(!arr.length){
+    grid.innerHTML='<div class="mural-empty"><div class="mural-empty-em">📸</div><div class="mural-empty-t">El mural está vacío</div><div class="mural-empty-s">¡Sé el primero en publicar tu Instagram!</div></div>';
     return;
   }
   grid.innerHTML='';
-  entries.forEach(([key,v],i)=>{
-    const isMe=key===_profileKey;
-    const isOnline=onlineKeys&&onlineKeys.has(key);
+  arr.forEach((m,i)=>{
+    const isMe=mine&&m.handle&&m.handle.toLowerCase()===mine.toLowerCase();
+    const isOnline=m.name&&onlineNames.includes(m.name.toLowerCase());
+    const av=m.avatar||'🧑‍⚕️';
     const card=document.createElement('div');
     card.className='mural-card'+(isMe?' is-me':'')+(isOnline?' is-online':'');
-    card.style.animationDelay=(i*40)+'ms';
-    const inner=
-      '<div class="mural-avatar">'+esc(v.avatar||'🧑')+'</div>'+
-      '<div class="mural-name">'+esc(v.name)+'</div>'+
-      '<div class="mural-handle">@'+esc(v.handle)+'</div>'+
-      '<div class="mural-subject">'+esc(v.subject||'Estudiante')+'</div>'+
-      (isMe
-        ? '<button class="mural-follow-btn" onclick="document.getElementById(\'muralIgInput\').focus()" style="background:rgba(255,255,255,0.08);">✏️ EDITAR</button>'
-        : '<a href="https://instagram.com/'+encodeURIComponent(v.handle)+'" target="_blank" rel="noopener" class="mural-follow-btn">📸 SEGUIR</a>');
-    card.innerHTML=inner;
+    card.style.animationDelay=(i*0.04)+'s';
+    card.innerHTML='<div class="mural-avatar">'+av+'</div>'+
+      '<div class="mural-name">'+esc(m.name||'Estudiante')+'</div>'+
+      '<div class="mural-handle">@'+esc(m.handle)+'</div>'+
+      '<div class="mural-subject">'+esc(m.subject||'MedStudent')+'</div>'+
+      '<a class="mural-follow-btn" href="https://instagram.com/'+encodeURIComponent(m.handle)+'" target="_blank" rel="noopener">📸 Seguir</a>';
     grid.appendChild(card);
   });
 }
-
 window.publishToMural=function(){
-  if(!user||!_profileKey){
-    showToast('⚠️','Inicia sesión primero',2500);
-    return;
-  }
   const inp=document.getElementById('muralIgInput');
-  let handle=(inp.value||'').trim().replace(/^@+/,'').replace(/[^a-zA-Z0-9._]/g,'');
-  if(!handle){
-    showToast('⚠️','Escribe tu @ de Instagram',2500);
-    inp.style.borderColor='var(--red)';
-    return;
-  }
-  if(handle.length<2||handle.length>30){
-    showToast('⚠️','El @ debe tener entre 2 y 30 caracteres',2500);
-    return;
-  }
-  inp.value=handle;
-  inp.style.borderColor='';
-  localStorage.setItem(MURAL_LS,handle);
-  set(ref(db,'instagram_mural/'+_profileKey),{
-    name:user,
-    avatar:myAvatar,
-    handle:handle,
-    subject:subject||'Estudiante',
-    updatedAt:Date.now()
-  }).then(()=>{
-    showToast('💕','¡Tu @ está en el mural! Otros pueden seguirte 📸',4000);
-  }).catch(()=>{
-    showToast('⚠️','Error al publicar. Intenta de nuevo.',3000);
-  });
+  let handle=(inp?.value||'').trim().replace(/^@+/,'').replace(/[^a-zA-Z0-9._]/g,'');
+  if(!handle){showToast('⚠️','Escribe tu usuario de Instagram',3000);return;}
+  if(handle.length<2){showToast('⚠️','Usuario muy corto',3000);return;}
+  if(!user){showToast('⚠️','Entra a la sala primero',3000);return;}
+  const key=makeProfileKey(user,myCode);
+  set(ref(db,'mural/'+key),{name:user,handle,avatar:myAvatar,subject,ts:Date.now()}).then(()=>{
+    localStorage.setItem(MURAL_LS,handle);
+    updateMyMuralStatus();
+    showToast('💕','¡Publicado en el mural como @'+handle+'!',3500);
+  }).catch(()=>showToast('⚠️','Error al publicar, intenta de nuevo',3000));
 };
-
 window.removeFromMural=function(){
-  if(!_profileKey)return;
-  if(!confirm('¿Quitar tu @ del mural? Otros ya no podrán verte aquí.'))return;
-  remove(ref(db,'instagram_mural/'+_profileKey)).then(()=>{
+  if(!user)return;
+  const key=makeProfileKey(user,myCode);
+  remove(ref(db,'mural/'+key)).then(()=>{
     localStorage.removeItem(MURAL_LS);
     const inp=document.getElementById('muralIgInput');if(inp)inp.value='';
-    showToast('✅','Te quitaste del mural',2500);
-  });
+    updateMyMuralStatus();
+    showToast('🗑️','Te quitaste del mural',3000);
+  }).catch(()=>{});
 };
 
-// ── GAMES ──
-window.openGame=function(type){
-  document.getElementById('gamePanel').classList.add('open');
-  const titles={memorama:'🧩 Memorama Médico',chess:'♟️ Ajedrez',trivia:'🧠 Trivia Médica'};
-  document.getElementById('gamePanelTitle').textContent=titles[type]||'🎮 Juego';
-  if(type==='memorama')initMemorama();else if(type==='chess')initChess();else if(type==='trivia')initTrivia();
+// ══════ GAMES ══════
+let _memoTimer=null;
+window.openGame=function(g){
+  const panel=document.getElementById('gamePanel');
+  const title=document.getElementById('gamePanelTitle');
+  panel.classList.add('open');
+  if(g==='memorama'){title.textContent='🧩 Memorama Médico';initMemorama();}
+  else if(g==='chess'){title.textContent='♟️ Ajedrez';initChess();}
+  else if(g==='trivia'){title.textContent='🧠 Trivia Médica';initTrivia();}
 };
-window.closeGame=function(){document.getElementById('gamePanel').classList.remove('open');document.getElementById('gameContent').innerHTML='';if(chessGameInt)clearInterval(chessGameInt);if(memoTimer){clearInterval(memoTimer);memoTimer=null;}};
+window.closeGame=function(){
+  const panel=document.getElementById('gamePanel');
+  panel.classList.remove('open');
+  if(_memoTimer){clearInterval(_memoTimer);_memoTimer=null;}
+  document.getElementById('gameContent').innerHTML='';
+};
 
 // ── MEMORAMA ──
-const MEMO_CLASSIC={easy:[{e:'🧠',l:'Cerebro'},{e:'❤️',l:'Corazón'},{e:'🫁',l:'Pulmón'},{e:'🦴',l:'Hueso'},{e:'💊',l:'Pastilla'},{e:'🩺',l:'Estetoscopio'},{e:'💉',l:'Jeringa'},{e:'🧬',l:'ADN'}],medium:[{e:'🧠',l:'Cerebro'},{e:'❤️',l:'Corazón'},{e:'🫁',l:'Pulmón'},{e:'🦴',l:'Hueso'},{e:'💊',l:'Pastilla'},{e:'🩺',l:'Estetoscopio'},{e:'💉',l:'Jeringa'},{e:'🧬',l:'ADN'},{e:'🦠',l:'Bacteria'},{e:'🔬',l:'Microscopio'},{e:'🧫',l:'Petri'},{e:'🩻',l:'Rayos X'}],hard:[{e:'🧠',l:'Cerebro'},{e:'❤️',l:'Corazón'},{e:'🫁',l:'Pulmón'},{e:'🦴',l:'Hueso'},{e:'💊',l:'Pastilla'},{e:'🩺',l:'Estetoscopio'},{e:'💉',l:'Jeringa'},{e:'🧬',l:'ADN'},{e:'🦠',l:'Bacteria'},{e:'🔬',l:'Microscopio'},{e:'🧫',l:'Petri'},{e:'🩻',l:'Rayos X'},{e:'🫀',l:'Anatomía'},{e:'🫥',l:'Paciente'},{e:'🥼',l:'Bata'},{e:'🧪',l:'Tubo'},{e:'🧴',l:'Reactivo'},{e:'💧',l:'Solución'}]};
-const MEMO_MEDICAL={easy:[{e:'CO',l:'Monóxido carbono'},{e:'Hb',l:'Hemoglobina'},{e:'Na',l:'Sodio'},{e:'K',l:'Potasio'},{e:'Ca',l:'Calcio'},{e:'Mg',l:'Magnesio'},{e:'Cl',l:'Cloro'},{e:'Fe',l:'Hierro'}],medium:[{e:'CO',l:'Monóxido C.'},{e:'Hb',l:'Hemoglobina'},{e:'Na',l:'Sodio'},{e:'K',l:'Potasio'},{e:'Ca',l:'Calcio'},{e:'Mg',l:'Magnesio'},{e:'Cl',l:'Cloro'},{e:'Fe',l:'Hierro'},{e:'P',l:'Fósforo'},{e:'I',l:'Yodo'},{e:'Zn',l:'Zinc'},{e:'Se',l:'Selenio'}],hard:[{e:'CO',l:'Monóxido C.'},{e:'Hb',l:'Hemoglobina'},{e:'Na',l:'Sodio'},{e:'K',l:'Potasio'},{e:'Ca',l:'Calcio'},{e:'Mg',l:'Magnesio'},{e:'Cl',l:'Cloro'},{e:'Fe',l:'Hierro'},{e:'P',l:'Fósforo'},{e:'I',l:'Yodo'},{e:'Zn',l:'Zinc'},{e:'Se',l:'Selenio'},{e:'Mn',l:'Manganeso'},{e:'Cu',l:'Cobre'},{e:'Mo',l:'Molibdeno'},{e:'Co',l:'Cobalto'},{e:'Cr',l:'Cromo'},{e:'B12',l:'Vit B12'}]};
-let memoFlipped=[],memoMatched=0,memoMoves=0,memoTotal=0,memoTimer=null,memoSeconds=0,memoMode='classic',memoDiff='easy',memoCards=[];
-
+const MEMO_CLASSIC=['🧬','💊','🫀','🧠','🦴','🩺','🔬','🦠','💉','🩸','🫁','👁️','🦷','🧫','⚕️','🩹'];
+const MEMO_MEDICAL=[
+  {a:'🫀',b:'Corazón'},{a:'🧠',b:'Cerebro'},{a:'🫁',b:'Pulmones'},{a:'🦴',b:'Hueso'},
+  {a:'🩸',b:'Sangre'},{a:'🦠',b:'Bacteria'},{a:'💊',b:'Fármaco'},{a:'🧬',b:'ADN'},
+  {a:'👁️',b:'Ojo'},{a:'🦷',b:'Diente'},{a:'🔬',b:'Microscopio'},{a:'💉',b:'Vacuna'},
+  {a:'🩺',b:'Estetoscopio'},{a:'🧫',b:'Cultivo'},{a:'⚕️',b:'Medicina'},{a:'🩹',b:'Vendaje'}
+];
+let _memoMode='classic',_memoDiff='easy',_memoState=null;
+function memoBestKey(){return 'ms_memo_best_'+_memoMode+'_'+_memoDiff;}
 function initMemorama(){
-  const html=`
-    <div class="memo-wrap">
-      <div class="memo-header">
-        <div class="memo-header-left">
-          <div><div class="memo-header-title">🧩 Memorama Médico</div><div class="memo-header-sub" id="memoSub">Selecciona modo y dificultad</div></div>
-        </div>
-        <div class="memo-stats-bar">
-          <div class="memo-stat"><div class="memo-stat-v" id="memoMoves">0</div><div class="memo-stat-l">Movs</div></div>
-          <div class="memo-stat green"><div class="memo-stat-v" id="memoMatched">0/0</div><div class="memo-stat-l">Pares</div></div>
-          <div class="memo-stat gold"><div class="memo-stat-v" id="memoTime">0:00</div><div class="memo-stat-l">Tiempo</div></div>
-        </div>
-      </div>
-      <div class="memo-modes">
-        <div class="memo-mode-btn active" id="memoModeClassic" onclick="setMemoMode('classic')"><span class="memo-mode-ico">🩺</span><div class="memo-mode-nm">Clásico</div><div class="memo-mode-desc">Órganos</div></div>
-        <div class="memo-mode-btn" id="memoModeMedical" onclick="setMemoMode('medical')"><span class="memo-mode-ico">🧪</span><div class="memo-mode-nm">Biomédico</div><div class="memo-mode-desc">Elementos</div></div>
-      </div>
-      <div class="diff-btns">
-        <div class="diff-btn active" id="memoDiffEasy" onclick="setMemoDiff('easy')"><span class="diff-ico">🟢</span>Fácil 4×4</div>
-        <div class="diff-btn" id="memoDiffMed" onclick="setMemoDiff('medium')"><span class="diff-ico">🟡</span>Medio 6×4</div>
-        <div class="diff-btn" id="memoDiffHard" onclick="setMemoDiff('hard')"><span class="diff-ico">🔴</span>Difícil 6×6</div>
-      </div>
-      <div class="memo-best" id="memoBest"></div>
-      <div class="memo-progress"><div class="memo-progress-fill" id="memoProgress" style="width:0%"></div></div>
-      <div class="memo-grid memo-grid-4" id="memoGrid" style="position:relative;"></div>
-      <div class="memo-controls"><button class="btn-memo btn-memo-start" onclick="startMemorama()">▶ Iniciar</button></div>
-    </div>`;
-  document.getElementById('gameContent').innerHTML=html;
+  const c=document.getElementById('gameContent');
+  c.innerHTML='<div class="memo-wrap">'+
+    '<div class="memo-modes">'+
+      '<div class="memo-mode-btn'+(_memoMode==='classic'?' active':'')+'" onclick="setMemoMode(\'classic\')"><span class="memo-mode-ico">🎴</span><div class="memo-mode-nm">Clásico</div><div class="memo-mode-desc">Empareja símbolos</div></div>'+
+      '<div class="memo-mode-btn'+(_memoMode==='medical'?' active':'')+'" onclick="setMemoMode(\'medical\')"><span class="memo-mode-ico">⚕️</span><div class="memo-mode-nm">Médico</div><div class="memo-mode-desc">Símbolo + concepto</div></div>'+
+    '</div>'+
+    '<div class="diff-btns">'+
+      '<div class="diff-btn'+(_memoDiff==='easy'?' active':'')+'" onclick="setMemoDiff(\'easy\')"><span class="diff-ico">🟢</span>Fácil (4×4)</div>'+
+      '<div class="diff-btn'+(_memoDiff==='medium'?' active':'')+'" onclick="setMemoDiff(\'medium\')"><span class="diff-ico">🟡</span>Medio (5×4)</div>'+
+      '<div class="diff-btn'+(_memoDiff==='hard'?' active':'')+'" onclick="setMemoDiff(\'hard\')"><span class="diff-ico">🔴</span>Difícil (6×4)</div>'+
+    '</div>'+
+    '<div class="memo-best" id="memoBest"></div>'+
+    '<div class="memo-stats-bar">'+
+      '<div class="memo-stat"><div class="memo-stat-v" id="memoMoves">0</div><div class="memo-stat-l">Intentos</div></div>'+
+      '<div class="memo-stat green"><div class="memo-stat-v" id="memoMatches">0</div><div class="memo-stat-l">Pares</div></div>'+
+      '<div class="memo-stat gold"><div class="memo-stat-v" id="memoTime">0:00</div><div class="memo-stat-l">Tiempo</div></div>'+
+      '<div class="memo-stat red"><div class="memo-stat-v" id="memoCombo">0</div><div class="memo-stat-l">Combo</div></div>'+
+    '</div>'+
+    '<div class="memo-progress"><div class="memo-progress-fill" id="memoProgress" style="width:0%"></div></div>'+
+    '<div style="position:relative;"><div class="memo-g" id="memoGrid"></div></div>'+
+    '<div class="memo-controls"><button class="btn-memo btn-memo-start" onclick="startMemorama()">🎮 Nueva partida</button></div>'+
+  '</div>';
   updateMemoBest();
-  startMemorama();
 }
-window.setMemoMode=function(m){memoMode=m;document.getElementById('memoModeClassic').classList.toggle('active',m==='classic');document.getElementById('memoModeMedical').classList.toggle('active',m==='medical');updateMemoBest();startMemorama();};
-window.setMemoDiff=function(d){memoDiff=d;document.getElementById('memoDiffEasy').classList.toggle('active',d==='easy');document.getElementById('memoDiffMed').classList.toggle('active',d==='medium');document.getElementById('memoDiffHard').classList.toggle('active',d==='hard');updateMemoBest();startMemorama();};
+window.setMemoMode=function(m){_memoMode=m;initMemorama();};
+window.setMemoDiff=function(d){_memoDiff=d;initMemorama();};
 function updateMemoBest(){
-  const k='ms_memo_best_'+memoMode+'_'+memoDiff;const best=JSON.parse(localStorage.getItem(k)||'null');
-  const el=document.getElementById('memoBest');if(!el)return;
-  if(best)el.innerHTML='🏆 Mejor: <span>'+best.moves+'</span> movs · <span>'+Math.floor(best.time/60)+':'+String(best.time%60).padStart(2,'0')+'</span>';
-  else el.innerHTML='🏆 Sin récord aún · ¡Establece uno!';
+  const b=document.getElementById('memoBest');if(!b)return;
+  const best=JSON.parse(localStorage.getItem(memoBestKey())||'null');
+  if(best)b.innerHTML='🏆 Mejor: <span>'+best.moves+' intentos</span> · <span>'+formatMemoTime(best.time)+'</span>';
+  else b.innerHTML='🏆 Sin récord aún · ¡Juega tu primera partida!';
 }
+function formatMemoTime(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
 window.startMemorama=function(){
-  if(memoTimer){clearInterval(memoTimer);memoTimer=null;}
-  const pool=(memoMode==='classic'?MEMO_CLASSIC:MEMO_MEDICAL)[memoDiff];
-  memoCards=[...pool,...pool].sort(()=>Math.random()-0.5);
-  memoFlipped=[];memoMatched=0;memoMoves=0;memoSeconds=0;memoTotal=memoCards.length/2;
-  const grid=document.getElementById('memoGrid');if(!grid)return;
-  grid.className='memo-grid '+(memoDiff==='easy'?'memo-grid-4':memoDiff==='medium'?'memo-grid-6':'memo-grid-6');
+  const pairs=_memoDiff==='easy'?8:_memoDiff==='medium'?10:12;
+  const cols=_memoDiff==='easy'?4:_memoDiff==='medium'?5:6;
+  let cards=[];
+  if(_memoMode==='classic'){
+    const syms=MEMO_CLASSIC.slice(0,pairs);
+    syms.forEach(s=>{cards.push({face:s,id:s},{face:s,id:s});});
+  } else {
+    const data=MEMO_MEDICAL.slice(0,pairs);
+    data.forEach(d=>{cards.push({face:d.a,id:d.a,label:''},{face:d.b,id:d.a,label:'',isText:true});});
+  }
+  cards=cards.sort(()=>Math.random()-0.5);
+  _memoState={cards,flipped:[],matched:0,moves:0,combo:0,maxCombo:0,time:0,locked:false,pairs};
+  const grid=document.getElementById('memoGrid');
+  grid.className='memo-g memo-g'+cols;
   grid.innerHTML='';
-  memoCards.forEach((c,i)=>{
-    const card=document.createElement('div');card.className='memo-card entering';card.style.animationDelay=(i*30)+'ms';card.dataset.i=i;card.dataset.e=c.e;
-    card.innerHTML='<div class="memo-inner"><div class="memo-front"></div><div class="memo-back"><div style="font-size:24px;">'+c.e+'</div><div class="memo-back-label">'+c.l+'</div></div></div>';
-    card.onclick=()=>flipMemo(i);
-    grid.appendChild(card);
+  cards.forEach((card,i)=>{
+    const el=document.createElement('div');
+    el.className='memo-card entering';el.style.animationDelay=(i*0.03)+'s';
+    el.dataset.idx=i;
+    const inner=card.isText
+      ?'<div class="memo-back" style="font-size:13px;"><span class="memo-back-label">'+esc(card.face)+'</span></div>'
+      :'<div class="memo-back">'+card.face+'</div>';
+    el.innerHTML='<div class="memo-inner"><div class="memo-front"></div>'+inner+'</div>';
+    el.onclick=()=>flipMemo(i,el);
+    grid.appendChild(el);
   });
   document.getElementById('memoMoves').textContent='0';
-  document.getElementById('memoMatched').textContent='0/'+memoTotal;
+  document.getElementById('memoMatches').textContent='0';
+  document.getElementById('memoCombo').textContent='0';
   document.getElementById('memoTime').textContent='0:00';
   document.getElementById('memoProgress').style.width='0%';
-  document.getElementById('memoSub').textContent='¡Encuentra los pares!';
-  memoTimer=setInterval(()=>{memoSeconds++;document.getElementById('memoTime').textContent=Math.floor(memoSeconds/60)+':'+String(memoSeconds%60).padStart(2,'0');},1000);
+  if(_memoTimer)clearInterval(_memoTimer);
+  _memoTimer=setInterval(()=>{if(_memoState){_memoState.time++;document.getElementById('memoTime').textContent=formatMemoTime(_memoState.time);}},1000);
 };
-function memoPlaySound(type){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);if(type==='match'){o.frequency.value=659;o.type='sine';g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.2,ctx.currentTime+.02);g.gain.linearRampToValueAtTime(0,ctx.currentTime+.3);}else{o.frequency.value=220;o.type='square';g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.1,ctx.currentTime+.02);g.gain.linearRampToValueAtTime(0,ctx.currentTime+.15);}o.start();o.stop(ctx.currentTime+.3);}catch(e){}}
-window.flipMemo=function(i){
-  const cards=document.querySelectorAll('.memo-card');const card=cards[i];
-  if(!card||card.classList.contains('flipped')||card.classList.contains('matched')||memoFlipped.length>=2)return;
-  card.classList.add('flipped');memoFlipped.push(i);
-  if(memoFlipped.length===2){
-    memoMoves++;document.getElementById('memoMoves').textContent=memoMoves;
-    const [a,b]=memoFlipped;
-    if(memoCards[a].e===memoCards[b].e){
+function memoPlaySound(type){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);
+    if(type==='match'){o.frequency.value=660;o.type='sine';}
+    else if(type==='win'){o.frequency.value=880;o.type='triangle';}
+    else{o.frequency.value=180;o.type='sawtooth';}
+    g.gain.setValueAtTime(0.0001,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.15,ctx.currentTime+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.3);
+    o.start();o.stop(ctx.currentTime+0.3);
+  }catch(e){}
+}
+window.flipMemo=function(i,el){
+  if(!_memoState||_memoState.locked)return;
+  if(_memoState.flipped.includes(i)||el.classList.contains('matched'))return;
+  el.classList.add('flipped');
+  _memoState.flipped.push(i);
+  if(_memoState.flipped.length===2){
+    _memoState.moves++;
+    document.getElementById('memoMoves').textContent=_memoState.moves;
+    const[a,b]=_memoState.flipped;
+    const cardA=_memoState.cards[a],cardB=_memoState.cards[b];
+    const elA=document.querySelector('.memo-card[data-idx="'+a+'"]');
+    const elB=document.querySelector('.memo-card[data-idx="'+b+'"]');
+    if(cardA.id===cardB.id&&a!==b){
+      _memoState.locked=true;
       setTimeout(()=>{
-        cards[a].classList.add('matched','match-anim');cards[b].classList.add('matched','match-anim');
-        memoMatched++;memoFlipped=[];
-        document.getElementById('memoMatched').textContent=memoMatched+'/'+memoTotal;
-        document.getElementById('memoProgress').style.width=(memoMatched/memoTotal*100)+'%';
+        elA.classList.add('matched','match-anim');elB.classList.add('matched','match-anim');
+        _memoState.matched++;_memoState.combo++;
+        _memoState.maxCombo=Math.max(_memoState.maxCombo,_memoState.combo);
+        document.getElementById('memoMatches').textContent=_memoState.matched;
+        document.getElementById('memoCombo').textContent=_memoState.combo;
+        document.getElementById('memoProgress').style.width=(_memoState.matched/_memoState.pairs*100)+'%';
         memoPlaySound('match');
-        if(memoMatched===memoTotal){clearInterval(memoTimer);memoTimer=null;showMemoVictory();}
-      },400);
+        _memoState.flipped=[];_memoState.locked=false;
+        if(_memoState.matched===_memoState.pairs)showMemoVictory();
+      },450);
     } else {
+      _memoState.combo=0;document.getElementById('memoCombo').textContent='0';
+      _memoState.locked=true;
+      elA.classList.add('wrong-anim');elB.classList.add('wrong-anim');
+      memoPlaySound('wrong');
       setTimeout(()=>{
-        cards[a].classList.add('wrong-anim');cards[b].classList.add('wrong-anim');
-        memoPlaySound('wrong');
-        setTimeout(()=>{
-          cards[a].classList.remove('flipped','wrong-anim');cards[b].classList.remove('flipped','wrong-anim');
-          memoFlipped=[];
-        },500);
-      },600);
+        elA.classList.remove('flipped','wrong-anim');elB.classList.remove('flipped','wrong-anim');
+        _memoState.flipped=[];_memoState.locked=false;
+      },800);
     }
   }
 };
 function showMemoVictory(){
-  const k='ms_memo_best_'+memoMode+'_'+memoDiff;const best=JSON.parse(localStorage.getItem(k)||'null');
-  let isNewRecord=false;
-  if(!best||memoMoves<best.moves||(memoMoves===best.moves&&memoSeconds<best.time)){
-    localStorage.setItem(k,JSON.stringify({moves:memoMoves,time:memoSeconds}));
-    isNewRecord=true;
+  if(_memoTimer){clearInterval(_memoTimer);_memoTimer=null;}
+  memoPlaySound('win');
+  const best=JSON.parse(localStorage.getItem(memoBestKey())||'null');
+  let isRecord=false;
+  if(!best||_memoState.moves<best.moves||(_memoState.moves===best.moves&&_memoState.time<best.time)){
+    localStorage.setItem(memoBestKey(),JSON.stringify({moves:_memoState.moves,time:_memoState.time}));
+    isRecord=true;
   }
-  const grid=document.getElementById('memoGrid');
+  const perfect=_memoState.moves===_memoState.pairs;
+  let stars=1;if(_memoState.moves<=_memoState.pairs*1.5)stars=3;else if(_memoState.moves<=_memoState.pairs*2)stars=2;
+  const starStr='⭐'.repeat(stars)+'☆'.repeat(3-stars);
+  const grid=document.getElementById('memoGrid').parentElement;
   const ov=document.createElement('div');ov.className='memo-complete-overlay';
-  ov.innerHTML=`
-    <div class="memo-complete-emoji">🎉</div>
-    <div class="memo-complete-title">¡Completado!</div>
-    <div class="memo-complete-stats">${memoMoves} movs · ${Math.floor(memoSeconds/60)}:${String(memoSeconds%60).padStart(2,'0')}</div>
-    <div class="memo-complete-record">${isNewRecord?'🏆 ¡Nuevo récord!':'Vuelve a intentar para mejorar 💪'}</div>
-    <button class="btn-memo btn-memo-start" onclick="startMemorama()">↺ Jugar de nuevo</button>`;
+  ov.innerHTML='<div class="memo-complete-emoji">'+(perfect?'🏆':'🎉')+'</div>'+
+    '<div class="memo-complete-title">¡Completado!</div>'+
+    '<div style="font-size:22px;margin-bottom:8px;">'+starStr+'</div>'+
+    '<div class="memo-complete-stats">'+_memoState.moves+' intentos · '+formatMemoTime(_memoState.time)+' · combo máx '+_memoState.maxCombo+'</div>'+
+    '<div class="memo-complete-record">'+(isRecord?'🏆 ¡NUEVO RÉCORD!':'')+'</div>'+
+    '<button class="btn-memo btn-memo-start" onclick="this.parentElement.remove();startMemorama();">🔄 Jugar de nuevo</button>';
   grid.appendChild(ov);
   updateMemoBest();
 }
 
 // ── CHESS ──
-const CHESS_PIECES={'wK':'♔','wQ':'♕','wR':'♖','wB':'♗','wN':'♘','wP':'♙','bK':'♚','bQ':'♛','bR':'♜','bB':'♝','bN':'♞','bP':'♟'};
-let chessBoard=null,chessTurn='w',chessSelected=null,chessLastMove=null,chessCaptured={w:[],b:[]},chessMode='ai',chessGameInt=null;
+const CHESS_PIECES={wp:'♙',wr:'♖',wn:'♘',wb:'♗',wq:'♕',wk:'♔',bp:'♟',br:'♜',bn:'♞',bb:'♝',bq:'♛',bk:'♚'};
+let _chessBoard=[],_chessSel=null,_chessTurn='w',_chessMode='ai',_chessLast=null,_chessCaptured={w:[],b:[]};
+let _chessMyColor='w',_chessGameId=null,_unsubChessGame=null,_chessOpponent='';
 function initChess(){
-  const html=`<div class="chess-wrap">
-    <div class="chess-mode-bar">
-      <button class="chess-mode-btn active" id="chessModeAI" onclick="setChessMode('ai')">🤖 vs CPU</button>
-      <button class="chess-mode-btn" id="chessModePvp" onclick="setChessMode('pvp')">👥 2 jugadores</button>
-    </div>
-    <div class="chess-info"><span>Capturadas blancas:</span><div class="chess-captured" id="chessCapWhite"></div></div>
-    <div class="chess-status" id="chessStatus">Turno: Blancas ♔</div>
-    <div class="chess-board" id="chessBoard"></div>
-    <div class="chess-info" style="margin-top:8px;"><span>Capturadas negras:</span><div class="chess-captured" id="chessCapBlack"></div></div>
-    <div style="display:flex;gap:8px;margin-top:10px;justify-content:center;"><button class="btn-chess" onclick="resetChess()">↺ Nueva partida</button></div>
-  </div>`;
-  document.getElementById('gameContent').innerHTML=html;
+  const c=document.getElementById('gameContent');
+  c.innerHTML='<div class="chess-wrap">'+
+    '<div class="chess-mode-bar">'+
+      '<div class="chess-mode-btn'+(_chessMode==='ai'?' active':'')+'" onclick="setChessMode(\'ai\')">🤖 vs CPU</div>'+
+      '<div class="chess-mode-btn'+(_chessMode==='2p'?' active':'')+'" onclick="setChessMode(\'2p\')">👥 2 Jugadores</div>'+
+    '</div>'+
+    '<div class="chess-captured" id="chessCapB"></div>'+
+    '<div class="chess-board" id="chessBoard"></div>'+
+    '<div class="chess-captured" id="chessCapW"></div>'+
+    '<div class="chess-status" id="chessStatus">Turno: Blancas</div>'+
+    '<div style="text-align:center;"><button class="btn-chess" onclick="resetChess()">🔄 Reiniciar</button></div>'+
+  '</div>';
   resetChess();
 }
-window.setChessMode=function(m){chessMode=m;document.getElementById('chessModeAI').classList.toggle('active',m==='ai');document.getElementById('chessModePvp').classList.toggle('active',m==='pvp');resetChess();};
+window.setChessMode=function(m){_chessMode=m;initChess();};
 window.resetChess=function(){
-  chessBoard=[
-    ['bR','bN','bB','bQ','bK','bB','bN','bR'],
-    ['bP','bP','bP','bP','bP','bP','bP','bP'],
-    ['','','','','','','',''],
-    ['','','','','','','',''],
-    ['','','','','','','',''],
-    ['','','','','','','',''],
-    ['wP','wP','wP','wP','wP','wP','wP','wP'],
-    ['wR','wN','wB','wQ','wK','wB','wN','wR']
+  _chessBoard=[
+    ['br','bn','bb','bq','bk','bb','bn','br'],
+    ['bp','bp','bp','bp','bp','bp','bp','bp'],
+    ['','','','','','','',''],['','','','','','','',''],
+    ['','','','','','','',''],['','','','','','','',''],
+    ['wp','wp','wp','wp','wp','wp','wp','wp'],
+    ['wr','wn','wb','wq','wk','wb','wn','wr']
   ];
-  chessTurn='w';chessSelected=null;chessLastMove=null;chessCaptured={w:[],b:[]};
+  _chessSel=null;_chessTurn='w';_chessLast=null;_chessCaptured={w:[],b:[]};
   renderChess();
 };
 function renderChess(){
   const b=document.getElementById('chessBoard');if(!b)return;b.innerHTML='';
-  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+  for(let r=0;r<8;r++)for(let col=0;col<8;col++){
     const cell=document.createElement('div');
-    cell.className='chess-cell '+((r+c)%2===0?'light':'dark');
-    if(chessSelected&&chessSelected[0]===r&&chessSelected[1]===c)cell.classList.add('selected');
-    if(chessLastMove&&((chessLastMove.from[0]===r&&chessLastMove.from[1]===c)||(chessLastMove.to[0]===r&&chessLastMove.to[1]===c)))cell.classList.add('last-move');
-    if(chessSelected){
-      const moves=getValidMoves(chessSelected[0],chessSelected[1]);
-      if(moves.some(m=>m[0]===r&&m[1]===c))cell.classList.add('valid-move');
-    }
-    const p=chessBoard[r][c];if(p)cell.textContent=CHESS_PIECES[p];
-    cell.onclick=()=>handleChessClick(r,c);
+    const dark=(r+col)%2===1;
+    cell.className='chess-cell '+(dark?'dark':'light');
+    if(_chessSel&&_chessSel[0]===r&&_chessSel[1]===col)cell.classList.add('selected');
+    if(_chessLast&&((_chessLast.fr===r&&_chessLast.fc===col)||(_chessLast.tr===r&&_chessLast.tc===col)))cell.classList.add('last-move');
+    if(_chessSel){const moves=getValidMoves(_chessSel[0],_chessSel[1]);if(moves.some(m=>m[0]===r&&m[1]===col))cell.classList.add('valid-move');}
+    const p=_chessBoard[r][col];
+    if(p)cell.textContent=CHESS_PIECES[p];
+    cell.onclick=()=>handleChessClick(r,col);
     b.appendChild(cell);
   }
-  document.getElementById('chessStatus').textContent='Turno: '+(chessTurn==='w'?'Blancas ♔':'Negras ♚');
-  document.getElementById('chessCapWhite').textContent=chessCaptured.w.map(p=>CHESS_PIECES[p]).join(' ');
-  document.getElementById('chessCapBlack').textContent=chessCaptured.b.map(p=>CHESS_PIECES[p]).join(' ');
+  const capW=document.getElementById('chessCapW'),capB=document.getElementById('chessCapB');
+  if(capW)capW.innerHTML=_chessCaptured.w.map(p=>CHESS_PIECES[p]).join(' ');
+  if(capB)capB.innerHTML=_chessCaptured.b.map(p=>CHESS_PIECES[p]).join(' ');
+  const st=document.getElementById('chessStatus');
+  if(st)st.textContent='Turno: '+(_chessTurn==='w'?'Blancas ♔':'Negras ♚');
 }
-function handleChessClick(r,c){
-  const p=chessBoard[r][c];
-  if(chessSelected){
-    const moves=getValidMoves(chessSelected[0],chessSelected[1]);
-    if(moves.some(m=>m[0]===r&&m[1]===c)){
-      applyMove(chessSelected[0],chessSelected[1],r,c);
-      chessSelected=null;
+function handleChessClick(r,col){
+  const p=_chessBoard[r][col];
+  if(_chessMode==='ai'&&_chessTurn==='b')return;
+  if(_chessMode==='online'){
+    if(_chessTurn!==_chessMyColor)return; // no es mi turno
+  }
+  if(_chessSel){
+    const moves=getValidMoves(_chessSel[0],_chessSel[1]);
+    if(moves.some(m=>m[0]===r&&m[1]===col)){
+      applyMove(_chessSel[0],_chessSel[1],r,col);
+      _chessSel=null;
       renderChess();
-      if(chessMode==='ai'&&chessTurn==='b'){setTimeout(aiMoveChess,500);}
-    } else if(p&&p[0]===chessTurn){chessSelected=[r,c];renderChess();}
-    else{chessSelected=null;renderChess();}
-  } else if(p&&p[0]===chessTurn){chessSelected=[r,c];renderChess();}
+      if(_chessMode==='ai'&&_chessTurn==='b')setTimeout(aiMoveChess,500);
+      else if(_chessMode==='online')pushChessState();
+      return;
+    }
+    _chessSel=(p&&p[0]===(_chessMode==='online'?_chessMyColor:_chessTurn))?[r,col]:null;
+  } else if(p&&p[0]===(_chessMode==='online'?_chessMyColor:_chessTurn)){
+    _chessSel=[r,col];
+  }
+  renderChess();
 }
 function applyMove(fr,fc,tr,tc){
-  const piece=chessBoard[fr][fc];const captured=chessBoard[tr][tc];
-  if(captured)chessCaptured[chessTurn==='w'?'b':'w'].push(captured);
-  chessBoard[tr][tc]=piece;chessBoard[fr][fc]='';
-  // promote pawn to queen automatic
-  if(piece==='wP'&&tr===0)chessBoard[tr][tc]='wQ';
-  if(piece==='bP'&&tr===7)chessBoard[tr][tc]='bQ';
-  chessLastMove={from:[fr,fc],to:[tr,tc]};
-  chessTurn=chessTurn==='w'?'b':'w';
-  if(captured&&(captured==='wK'||captured==='bK')){
-    setTimeout(()=>{
-      document.getElementById('chessStatus').innerHTML='👑 ¡'+(captured==='wK'?'Negras':'Blancas')+' ganan!';
-    },50);
+  const piece=_chessBoard[fr][fc],target=_chessBoard[tr][tc];
+  if(target){const side=target[0]==='w'?'b':'w';_chessCaptured[side].push(target);}
+  _chessBoard[tr][tc]=piece;_chessBoard[fr][fc]='';
+  if(piece[1]==='p'&&(tr===0||tr===7))_chessBoard[tr][tc]=piece[0]+'q';
+  _chessLast={fr,fc,tr,tc};
+  _chessTurn=_chessTurn==='w'?'b':'w';
+  if(target&&target[1]==='k'){
+    setTimeout(()=>{const st=document.getElementById('chessStatus');if(st)st.textContent='👑 ¡'+(target[0]==='w'?'Negras':'Blancas')+' ganan!';showToast('👑','¡Jaque mate!',4000);},100);
   }
 }
-function getValidMoves(r,c){
-  const p=chessBoard[r][c];if(!p)return[];const color=p[0],type=p[1];const moves=[];
-  function add(r2,c2){if(r2<0||r2>7||c2<0||c2>7)return false;const dest=chessBoard[r2][c2];if(!dest){moves.push([r2,c2]);return true;}if(dest[0]!==color)moves.push([r2,c2]);return false;}
-  function ray(dr,dc){let r2=r+dr,c2=c+dc;while(r2>=0&&r2<8&&c2>=0&&c2<8){const dest=chessBoard[r2][c2];if(!dest){moves.push([r2,c2]);}else{if(dest[0]!==color)moves.push([r2,c2]);break;}r2+=dr;c2+=dc;}}
-  if(type==='P'){
-    const dir=color==='w'?-1:1;const startRow=color==='w'?6:1;
-    if(r+dir>=0&&r+dir<8&&!chessBoard[r+dir][c]){moves.push([r+dir,c]);if(r===startRow&&!chessBoard[r+2*dir][c])moves.push([r+2*dir,c]);}
-    for(const dc of[-1,1]){const r2=r+dir,c2=c+dc;if(r2>=0&&r2<8&&c2>=0&&c2<8&&chessBoard[r2][c2]&&chessBoard[r2][c2][0]!==color)moves.push([r2,c2]);}
-  } else if(type==='N'){[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>add(r+dr,c+dc));}
-  else if(type==='B'){ray(-1,-1);ray(-1,1);ray(1,-1);ray(1,1);}
-  else if(type==='R'){ray(-1,0);ray(1,0);ray(0,-1);ray(0,1);}
-  else if(type==='Q'){ray(-1,-1);ray(-1,1);ray(1,-1);ray(1,1);ray(-1,0);ray(1,0);ray(0,-1);ray(0,1);}
-  else if(type==='K'){for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)if(dr||dc)add(r+dr,c+dc);}
+function getValidMoves(r,col){
+  const p=_chessBoard[r][col];if(!p)return[];
+  const side=p[0],type=p[1],moves=[];
+  const inB=(x,y)=>x>=0&&x<8&&y>=0&&y<8;
+  const enemy=(x,y)=>inB(x,y)&&_chessBoard[x][y]&&_chessBoard[x][y][0]!==side;
+  const empty=(x,y)=>inB(x,y)&&!_chessBoard[x][y];
+  if(type==='p'){
+    const dir=side==='w'?-1:1,start=side==='w'?6:1;
+    if(empty(r+dir,col)){moves.push([r+dir,col]);if(r===start&&empty(r+2*dir,col))moves.push([r+2*dir,col]);}
+    if(enemy(r+dir,col-1))moves.push([r+dir,col-1]);
+    if(enemy(r+dir,col+1))moves.push([r+dir,col+1]);
+  } else if(type==='n'){
+    [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dx,dy])=>{
+      const x=r+dx,y=col+dy;if(inB(x,y)&&(!_chessBoard[x][y]||enemy(x,y)))moves.push([x,y]);
+    });
+  } else if(type==='k'){
+    [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dx,dy])=>{
+      const x=r+dx,y=col+dy;if(inB(x,y)&&(!_chessBoard[x][y]||enemy(x,y)))moves.push([x,y]);
+    });
+  } else {
+    const dirs=[];
+    if(type==='r'||type==='q')dirs.push([-1,0],[1,0],[0,-1],[0,1]);
+    if(type==='b'||type==='q')dirs.push([-1,-1],[-1,1],[1,-1],[1,1]);
+    dirs.forEach(([dx,dy])=>{
+      let x=r+dx,y=col+dy;
+      while(inB(x,y)){
+        if(!_chessBoard[x][y]){moves.push([x,y]);}
+        else{if(enemy(x,y))moves.push([x,y]);break;}
+        x+=dx;y+=dy;
+      }
+    });
+  }
   return moves;
 }
 function aiMoveChess(){
-  const allMoves=[];
-  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
-    if(chessBoard[r][c]&&chessBoard[r][c][0]==='b'){
-      const valid=getValidMoves(r,c);
-      valid.forEach(m=>{
-        let score=Math.random();
-        const target=chessBoard[m[0]][m[1]];
-        if(target){const vals={'P':1,'N':3,'B':3,'R':5,'Q':9,'K':100};score+=vals[target[1]]*10;}
-        allMoves.push({fr:r,fc:c,tr:m[0],tc:m[1],score});
+  const all=[];
+  for(let r=0;r<8;r++)for(let col=0;col<8;col++){
+    if(_chessBoard[r][col]&&_chessBoard[r][col][0]==='b'){
+      getValidMoves(r,col).forEach(m=>{
+        const target=_chessBoard[m[0]][m[1]];
+        let score=0;
+        if(target){const val={p:1,n:3,b:3,r:5,q:9,k:100};score=val[target[1]]||0;}
+        all.push({fr:r,fc:col,tr:m[0],tc:m[1],score});
       });
     }
   }
-  if(!allMoves.length)return;
-  allMoves.sort((a,b)=>b.score-a.score);
-  const best=allMoves[0];
-  applyMove(best.fr,best.fc,best.tr,best.tc);
+  if(!all.length)return;
+  all.sort((a,b)=>b.score-a.score);
+  const best=all.filter(m=>m.score===all[0].score);
+  const mv=best[Math.floor(Math.random()*best.length)];
+  applyMove(mv.fr,mv.fc,mv.tr,mv.tc);
   renderChess();
 }
 
 // ── TRIVIA ──
 const TRIVIA_QUESTIONS=[
-  {cat:'Bioquímica',q:'¿Cuál es la principal fuente de energía celular?',opts:['ADN','ATP','ARN','Glucosa'],correct:1,exp:'El ATP (adenosín trifosfato) es la molécula energética principal de la célula.'},
-  {cat:'Anatomía',q:'¿Cuántos huesos tiene un adulto humano?',opts:['206','220','185','198'],correct:0,exp:'El esqueleto adulto tiene 206 huesos (el bebé nace con ~270 que se fusionan).'},
-  {cat:'Fisiología',q:'¿Qué hormona regula la glucosa en sangre?',opts:['Adrenalina','Insulina','Cortisol','Tiroxina'],correct:1,exp:'La insulina, producida por el páncreas, regula los niveles de glucosa.'},
-  {cat:'Farmacología',q:'¿Cuál es el mecanismo de la aspirina?',opts:['Inhibe COX','Inhibe ECA','Bloquea receptores β','Activa receptores μ'],correct:0,exp:'La aspirina inhibe la ciclooxigenasa (COX), reduciendo la síntesis de prostaglandinas.'},
-  {cat:'Microbiología',q:'¿Qué tipo de microorganismo causa la tuberculosis?',opts:['Virus','Bacteria','Hongo','Parásito'],correct:1,exp:'Mycobacterium tuberculosis es una bacteria ácido-alcohol resistente.'},
-  {cat:'Anatomía',q:'¿Cuál es el hueso más largo del cuerpo?',opts:['Tibia','Húmero','Fémur','Cúbito'],correct:2,exp:'El fémur es el hueso más largo y fuerte del cuerpo humano.'},
-  {cat:'Patología',q:'¿Qué es la apoptosis?',opts:['Necrosis','Muerte celular programada','Mitosis','Hipertrofia'],correct:1,exp:'La apoptosis es la muerte celular programada y controlada.'},
-  {cat:'Fisiología',q:'¿Qué órgano produce la bilis?',opts:['Vesícula','Páncreas','Hígado','Bazo'],correct:2,exp:'El hígado produce la bilis; la vesícula solo la almacena.'},
-  {cat:'Inmunología',q:'¿Qué célula es la principal del sistema inmune adaptativo?',opts:['Macrófago','Linfocito','Neutrófilo','Basófilo'],correct:1,exp:'Los linfocitos B y T conforman el sistema inmune adaptativo.'},
-  {cat:'Bioquímica',q:'¿Qué vitamina se sintetiza con luz solar?',opts:['A','B12','C','D'],correct:3,exp:'La vitamina D se sintetiza en la piel con la exposición a UVB.'}
+  {cat:'Anatomía',q:'¿Cuántos huesos tiene el cuerpo humano adulto?',opts:['206','187','245','198'],correct:0,exp:'El adulto tiene 206 huesos; al nacer son ~270 y algunos se fusionan.'},
+  {cat:'Fisiología',q:'¿Qué órgano produce la insulina?',opts:['Hígado','Páncreas','Riñón','Bazo'],correct:1,exp:'Las células beta de los islotes de Langerhans en el páncreas producen insulina.'},
+  {cat:'Bioquímica',q:'¿Cuál es la principal molécula energética de la célula?',opts:['ADN','ATP','ARN','Glucosa'],correct:1,exp:'El ATP (adenosín trifosfato) es la moneda energética celular.'},
+  {cat:'Microbiología',q:'¿Qué tipo de microorganismo causa la tuberculosis?',opts:['Virus','Hongo','Bacteria','Parásito'],correct:2,exp:'Mycobacterium tuberculosis es una bacteria ácido-alcohol resistente.'},
+  {cat:'Farmacología',q:'¿Cuál es el antídoto del paracetamol?',opts:['Naloxona','N-acetilcisteína','Atropina','Flumazenil'],correct:1,exp:'La N-acetilcisteína repone el glutatión hepático en intoxicación por paracetamol.'},
+  {cat:'Cardiología',q:'¿Cuál es el nodo marcapasos natural del corazón?',opts:['Nodo AV','Haz de His','Nodo sinusal','Fibras de Purkinje'],correct:2,exp:'El nodo sinoauricular (SA) marca el ritmo cardíaco normal.'},
+  {cat:'Neurología',q:'¿Qué neurotransmisor se relaciona con el Parkinson?',opts:['Serotonina','Dopamina','GABA','Acetilcolina'],correct:1,exp:'El Parkinson se asocia a déficit de dopamina en la sustancia negra.'},
+  {cat:'Hematología',q:'¿Qué célula transporta el oxígeno en la sangre?',opts:['Leucocito','Plaqueta','Eritrocito','Linfocito'],correct:2,exp:'Los eritrocitos (glóbulos rojos) contienen hemoglobina que transporta O₂.'},
+  {cat:'Inmunología',q:'¿Qué célula es la principal en la respuesta humoral?',opts:['Linfocito T','Linfocito B','Macrófago','Neutrófilo'],correct:1,exp:'Los linfocitos B producen anticuerpos en la inmunidad humoral.'},
+  {cat:'Embriología',q:'¿De qué capa germinal deriva el sistema nervioso?',opts:['Endodermo','Mesodermo','Ectodermo','Trofoblasto'],correct:2,exp:'El ectodermo da origen al sistema nervioso y la epidermis.'}
 ];
-let triviaCur=0,triviaScore=0,triviaAnswered=false,triviaPool=[];
+let _triviaState=null;
 function initTrivia(){
-  triviaPool=[...TRIVIA_QUESTIONS].sort(()=>Math.random()-0.5).slice(0,10);
-  triviaCur=0;triviaScore=0;
-  const html=`<div class="trivia-wrap">
-    <div class="trivia-score-bar"><div>Pregunta <span id="triviaCur">1</span>/10</div><div>Puntaje: <span id="triviaScore">0</span></div></div>
-    <div class="trivia-progress" id="triviaProgress"></div>
-    <div class="trivia-question" id="triviaQ"></div>
-    <div class="trivia-options" id="triviaOpts"></div>
-    <div class="trivia-explanation" id="triviaExp"></div>
-    <div style="text-align:center;"><button class="btn-g btn-g-prim" id="triviaNext" onclick="triviaNext()" style="display:none;">Siguiente →</button></div>
-  </div>`;
-  document.getElementById('gameContent').innerHTML=html;
+  const qs=[...TRIVIA_QUESTIONS].sort(()=>Math.random()-0.5).slice(0,8);
+  _triviaState={questions:qs,idx:0,score:0,answered:false};
   renderTriviaQuestion();
 }
 function renderTriviaQuestion(){
-  const q=triviaPool[triviaCur];if(!q){showTriviaEnd();return;}
-  triviaAnswered=false;
-  document.getElementById('triviaCur').textContent=triviaCur+1;
-  document.getElementById('triviaQ').innerHTML='<div class="trivia-category">'+q.cat+'</div><div class="trivia-q-text">'+esc(q.q)+'</div>';
-  const opts=document.getElementById('triviaOpts');opts.innerHTML='';
-  q.opts.forEach((opt,i)=>{
-    const b=document.createElement('button');b.className='trivia-opt';b.textContent=opt;b.onclick=()=>answerTrivia(i);
-    opts.appendChild(b);
-  });
-  const exp=document.getElementById('triviaExp');exp.style.display='none';exp.textContent='';
-  document.getElementById('triviaNext').style.display='none';
-  const prog=document.getElementById('triviaProgress');prog.innerHTML='';
-  for(let i=0;i<10;i++){const d=document.createElement('div');d.className='tpd '+(i<triviaCur?'ok':i===triviaCur?'cur':'');prog.appendChild(d);}
+  const c=document.getElementById('gameContent');
+  const st=_triviaState,q=st.questions[st.idx];
+  const prog=st.questions.map((_,i)=>'<div class="tpd '+(i<st.idx?'ok':i===st.idx?'cur':'')+'"></div>').join('');
+  c.innerHTML='<div class="trivia-wrap">'+
+    '<div class="trivia-score-bar"><div>Pregunta '+(st.idx+1)+'/'+st.questions.length+'</div><div>Puntos: <span>'+st.score+'</span></div></div>'+
+    '<div class="trivia-progress">'+prog+'</div>'+
+    '<div class="trivia-question"><div class="trivia-category">'+esc(q.cat)+'</div><div class="trivia-q-text">'+esc(q.q)+'</div></div>'+
+    '<div class="trivia-options" id="triviaOpts">'+
+      q.opts.map((o,i)=>'<button class="trivia-opt" onclick="answerTrivia('+i+')">'+esc(o)+'</button>').join('')+
+    '</div>'+
+    '<div class="trivia-explanation" id="triviaExp"></div>'+
+    '<div style="text-align:center;"><button class="btn-g btn-g-prim" id="triviaNextBtn" style="display:none;" onclick="triviaNext()">Siguiente →</button></div>'+
+  '</div>';
 }
 window.answerTrivia=function(i){
-  if(triviaAnswered)return;triviaAnswered=true;
-  const q=triviaPool[triviaCur];const opts=document.querySelectorAll('.trivia-opt');
-  opts.forEach((b,j)=>{b.disabled=true;if(j===q.correct)b.classList.add('correct');else if(j===i)b.classList.add('wrong');});
-  if(i===q.correct){triviaScore++;document.getElementById('triviaScore').textContent=triviaScore;}
-  const exp=document.getElementById('triviaExp');exp.style.display='block';exp.innerHTML='<strong style="color:'+(i===q.correct?'var(--green)':'var(--red)')+';">'+(i===q.correct?'✓ Correcto.':'✗ Incorrecto.')+'</strong> '+esc(q.exp);
-  document.getElementById('triviaNext').style.display='inline-block';
+  const st=_triviaState;if(st.answered)return;st.answered=true;
+  const q=st.questions[st.idx];
+  const opts=document.querySelectorAll('#triviaOpts .trivia-opt');
+  opts.forEach((o,j)=>{o.disabled=true;if(j===q.correct)o.classList.add('correct');else if(j===i)o.classList.add('wrong');});
+  if(i===q.correct){st.score+=10;memoPlaySound('match');}else{memoPlaySound('wrong');}
+  const exp=document.getElementById('triviaExp');
+  exp.style.display='block';exp.innerHTML='💡 '+esc(q.exp);
+  const btn=document.getElementById('triviaNextBtn');
+  btn.style.display='inline-block';btn.textContent=st.idx<st.questions.length-1?'Siguiente →':'Ver resultado 🏆';
 };
-window.triviaNext=function(){triviaCur++;if(triviaCur>=triviaPool.length){showTriviaEnd();}else{renderTriviaQuestion();}};
+window.triviaNext=function(){
+  const st=_triviaState;
+  if(st.idx<st.questions.length-1){st.idx++;st.answered=false;renderTriviaQuestion();}
+  else showTriviaEnd();
+};
 function showTriviaEnd(){
-  document.getElementById('gameContent').innerHTML=`<div class="trivia-wrap" style="text-align:center;">
-    <div style="font-size:60px;margin-bottom:14px;">${triviaScore>=8?'🏆':triviaScore>=5?'👏':'💪'}</div>
-    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">${triviaScore>=8?'¡Excelente!':triviaScore>=5?'¡Bien!':'¡Sigue estudiando!'}</div>
-    <div style="font-size:14px;color:var(--text2);margin-bottom:20px;">Puntaje: <strong style="color:var(--gold);font-size:20px;">${triviaScore}/10</strong></div>
-    <button class="btn-g btn-g-prim" onclick="initTrivia()">↺ Jugar de nuevo</button>
-  </div>`;
+  const st=_triviaState,max=st.questions.length*10,pct=Math.round(st.score/max*100);
+  const c=document.getElementById('gameContent');
+  let msg=pct>=80?'🏆 ¡Excelente, futuro doctor!':pct>=50?'💪 ¡Buen trabajo! Sigue estudiando.':'📚 ¡A repasar más!';
+  c.innerHTML='<div class="trivia-wrap" style="text-align:center;">'+
+    '<div style="font-size:56px;margin-bottom:10px;">'+(pct>=80?'🏆':pct>=50?'🎉':'📚')+'</div>'+
+    '<div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">'+st.score+' / '+max+' puntos</div>'+
+    '<div style="font-size:14px;color:var(--text2);margin-bottom:20px;">'+msg+'</div>'+
+    '<button class="btn-g btn-g-prim" onclick="initTrivia()">🔄 Jugar de nuevo</button>'+
+  '</div>';
 }
 
-// ── LEADERBOARD ──
+// ══════ LEADERBOARD ══════
 let lbMode='day';
-window.switchLb=function(m,btn){lbMode=m;document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');renderLeaderboard();};
-function renderLeaderboard(){
-  if(!user)return;
-  onValue(ref(db,'students'),snap=>{
-    const data=snap.val()||{};
-    const arr=Object.values(data).filter(s=>s&&s.name).map(s=>({name:s.name,subject:s.subject||'',avatar:s.avatar||'🧑',pomos:s.pomos||0,isMe:s.name===user}));
-    if(lbMode==='all'){
-      onValue(ref(db,'profiles'),psnap=>{
-        const profiles=psnap.val()||{};
-        const allTime=Object.entries(profiles).map(([k,p])=>{
-          const total=p.stats?.totalPomos||0;
-          let nm='';try{nm=k.replace(/^p_/,'').replace(/_\d{4}$/,'').replace(/_/g,' ');}catch(e){}
-          return {name:nm,subject:'',avatar:'🧑',pomos:total,isMe:k===_profileKey};
-        }).filter(x=>x.pomos>0);
-        allTime.sort((a,b)=>b.pomos-a.pomos);
-        drawLb(allTime.slice(0,8));
-      },{onlyOnce:true});
-    } else {
-      arr.sort((a,b)=>b.pomos-a.pomos);
-      drawLb(arr.slice(0,8));
-    }
-  },{onlyOnce:true});
+function weeklyPomos(){
+  const am=loadAM();let sum=0;const today=new Date();today.setHours(0,0,0,0);
+  for(let i=0;i<7;i++){const d=new Date(today);d.setDate(d.getDate()-i);sum+=am[d.toDateString()]||0;}
+  return sum;
 }
-function drawLb(arr){
+window.switchLb=function(m,el){
+  lbMode=m;document.querySelectorAll('.lb-tab').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');renderLeaderboard();
+};
+function updateLeaderboard(){
+  if(!myUid||!user)return;
+  const s=loadStats();
+  set(ref(db,'leaderboard/'+makeProfileKey(user,myCode)),{name:user,avatar:myAvatar,subject,pomosDay:pomosHoy,weeklyPomos:weeklyPomos(),totalPomos:s.totalPomos||0,totalMins:s.totalMins||0,ts:Date.now()}).catch(()=>{});
+}
+function renderLeaderboard(){
+  onValue(ref(db,'leaderboard'),snap=>drawLb(snap.val()||{}),{onlyOnce:true});
+}
+function drawLb(data){
   const c=document.getElementById('lbList');if(!c)return;
-  if(!arr.length){c.innerHTML='<div class="lb-empty">Sin datos aún 🌱</div>';return;}
-  const max=Math.max(...arr.map(a=>a.pomos),1);
+  let arr=Object.values(data).filter(x=>x&&x.name);
+  if(lbMode==='day')arr=arr.filter(x=>x.ts&&(Date.now()-x.ts)<24*60*60*1000);
+  else if(lbMode==='week')arr=arr.filter(x=>x.ts&&(Date.now()-x.ts)<7*24*60*60*1000);
+  arr.sort((a,b)=>{
+    if(lbMode==='day')return (b.pomosDay||0)-(a.pomosDay||0);
+    if(lbMode==='week')return (b.weeklyPomos||0)-(a.weeklyPomos||0);
+    return (b.totalPomos||0)-(a.totalPomos||0);
+  });
+  arr=arr.slice(0,10);
+  if(!arr.length){c.innerHTML='<div class="lb-empty">Sin datos aún. ¡Completa pomodoros!</div>';return;}
   c.innerHTML='';
-  arr.forEach((s,i)=>{
-    const pos=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
-    const cls='lb-row'+(s.isMe?' me':'')+(i===0&&s.pomos>0?' t1':'');
-    c.innerHTML+=`<div class="${cls}">
-      <span class="lb-pos">${pos}</span>
-      <span class="lb-av">${s.avatar}</span>
-      <div class="lb-info">
-        <div class="lb-name">${esc(s.name)}${s.isMe?' (Tú)':''}</div>
-        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${(s.pomos/max*100)}%"></div></div>
-      </div>
-      <div class="lb-stats"><div class="lb-pomos">${s.pomos}🍅</div></div>
-    </div>`;
+  arr.forEach((x,i)=>{
+    const isMe=x.name===user;
+    const val=lbMode==='day'?(x.pomosDay||0):lbMode==='week'?(x.weeklyPomos||0):(x.totalPomos||0);
+    const hrs=Math.floor((x.totalMins||0)/60);
+    c.innerHTML+='<div class="lb-row '+(isMe?'me':'')+' '+(i===0?'t1':'')+'">'+
+      '<div class="lb-pos">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1))+'</div>'+
+      '<div class="lb-av">'+(x.avatar||'🧑')+'</div>'+
+      '<div class="lb-info"><div class="lb-name">'+esc(x.name)+(isMe?' (Tú)':'')+'</div><div class="lb-sub">'+esc(x.subject||'')+'</div></div>'+
+      '<div class="lb-stats"><div class="lb-pomos">'+val+' 🍅</div><div class="lb-hours">'+hrs+'h</div></div>'+
+    '</div>';
   });
 }
-function updateLeaderboard(){renderLeaderboard();}
 
-// ── BREATHING ──
+// ══════ REPORTE SEMANAL (podio) ══════
+function renderWeeklyReport(){
+  onValue(ref(db,'leaderboard'),snap=>drawWeeklyReport(snap.val()||{}),{onlyOnce:true});
+}
+function drawWeeklyReport(data){
+  const podium=document.getElementById('weekPodium');if(!podium)return;
+  // rango de la semana
+  const lbl=document.getElementById('weekRangeLbl');
+  if(lbl){const end=new Date(),start=new Date();start.setDate(start.getDate()-6);
+    const f=d=>d.toLocaleDateString('es-MX',{day:'numeric',month:'short'});
+    lbl.textContent=f(start)+' – '+f(end);}
+  let arr=Object.values(data).filter(x=>x&&x.name&&x.ts&&(Date.now()-x.ts)<7*24*60*60*1000&&(x.weeklyPomos||0)>0);
+  arr.sort((a,b)=>(b.weeklyPomos||0)-(a.weeklyPomos||0));
+  if(!arr.length){
+    podium.innerHTML='<div class="wp-empty">Aún sin pomodoros esta semana.<br>¡Sé el primero en aparecer! 🍅</div>';
+    document.getElementById('weekRest').innerHTML='';
+    return;
+  }
+  const top3=arr.slice(0,3);
+  // orden visual: 2º, 1º, 3º
+  const order=[top3[1],top3[0],top3[2]];
+  const cls=['g2','g1','g3'];const medals=['🥈','🥇','🥉'];
+  podium.innerHTML='';
+  order.forEach((x,idx)=>{
+    if(!x){podium.innerHTML+='<div class="wp-spot '+cls[idx]+'" style="opacity:.25;"><span class="wp-medal">'+medals[idx]+'</span><div class="wp-av">—</div></div>';return;}
+    const isMe=x.name===user;
+    podium.innerHTML+='<div class="wp-spot '+cls[idx]+'">'+
+      '<span class="wp-medal">'+medals[idx]+'</span>'+
+      '<div class="wp-av">'+(x.avatar||'🧑')+'</div>'+
+      '<div class="wp-name">'+esc(x.name)+(isMe?' (Tú)':'')+'</div>'+
+      '<div class="wp-pomos">'+(x.weeklyPomos||0)+' 🍅</div>'+
+    '</div>';
+  });
+  // resto 4-10
+  const rest=arr.slice(3,10);
+  const rc=document.getElementById('weekRest');
+  if(rc){
+    rc.innerHTML=rest.map((x,i)=>{
+      const isMe=x.name===user;
+      return '<div class="wr-row '+(isMe?'me':'')+'"><div class="wr-pos">'+(i+4)+'</div><div class="wr-name">'+(x.avatar||'🧑')+' '+esc(x.name)+(isMe?' (Tú)':'')+'</div><div class="wr-pomos">'+(x.weeklyPomos||0)+' 🍅</div></div>';
+    }).join('');
+  }
+}
+
+// ══════ BREATHING ══════
 const BREATH_TECHNIQUES={
-  '478':{name:'4-7-8',phases:[{name:'Inhala',dur:4},{name:'Sostén',dur:7},{name:'Exhala',dur:8}],cycles:4,desc:'Relajación profunda. Reduce ansiedad rápido.'},
-  'box':{name:'Box 4×4',phases:[{name:'Inhala',dur:4},{name:'Sostén',dur:4},{name:'Exhala',dur:4},{name:'Pausa',dur:4}],cycles:5,desc:'Equilibrio mental. Usado por militares.'},
-  'coherent':{name:'Coherencia',phases:[{name:'Inhala',dur:5},{name:'Exhala',dur:5}],cycles:6,desc:'Sincroniza corazón y cerebro.'}
+  '478':{name:'4-7-8',phases:[{l:'Inhala',d:4},{l:'Sostén',d:7},{l:'Exhala',d:8}],cycles:4,inst:'Relájate profundamente'},
+  'box':{name:'Box 4×4',phases:[{l:'Inhala',d:4},{l:'Sostén',d:4},{l:'Exhala',d:4},{l:'Sostén',d:4}],cycles:4,inst:'Equilibrio y enfoque'},
+  'coherent':{name:'Coherencia',phases:[{l:'Inhala',d:5},{l:'Exhala',d:5}],cycles:6,inst:'Ritmo cardíaco coherente'}
 };
-let breathRunning=false,breathInt=null,breathCyclesDone=0,curBreathTech='478';
-window.selectBreath=function(t,btn){
-  curBreathTech=t;
+let _breathTech=null,_breathRunning=false,_breathInt=null,_breathCycle=0,_breathPhaseIdx=0,_breathCount=0;
+window.selectBreath=function(t,el){
+  _breathTech=t;
   document.querySelectorAll('.breath-btn').forEach(b=>b.classList.remove('ab'));
-  if(btn)btn.classList.add('ab');
+  if(el)el.classList.add('ab');
   document.getElementById('breathArena').classList.add('on');
-  document.getElementById('breathInstruction').textContent=BREATH_TECHNIQUES[t].desc;
-  document.getElementById('breathCycles').textContent='Ciclos: 0/'+BREATH_TECHNIQUES[t].cycles;
+  const tech=BREATH_TECHNIQUES[t];
+  document.getElementById('breathInstruction').textContent=tech.inst;
+  document.getElementById('breathPhaseLbl').textContent='Listo';
+  document.getElementById('breathCount').textContent='—';
+  document.getElementById('breathCycles').textContent=tech.cycles+' ciclos';
+  stopBreath();
 };
 window.toggleBreath=function(){
-  if(breathRunning){stopBreath();}
-  else{
-    if(!document.getElementById('breathArena').classList.contains('on'))selectBreath('478',document.querySelector('.breath-btn'));
-    startBreath();
-  }
+  if(!_breathTech){showToast('🌬️','Elige una técnica primero',2500);return;}
+  if(_breathRunning)stopBreath();else startBreath();
 };
 function startBreath(){
-  breathRunning=true;breathCyclesDone=0;
-  document.getElementById('btnBreath').textContent='⏸ Detener';
-  runBreathPhase(0);
+  _breathRunning=true;_breathCycle=0;_breathPhaseIdx=0;
+  document.getElementById('btnBreath').textContent='⏹ Detener';
+  runBreathPhase();
 }
-function runBreathPhase(idx){
-  if(!breathRunning)return;
-  const tech=BREATH_TECHNIQUES[curBreathTech];
-  if(idx>=tech.phases.length){
-    breathCyclesDone++;
-    document.getElementById('breathCycles').textContent='Ciclos: '+breathCyclesDone+'/'+tech.cycles;
-    if(breathCyclesDone>=tech.cycles){
-      stopBreath();
-      showToast('🌬️','¡Sesión de respiración completa! 💚',3000);
-      return;
-    }
-    idx=0;
-  }
-  const phase=tech.phases[idx];
-  document.getElementById('breathPhaseLbl').textContent=phase.name;
-  let sec=phase.dur;
-  document.getElementById('breathCount').textContent=sec;
+function runBreathPhase(){
+  if(!_breathRunning)return;
+  const tech=BREATH_TECHNIQUES[_breathTech];
+  const phase=tech.phases[_breathPhaseIdx];
+  _breathCount=phase.d;
+  document.getElementById('breathPhaseLbl').textContent=phase.l;
+  document.getElementById('breathCount').textContent=_breathCount;
+  document.getElementById('breathCycles').textContent='Ciclo '+(_breathCycle+1)+'/'+tech.cycles;
   const ring=document.getElementById('breathRing');
-  if(ring){ring.style.strokeDashoffset=297;ring.style.transition='stroke-dashoffset '+phase.dur+'s linear';setTimeout(()=>{ring.style.strokeDashoffset=0;},20);}
-  breathInt=setInterval(()=>{
-    sec--;
-    if(sec<=0){clearInterval(breathInt);runBreathPhase(idx+1);}
-    else{document.getElementById('breathCount').textContent=sec;}
+  const total=phase.d;let elapsed=0;
+  if(_breathInt)clearInterval(_breathInt);
+  _breathInt=setInterval(()=>{
+    if(!_breathRunning){clearInterval(_breathInt);return;}
+    elapsed++;_breathCount--;
+    document.getElementById('breathCount').textContent=Math.max(0,_breathCount);
+    if(ring)ring.style.strokeDashoffset=297*(1-elapsed/total);
+    if(elapsed>=total){
+      clearInterval(_breathInt);
+      _breathPhaseIdx++;
+      if(_breathPhaseIdx>=tech.phases.length){_breathPhaseIdx=0;_breathCycle++;}
+      if(_breathCycle>=tech.cycles){stopBreath();showToast('🧘','¡Respiración completada! Te sientes mejor 💚',4000);return;}
+      runBreathPhase();
+    }
   },1000);
 }
-function stopBreath(){breathRunning=false;if(breathInt){clearInterval(breathInt);breathInt=null;}document.getElementById('btnBreath').textContent='▶ Iniciar';document.getElementById('breathPhaseLbl').textContent='Listo';document.getElementById('breathCount').textContent='—';const r=document.getElementById('breathRing');if(r){r.style.transition='none';r.style.strokeDashoffset=297;}}
+function stopBreath(){
+  _breathRunning=false;if(_breathInt)clearInterval(_breathInt);
+  const btn=document.getElementById('btnBreath');if(btn)btn.textContent='▶ Iniciar';
+  const ring=document.getElementById('breathRing');if(ring)ring.style.strokeDashoffset=297;
+  const lbl=document.getElementById('breathPhaseLbl');if(lbl)lbl.textContent='Listo';
+  const cnt=document.getElementById('breathCount');if(cnt)cnt.textContent='—';
+}
 
-// ── BADGES ──
+// ══════ BADGES ══════
 const BADGES=[
-  {id:'first_pomo',e:'🌱',name:'Primer paso',desc:'Tu primer pomodoro',check:s=>(s.totalPomos||0)>=1},
-  {id:'streak_3',e:'🔥',name:'3 días',desc:'Racha de 3 días',check:s=>(s.streak||0)>=3},
-  {id:'streak_7',e:'⚡',name:'Una semana',desc:'Racha de 7 días',check:s=>(s.streak||0)>=7},
-  {id:'streak_30',e:'💎',name:'Un mes',desc:'Racha de 30 días',check:s=>(s.streak||0)>=30},
-  {id:'pomos_10',e:'🍅',name:'10 pomodoros',desc:'Total de 10',check:s=>(s.totalPomos||0)>=10},
-  {id:'pomos_50',e:'🚀',name:'50 pomodoros',desc:'Total de 50',check:s=>(s.totalPomos||0)>=50},
-  {id:'pomos_100',e:'🏆',name:'100 pomodoros',desc:'Total de 100',check:s=>(s.totalPomos||0)>=100},
-  {id:'pomos_500',e:'👑',name:'500 pomodoros',desc:'Total de 500',check:s=>(s.totalPomos||0)>=500},
-  {id:'goal_today',e:'🎯',name:'Meta diaria',desc:'Cumpliste meta del día',check:s=>(s.pomosHoy||0)>=dailyGoal},
-  {id:'hours_10',e:'⏱️',name:'10 horas',desc:'10h totales',check:s=>(s.totalMins||0)>=600},
-  {id:'hours_50',e:'⏰',name:'50 horas',desc:'50h totales',check:s=>(s.totalMins||0)>=3000}
+  {id:'first',icon:'🌱',name:'Primer Pomodoro',desc:'Completa tu primer pomodoro',check:s=>(s.totalPomos||0)>=1},
+  {id:'five',icon:'🎯',name:'Constante',desc:'5 pomodoros totales',check:s=>(s.totalPomos||0)>=5},
+  {id:'ten',icon:'⚡',name:'Enfocado',desc:'10 pomodoros totales',check:s=>(s.totalPomos||0)>=10},
+  {id:'twentyfive',icon:'🔥',name:'Imparable',desc:'25 pomodoros totales',check:s=>(s.totalPomos||0)>=25},
+  {id:'fifty',icon:'💎',name:'Élite',desc:'50 pomodoros totales',check:s=>(s.totalPomos||0)>=50},
+  {id:'hundred',icon:'🏆',name:'Leyenda',desc:'100 pomodoros totales',check:s=>(s.totalPomos||0)>=100},
+  {id:'streak3',icon:'📅',name:'Racha x3',desc:'3 días seguidos',check:s=>(s.streak||0)>=3},
+  {id:'streak7',icon:'🗓️',name:'Semana perfecta',desc:'7 días seguidos',check:s=>(s.streak||0)>=7},
+  {id:'goal',icon:'✅',name:'Meta cumplida',desc:'Cumple tu meta diaria',check:s=>pomosHoy>=dailyGoal&&dailyGoal>0},
+  {id:'marathon',icon:'🏃',name:'Maratón',desc:'4 pomodoros en un día',check:s=>(s.pomosHoy||0)>=4}
 ];
 function checkAndAwardBadges(){
-  const s=loadStats();const owned=loadBadges();let changed=false;
-  BADGES.forEach(b=>{if(b.check(s)&&!owned.includes(b.id)){owned.push(b.id);changed=true;showBadgeToast(b);}});
-  if(changed){saveBadges(owned);renderBadges();}
+  const s=loadStats(),awarded=loadBadges();let changed=false;
+  BADGES.forEach(b=>{
+    if(!awarded.includes(b.id)&&b.check(s)){awarded.push(b.id);changed=true;showBadgeToast(b);}
+  });
+  if(changed){saveBadges(awarded);renderBadges();}
 }
-function showBadgeToast(b){showToast(b.e,'¡Nueva insignia! '+b.name,5000);}
+function showBadgeToast(b){showToast(b.icon,'¡Insignia desbloqueada: '+b.name+'!',5000);}
 function renderBadges(){
   const c=document.getElementById('badgesWrap');if(!c)return;
-  const owned=loadBadges();c.innerHTML='';
+  const awarded=loadBadges();c.innerHTML='';
   BADGES.forEach(b=>{
-    const e=document.createElement('div');e.className='badge-i '+(owned.includes(b.id)?'earned':'locked');
-    e.textContent=b.e;e.title=b.name+': '+b.desc;c.appendChild(e);
+    const earned=awarded.includes(b.id);
+    c.innerHTML+='<div class="badge-i '+(earned?'earned':'locked')+'" title="'+esc(b.name)+': '+esc(b.desc)+'">'+b.icon+'</div>';
   });
 }
 
-// ── DOUBTS ──
+// ══════ DOUBTS ══════
 function loadDoubts(){return JSON.parse(localStorage.getItem('ms_doubts')||'[]');}
 function saveDoubts(d){localStorage.setItem('ms_doubts',JSON.stringify(d));}
-window.addDoubt=function(){const inp=document.getElementById('doubtInput'),t=inp.value.trim();if(!t)return;const ds=loadDoubts();ds.unshift({t,ts:Date.now(),done:false});if(ds.length>20)ds.length=20;saveDoubts(ds);inp.value='';renderDoubts();};
-window.resolveDoubt=function(i){const ds=loadDoubts();if(!ds[i])return;ds[i].done=!ds[i].done;saveDoubts(ds);renderDoubts();};
-window.deleteDoubt=function(i){const ds=loadDoubts();ds.splice(i,1);saveDoubts(ds);renderDoubts();};
+window.addDoubt=function(){
+  const inp=document.getElementById('doubtInput'),txt=inp.value.trim();
+  if(!txt)return;
+  const d=loadDoubts();d.unshift({id:Date.now(),text:txt,resolved:false});
+  if(d.length>50)d.length=50;saveDoubts(d);inp.value='';renderDoubts();
+};
+window.resolveDoubt=function(id){
+  const d=loadDoubts();const item=d.find(x=>x.id===id);if(item)item.resolved=!item.resolved;saveDoubts(d);renderDoubts();
+};
+window.deleteDoubt=function(id){saveDoubts(loadDoubts().filter(x=>x.id!==id));renderDoubts();};
 function renderDoubts(){
-  const ds=loadDoubts();const c=document.getElementById('doubtList');if(!c)return;c.innerHTML='';
-  if(!ds.length){c.innerHTML='<div style="font-size:9px;color:var(--text3);text-align:center;padding:4px;">Sin dudas aún</div>';return;}
-  ds.forEach((d,i)=>{
-    c.innerHTML+=`<div style="display:flex;gap:4px;align-items:center;padding:3px 0;border-bottom:1px solid var(--border);font-size:10px;${d.done?'opacity:.5;':''}">
-      <button onclick="resolveDoubt(${i})" style="background:none;border:1px solid ${d.done?'var(--green)':'var(--text3)'};border-radius:3px;width:14px;height:14px;cursor:pointer;color:${d.done?'var(--green)':'transparent'};font-size:9px;line-height:1;">${d.done?'✓':''}</button>
-      <span style="flex:1;${d.done?'text-decoration:line-through;':''}color:var(--text2);">${esc(d.t)}</span>
-      <button onclick="deleteDoubt(${i})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;">×</button>
-    </div>`;
+  const c=document.getElementById('doubtList');if(!c)return;
+  const d=loadDoubts();
+  if(!d.length){c.innerHTML='<div style="font-size:10px;color:var(--text3);text-align:center;padding:4px;">Sin dudas registradas</div>';return;}
+  c.innerHTML='';
+  d.forEach(item=>{
+    c.innerHTML+='<div style="display:flex;align-items:center;gap:5px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">'+
+      '<span onclick="resolveDoubt('+item.id+')" style="cursor:pointer;font-size:13px;">'+(item.resolved?'✅':'⬜')+'</span>'+
+      '<span style="flex:1;font-size:10px;color:'+(item.resolved?'var(--text3)':'var(--text2)')+';'+(item.resolved?'text-decoration:line-through;':'')+'">'+esc(item.text)+'</span>'+
+      '<span onclick="deleteDoubt('+item.id+')" style="cursor:pointer;font-size:11px;color:var(--red);opacity:.6;">✕</span>'+
+    '</div>';
   });
 }
 
-// ── MOTIVATIONAL QUOTES ──
+// ══════ MOTIVATIONAL QUOTES ══════
 const MOTIVATIONAL_QUOTES=[
-  '"El éxito es la suma de pequeños esfuerzos repetidos día tras día." — R. Collier',
-  '"No estudias para ser el mejor, estudias para ser mejor que ayer."',
-  '"La medicina se aprende con disciplina, no con talento."',
-  '"Tu paciente del futuro depende de cada pomodoro de hoy."',
-  '"Un día sin estudiar es un día de retraso."',
-  '"Los mejores médicos fueron antes los mejores estudiantes."',
-  '"El conocimiento médico no se hereda, se conquista."',
-  '"Cada hora de estudio es una vida que podrás salvar mañana."'
+  'El dolor de estudiar es temporal. El orgullo de ser médico es para siempre.',
+  'Cada página que lees hoy salva una vida mañana.',
+  'No estudias para el examen, estudias para tus pacientes.',
+  'La medicina no se memoriza, se comprende. Sigue adelante.',
+  'El éxito es la suma de pequeños esfuerzos repetidos día tras día.',
+  'Tu bata blanca te espera. ¡Sigue luchando!',
+  'Los grandes médicos también dudaron. La diferencia: no se rindieron.',
+  'Hoy estudias lo que otros nunca entenderán. Eso te hace especial.'
 ];
-let _motQuoteIdx=0,_motQuoteInt=null;
-function startMotivationalQuotes(){if(_motQuoteInt)clearInterval(_motQuoteInt);showMotivationalQuote();_motQuoteInt=setInterval(showMotivationalQuote,45000);}
-function showMotivationalQuote(){const q=document.getElementById('motivQuote');if(!q||pomoRunning)return;_motQuoteIdx=(_motQuoteIdx+1)%MOTIVATIONAL_QUOTES.length;q.style.opacity='0';setTimeout(()=>{q.textContent=MOTIVATIONAL_QUOTES[_motQuoteIdx];q.style.opacity='1';},400);}
+function startMotivationalQuotes(){
+  showMotivationalQuote();
+  setInterval(showMotivationalQuote,90000);
+}
+function showMotivationalQuote(){
+  if(pomoRunning)return;
+  const q=document.getElementById('motivQuote');if(!q)return;
+  q.style.opacity='0';
+  setTimeout(()=>{q.textContent=MOTIVATIONAL_QUOTES[Math.floor(Math.random()*MOTIVATIONAL_QUOTES.length)];q.style.opacity='1';},400);
+}
 
-// ── FOCUS ALERTS ──
-const SOFT_ALERTS=[{e:"💧",m:"Toma agua, hidrátate"},{e:"👁️",m:"Mira lejos 20 segundos (regla 20-20-20)"},{e:"🧘",m:"Postura: endereza la espalda"},{e:"🌬️",m:"Respira profundo 3 veces"}];
-function startFocusAlerts(){setInterval(()=>{if(pomoRunning&&Math.random()<.3){const a=SOFT_ALERTS[Math.floor(Math.random()*SOFT_ALERTS.length)];showToast(a.e,a.m,3500);}},15*60*1000);}
+// ══════ FOCUS ALERTS ══════
+const SOFT_ALERTS=['🎯 Mantén el enfoque, crack.','💪 Vas muy bien, no pares.','🧠 Tu cerebro está en modo flujo.','🔥 Cada minuto cuenta.'];
+function startFocusAlerts(){
+  setInterval(()=>{if(pomoRunning&&!onBreak&&!document.hidden&&Math.random()>0.6){showToast('💡',SOFT_ALERTS[Math.floor(Math.random()*SOFT_ALERTS.length)],3000);}},8*60*1000);
+}
 
-// ── CHAT COUNTER ──
-window.updateChatCounter=function(inp){const el=document.getElementById('chatCounter');if(!el)return;const n=inp.value.length;el.textContent=n+' / 120';el.style.color=n>100?'var(--red)':n>80?'var(--gold)':'var(--text3)';}
+// ══════ REPORTES / SUGERENCIAS / WHATSAPP ══════
+// ⚠️ CONFIGURA TU NÚMERO DE WHATSAPP AQUÍ (formato internacional sin "+", sin espacios)
+const WHATSAPP_NUMBER='528117608695'; // WhatsApp del creador
+let _reportType='bug';
+window.setReportType=function(t,el){
+  _reportType=t;
+  document.getElementById('rptTabBug').classList.toggle('active',t==='bug');
+  document.getElementById('rptTabIdea').classList.toggle('active',t==='idea');
+  const inp=document.getElementById('reportInput');
+  if(inp)inp.placeholder=t==='bug'?'Describe el fallo que encontraste...':'Comparte tu idea o sugerencia de mejora...';
+};
+window.updateReportCounter=function(el){
+  const c=document.getElementById('reportCounter');if(!c)return;
+  const len=el.value.length;c.textContent=len+' / 400';
+  c.style.color=len>380?'var(--red)':'var(--text3)';
+};
+function initReportSystem(){/* listo, sin estado persistente extra */}
+window.submitReport=function(){
+  const inp=document.getElementById('reportInput');
+  const txt=(inp?.value||'').trim();
+  const st=document.getElementById('reportStatus');
+  if(!txt){if(st){st.textContent='Escribe algo primero 🙏';st.style.color='var(--red)';}return;}
+  const payload={
+    type:_reportType,
+    text:txt,
+    user:user||'anónimo',
+    code:myCode||'',
+    subject:subject||'',
+    ua:navigator.userAgent.slice(0,120),
+    ts:Date.now()
+  };
+  try{
+    push(ref(db,'reports'),payload).then(()=>{
+      if(st){st.textContent=(_reportType==='bug'?'🐞 Fallo':'💡 Sugerencia')+' enviada. ¡Gracias! 🙌';st.style.color='var(--green)';}
+    }).catch(()=>{
+      if(st){st.textContent='No se pudo enviar. Usa WhatsApp 👇';st.style.color='var(--red)';}
+    });
+  }catch(e){
+    if(st){st.textContent='No se pudo enviar. Usa WhatsApp 👇';st.style.color='var(--red)';}
+  }
+  if(inp)inp.value='';
+  const c=document.getElementById('reportCounter');if(c){c.textContent='0 / 400';c.style.color='var(--text3)';}
+  showToast(_reportType==='bug'?'🐞':'💡','¡Reporte recibido! Gracias por ayudar a mejorar la sala.',3500);
+};
+window.contactWhatsApp=function(){
+  const inp=document.getElementById('reportInput');
+  const txt=(inp?.value||'').trim();
+  const tipo=_reportType==='bug'?'Reporte de fallo':'Sugerencia de mejora';
+  let msg='Hola Dr. Abdías 👋 ('+tipo+' desde MedStudents Study Room)';
+  msg+='\nNombre: '+(user||'(sin nombre)');
+  if(txt)msg+='\n\n'+txt;
+  const url='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg);
+  window.open(url,'_blank','noopener');
+};
 
-// ── CLOCK ──
+// ══════ CLOCK ══════
+let _userLocation='';
 function startClock(){
-  function tick(){
-    const d=new Date();
-    const cd=document.getElementById('clockDisplay');if(cd)cd.textContent=d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-    const dd=document.getElementById('dateDisplay');if(dd)dd.textContent=d.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
-    const hdt=document.getElementById('headerDateTime');if(hdt)hdt.innerHTML=d.toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short'})+'<br>'+d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',hour12:false});
+  const upd=()=>{
+    const now=new Date();
+    const cd=document.getElementById('clockDisplay');
+    if(cd)cd.textContent=now.toLocaleTimeString('es-MX',{hour12:false});
+    const dd=document.getElementById('dateDisplay');
+    if(dd)dd.textContent=now.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+    const hdt=document.getElementById('headerDateTime');
+    if(hdt)hdt.innerHTML=now.toLocaleDateString('es-MX',{weekday:'short',day:'numeric',month:'short'})+'<br>'+now.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})+(_userLocation?'<br><span style="color:var(--cyan);font-size:9px;">📍 '+_userLocation+'</span>':'');
+  };
+  upd();setInterval(upd,1000);
+  detectLocation();
+}
+function detectLocation(){
+  const loc=document.getElementById('locDisplay');
+  // 1) zona horaria como fallback inmediato
+  let tzCity='';
+  try{const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;if(tz&&tz.includes('/'))tzCity=tz.split('/').pop().replace(/_/g,' ');}catch(e){}
+  if(tzCity){_userLocation=tzCity;if(loc)loc.textContent='📍 '+tzCity;}
+  // 2) geolocalización precisa con reverse geocoding (si el usuario lo permite)
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(pos=>{
+      const {latitude,longitude}=pos.coords;
+      fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+latitude+'&lon='+longitude+'&zoom=10&accept-language=es')
+        .then(r=>r.json())
+        .then(d=>{
+          const a=d.address||{};
+          const city=a.city||a.town||a.village||a.municipality||a.county||tzCity;
+          const region=a.state||a.country||'';
+          const txt=city?(city+(region&&region!==city?', '+region:'')):tzCity;
+          if(txt){_userLocation=txt;if(loc)loc.textContent='📍 '+txt;}
+        })
+        .catch(()=>{if(loc&&!_userLocation)loc.textContent='📍 Ubicación no disponible';});
+    },err=>{
+      if(loc)loc.textContent='📍 '+(tzCity||'Ubicación desactivada');
+    },{timeout:8000,maximumAge:600000});
+  } else {
+    if(loc)loc.textContent='📍 '+(tzCity||'Ubicación no disponible');
   }
-  tick();setInterval(tick,1000);
 }
 
-// ── FLAME BAR & MOTIVATION TEXT ──
-function buildFlameBar(){
-  const c=document.getElementById('flameBar');if(!c)return;c.innerHTML='';
-  for(let i=0;i<45;i++){const b=document.createElement('div');b.style.cssText='flex:1;background:rgba(255,255,255,0.06);border-radius:1px;height:6px;transition:all .4s;';c.appendChild(b);}
+// ══════ MURO DE NOVEDADES ══════
+const NEWS_ITEMS=[
+  {ico:'🔬',title:'Histología disponible',desc:'Ya puedes elegir Histología como materia de estudio al entrar y en tus pomodoros manuales.',date:'2026-05-28'},
+  {ico:'📍',title:'Ubicación en el reloj',desc:'El panel de hora ahora muestra tu localización actual (ciudad y región).',date:'2026-05-28'},
+  {ico:'📣',title:'Muro de novedades',desc:'Este muro te avisa de todo lo nuevo que se agrega a la sala. ¡Estate atento!',date:'2026-05-28'},
+  {ico:'⚔️',title:'Juegos en línea 1v1',desc:'Reta a otros estudiantes conectados a Ajedrez o Memorama en tiempo real con el botón ⚔️ Retar.',date:'2026-05-27'},
+  {ico:'📅',title:'Reporte semanal',desc:'Nuevo podio con los que más pomodoros hicieron en la semana, más pestaña "Semana" en el leaderboard.',date:'2026-05-27'},
+  {ico:'🛠️',title:'Reportar fallos y sugerencias',desc:'Quitamos el chat y ahora puedes reportar errores, dar ideas y escribir por WhatsApp al creador.',date:'2026-05-27'},
+  {ico:'🍅',title:'Pomodoros junto al nombre',desc:'Cada usuario conectado muestra cuántos pomodoros lleva al lado de su nombre.',date:'2026-05-26'},
+  {ico:'💕',title:'Mural de Instagram',desc:'Comparte tu @ en el mural al final de la sala y conecta con otros estudiantes.',date:'2026-05-26'}
+];
+function renderNews(){
+  const w=document.getElementById('newsWall');if(!w)return;
+  const now=Date.now();
+  w.innerHTML=NEWS_ITEMS.map(n=>{
+    const d=new Date(n.date+'T12:00:00');
+    const isNew=(now-d.getTime())<7*24*60*60*1000;
+    const dateStr=d.toLocaleDateString('es-MX',{day:'numeric',month:'short'});
+    return '<div class="news-item'+(isNew?' is-new':'')+'">'+
+      '<div class="news-head"><span class="news-ico">'+n.ico+'</span><span class="news-title">'+esc(n.title)+'</span>'+(isNew?'<span class="news-badge">NUEVO</span>':'')+'</div>'+
+      '<div class="news-desc">'+esc(n.desc)+'</div>'+
+      '<div class="news-date">'+dateStr+'</div>'+
+    '</div>';
+  }).join('');
 }
-function resetFlameBar(){buildFlameBar();}
+
+// ══════ FLAME BAR + MOTIVATION TEXT ══════
+function buildFlameBar(){
+  const b=document.getElementById('flameBar');if(!b)return;b.innerHTML='';
+  for(let i=0;i<45;i++){const s=document.createElement('div');s.style.cssText='flex:1;background:rgba(255,255,255,0.06);border-radius:1px;height:4px;transition:height .3s,background .3s;';b.appendChild(s);}
+}
+function resetFlameBar(){
+  const b=document.getElementById('flameBar');if(!b)return;
+  [...b.children].forEach(s=>{s.style.height='4px';s.style.background='rgba(255,255,255,0.06)';});
+}
 function updateFlameBar(){
-  const c=document.getElementById('flameBar');if(!c||!pomoRunning||onBreak)return;
-  const e=Math.floor((POMO_TOTAL-pomoTime)/60);
-  const bars=c.children;
-  for(let i=0;i<bars.length;i++){
-    if(i<e){let col,h;if(i<15){col='var(--red)';h=10;}else if(i<30){col='var(--gold)';h=18;}else{col='#9b59b6';h=24;}bars[i].style.background=col;bars[i].style.height=h+'px';}
-    else{bars[i].style.background='rgba(255,255,255,0.06)';bars[i].style.height='6px';}
-  }
+  const b=document.getElementById('flameBar');if(!b||onBreak)return;
+  const elapsed=Math.floor((POMO_TOTAL-pomoTime)/60);
+  [...b.children].forEach((s,i)=>{
+    if(i<elapsed){
+      const h=4+Math.min(24,(i/45)*24);s.style.height=h+'px';
+      s.style.background=i<15?'#EF4150':i<30?'#F4C842':'#9b59b6';
+    }
+  });
 }
 function updateMotivationText(){
-  if(!pomoRunning||onBreak)return;
-  const e=(POMO_TOTAL-pomoTime)/60;let phase;
-  if(e<15)phase='danger';else if(e<30)phase='gold';else phase='push';
-  if(phase===lastMotPhase)return;lastMotPhase=phase;
-  const msgs={danger:['Aguanta crack, el cerebro está despertando.','Los primeros 15 min son los más duros. ¡Resiste!','No te rindas. Esto es solo el comienzo.'],gold:['¡Estás en la zona dorada! Aprovecha el flujo.','Tu corteza prefrontal está activa. ¡Sigue!','Este es el momento de máximo aprendizaje.'],push:['Último sprint. ¡No te rajes ahora!','Casi terminas. ¡Dale con todo!','Los últimos minutos son los que definen al crack.']};
-  const arr=msgs[phase];const q=document.getElementById('motivQuote');if(q){q.style.opacity='0';setTimeout(()=>{q.textContent=arr[Math.floor(Math.random()*arr.length)];q.style.opacity='1';},300);}
+  if(onBreak)return;
+  const e=(POMO_TOTAL-pomoTime)/60;
+  let phase=e<15?'risk':e<30?'gold':'sprint';
+  if(phase===lastMotPhase)return;
+  lastMotPhase=phase;
+  const q=document.getElementById('motivQuote');if(!q)return;
+  const txt=phase==='risk'?'⚠️ Resiste los primeros minutos. El enfoque llega.':phase==='gold'?'⚡ ¡Estás en flujo! Aprovecha la zona dorada.':'💪 ¡Último sprint! No aflojes ahora, crack.';
+  q.style.opacity='0';setTimeout(()=>{q.textContent=txt;q.style.opacity='1';},300);
 }
 
-// ── FULLSCREEN ──
+// ══════ FULLSCREEN (compatible Mac/Safari/Chrome) ══════
 window.toggleFullscreen=function(){
-  if(!document.fullscreenElement&&!document.webkitFullscreenElement){
-    const el=document.documentElement;
-    if(el.requestFullscreen)el.requestFullscreen().catch(()=>showFullscreenInstructions());
-    else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
-    else showFullscreenInstructions();
+  const el=document.documentElement;
+  const isFs=document.fullscreenElement||document.webkitFullscreenElement||document.webkitCurrentFullScreenElement;
+  if(!isFs){
+    let req=el.requestFullscreen||el.webkitRequestFullscreen||el.webkitRequestFullScreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(req){
+      try{
+        const p=req.call(el);
+        if(p&&p.catch)p.catch(()=>showFullscreenInstructions());
+      }catch(e){showFullscreenInstructions();}
+    } else if(typeof el.webkitEnterFullscreen==='function'){
+      el.webkitEnterFullscreen();
+    } else {
+      showFullscreenInstructions();
+    }
+    const banner=document.getElementById('fsBanner');if(banner)banner.remove();
   } else {
-    if(document.exitFullscreen)document.exitFullscreen();
-    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+    const exit=document.exitFullscreen||document.webkitExitFullscreen||document.webkitCancelFullScreen||document.mozCancelFullScreen||document.msExitFullscreen;
+    if(exit)exit.call(document);
   }
 };
 function showFullscreenInstructions(){
-  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">⛶</span><div class="modal-title">Pantalla Completa</div><div class="modal-text">Presiona <strong style="color:var(--gold)">F11</strong> en tu teclado para entrar en pantalla completa.<br><br>Tu navegador no permite activarlo desde un botón.</div><button class="modal-btn" onclick="closeModal()">Entendido 👍</button></div></div>';
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">⛶</span><div class="modal-title">Pantalla completa</div><div class="modal-text">Si el botón no activa pantalla completa en tu equipo, usa el atajo de tu navegador:<br><br>🍎 <strong>Mac · Safari:</strong> Ctrl + ⌘ + F<br>🍎 <strong>Mac · Chrome/Edge:</strong> Ctrl + ⌘ + F<br>🪟 <strong>Windows:</strong> F11<br><br>También puedes usar el menú <em>Ver → Pantalla completa</em> de tu navegador.</div><button class="modal-btn" onclick="closeModal()">Entendido 👍</button></div></div>';
 }
-function showFullscreenBanner(){if(document.getElementById('fsBanner'))return;const b=document.createElement('div');b.id='fsBanner';b.style.cssText='position:fixed;bottom:14px;right:14px;background:rgba(8,24,48,0.97);border:1px solid rgba(0,212,255,0.28);border-radius:11px;padding:10px 14px;display:flex;align-items:center;gap:9px;z-index:9000;animation:sUp .4s ease;font-size:12px;color:var(--text);max-width:280px;';b.innerHTML='<span style="font-size:18px;">⛶</span><div style="flex:1"><div style="font-family:Syne,sans-serif;font-weight:700;color:var(--cyan);font-size:11px;">Pantalla completa</div><div style="font-size:10px;color:var(--text2);">Presiona <strong style="color:var(--gold)">F11</strong> para máximo enfoque</div></div><button onclick="hideFullscreenBanner()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;">×</button>';document.body.appendChild(b);setTimeout(()=>hideFullscreenBanner(),8000);}
-function hideFullscreenBanner(){const b=document.getElementById('fsBanner');if(b)b.remove();}
+function showFullscreenBanner(){
+  if(document.getElementById('fsBanner'))return;
+  const b=document.createElement('div');b.id='fsBanner';
+  b.style.cssText='position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:9000;background:rgba(8,24,48,0.97);border:1px solid rgba(0,212,255,0.3);border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 24px rgba(0,0,0,0.4);font-family:"Space Grotesk",sans-serif;animation:sUp .4s ease;';
+  b.innerHTML='<span style="font-size:18px;">⛶</span><span style="font-size:12px;color:var(--text2);">Mejor experiencia en pantalla completa</span><button onclick="toggleFullscreen();" style="background:linear-gradient(135deg,var(--navy-light),var(--cyan));border:none;border-radius:7px;padding:6px 14px;font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:white;cursor:pointer;">Activar</button><button onclick="this.parentElement.remove();" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;">✕</button>';
+  document.body.appendChild(b);
+  setTimeout(()=>{const x=document.getElementById('fsBanner');if(x)x.remove();},12000);
+}
 
-// ── DESKTOP NOTIFS ──
-function requestNotifPermission(){if(!('Notification' in window))return;if(Notification.permission==='default'){Notification.requestPermission();}}
+// ══════ DESKTOP NOTIFS ══════
 const NOTIF_ICON='https://www.medstudents.page/web/image/86984-b88224b8/LOGO%20MEDSTUDENTS_Mesa%20de%20trabajo%201%20copia.webp';
-function sendDesktopNotif(title,body){if(!('Notification' in window))return;if(Notification.permission==='granted'){try{new Notification(title,{body,icon:NOTIF_ICON,silent:false});}catch(e){}}}
+function requestNotifPermission(){
+  if(typeof Notification!=='undefined'&&Notification.permission==='default'){Notification.requestPermission().catch(()=>{});}
+}
+function sendDesktopNotif(title,body){
+  try{if(typeof Notification!=='undefined'&&Notification.permission==='granted'){new Notification(title,{body,icon:NOTIF_ICON});}}catch(e){}
+}
 
-// ── POMO STATE PERSISTENCE ──
+// ══════ POMO STATE PERSISTENCE ══════
 const SS_POMO='ms_pomo_state';
-function savePomoState(){if(!pomoRunning)return;try{sessionStorage.setItem(SS_POMO,JSON.stringify({t:pomoTime,onB:onBreak,saved:Date.now()}));}catch(e){}}
-function clearPomoState(){try{sessionStorage.removeItem(SS_POMO);}catch(e){}}
-function tryRestorePomoState(){try{const d=JSON.parse(sessionStorage.getItem(SS_POMO)||'null');if(!d)return;const elapsed=Math.floor((Date.now()-d.saved)/1000);const newTime=Math.max(0,d.t-elapsed);if(newTime<=0){clearPomoState();return;}pomoTime=newTime;onBreak=d.onB;updateTimerUI();updateRing();updatePhase();showToast('⏱️','Pomodoro restaurado: '+Math.floor(newTime/60)+':'+String(newTime%60).padStart(2,'0')+' restantes',4000);}catch(e){}}
+function savePomoState(){
+  try{localStorage.setItem(SS_POMO,JSON.stringify({pomoTime,onBreak,pomoRunning,ts:Date.now()}));}catch(e){}
+}
+function clearPomoState(){localStorage.removeItem(SS_POMO);}
+function tryRestorePomoState(){
+  try{
+    const st=JSON.parse(localStorage.getItem(SS_POMO)||'null');
+    if(!st||!st.ts)return;
+    const elapsed=Math.floor((Date.now()-st.ts)/1000);
+    if(elapsed>3600){clearPomoState();return;}
+    let remaining=st.pomoTime-(st.pomoRunning?elapsed:0);
+    if(remaining<=0){clearPomoState();return;}
+    pomoTime=remaining;onBreak=st.onBreak;
+    updateTimerUI();updateRing();updatePhase();
+    if(st.pomoRunning){
+      showToast('⏮️','Pomodoro restaurado · '+Math.floor(remaining/60)+' min restantes',4000);
+    }
+  }catch(e){}
+}
 
-// ── BREAK GUIDES ──
-window.showBreakGuide=function(type){
+// ══════ BREAK GUIDES ══════
+function showBreakGuide(type){
   const guides={
-    agua:{e:'💧',t:'Hidratación durante el descanso',m:'Toma 250-500ml de agua. La deshidratación reduce el rendimiento cognitivo hasta un 25%. El cerebro es 75% agua.'},
-    estiramiento:{e:'🧘',t:'Estiramiento (3-5 min)',m:'1. Cuello: gira lento 5 veces a cada lado<br>2. Hombros: rota hacia atrás 10 veces<br>3. Espalda: levanta brazos y arquéate<br>4. Piernas: ponte de pie y camina'},
-    ojos:{e:'👁️',t:'Regla 20-20-20',m:'Cada 20 minutos, mira algo a <strong>20 pies (6m)</strong> de distancia durante <strong>20 segundos</strong>. Esto reduce la fatiga ocular digital.'}
+    agua:{e:'💧',t:'Hidratación',m:'Bebe 1-2 vasos de agua. La deshidratación reduce la concentración hasta un 20%. Tu cerebro es 75% agua.'},
+    estiramiento:{e:'🧘',t:'Estiramiento',m:'Estira cuello, hombros y espalda 30s cada uno. Mejora la circulación y reduce la tensión muscular del estudio.'},
+    ojos:{e:'👁️',t:'Descanso visual',m:'Regla 20-20-20: mira algo a 20 pies (6m) por 20 segundos. Relaja los músculos oculares y previene la fatiga.'}
   };
   const g=guides[type];if(!g)return;
-  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">'+g.e+'</span><div class="modal-title">'+g.t+'</div><div class="modal-text">'+g.m+'</div><button class="modal-btn" onclick="closeModal()">Listo 💪</button></div></div>';
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">'+g.e+'</span><div class="modal-title">'+g.t+'</div><div class="modal-text">'+g.m+'</div><button class="modal-btn" onclick="closeModal()">¡Listo! 💪</button></div></div>';
+}
+window.showBreakGuide=showBreakGuide;
+
+// ══════════════════════════════════════════════════════════════
+// MULTIJUGADOR EN RED (Ajedrez 1v1 · Memorama duelo) vía Firebase
+// ══════════════════════════════════════════════════════════════
+let _unsubInvites=null,_activeGameId=null;
+
+// ── Menú de reto ──
+window.openChallengeMenu=function(targetUid){
+  const d=(window._studentsCache||{})[targetUid];
+  if(!d||!d.name){showToast('⚠️','Ese estudiante ya no está disponible',2500);return;}
+  document.getElementById('modalContainer').innerHTML=
+    '<div class="modal-overlay"><div class="modal-box">'+
+    '<span class="modal-emoji">⚔️</span>'+
+    '<div class="modal-title">Retar a '+esc(d.name)+'</div>'+
+    '<div class="modal-text">Elige el juego para tu duelo en línea:</div>'+
+    '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
+      '<button class="modal-btn" onclick="sendChallenge(\''+targetUid+'\',\'chess\')">♟️ Ajedrez</button>'+
+      '<button class="modal-btn" onclick="sendChallenge(\''+targetUid+'\',\'memorama\')">🧩 Memorama</button>'+
+    '</div>'+
+    '<div style="margin-top:12px;"><button class="modal-btn" style="background:rgba(255,255,255,0.08);" onclick="closeModal()">Cancelar</button></div>'+
+    '</div></div>';
 };
 
-// ── BEFORE UNLOAD ──
-window.addEventListener('beforeunload',()=>{
-  if(user&&myUid){
-    try{saveStats(loadStats());}catch(e){}
+window.sendChallenge=function(targetUid,game){
+  const d=(window._studentsCache||{})[targetUid];
+  if(!d){showToast('⚠️','Estudiante no disponible',2500);return;}
+  const gameId='g_'+myUid.slice(0,8)+'_'+Date.now();
+  // creador siempre juega blancas en ajedrez / turno 0 en memorama
+  const invite={
+    gameId,game,
+    fromUid:myUid,fromName:user,fromAvatar:myAvatar,
+    toUid:targetUid,toName:d.name,
+    status:'pending',ts:Date.now()
+  };
+  set(ref(db,'gameInvites/'+targetUid+'/'+gameId),invite).catch(()=>{});
+  // creo la partida base
+  const base={
+    game,status:'waiting',
+    players:{w:{uid:myUid,name:user,avatar:myAvatar},b:{uid:targetUid,name:d.name,avatar:d.avatar||'🧑'}},
+    createdBy:myUid,ts:Date.now()
+  };
+  if(game==='chess'){
+    base.board=JSON.stringify([
+      ['br','bn','bb','bq','bk','bb','bn','br'],
+      ['bp','bp','bp','bp','bp','bp','bp','bp'],
+      ['','','','','','','',''],['','','','','','','',''],
+      ['','','','','','','',''],['','','','','','','',''],
+      ['wp','wp','wp','wp','wp','wp','wp','wp'],
+      ['wr','wn','wb','wq','wk','wb','wn','wr']
+    ]);
+    base.turn='w';base.captured=JSON.stringify({w:[],b:[]});base.last=null;
+  } else if(game==='memorama'){
+    base.seed=Date.now()%100000;
+    base.pairs=8;
+    base.flipped=JSON.stringify([]);
+    base.matched=JSON.stringify([]);
+    base.turn='w'; // w = creador
+    base.scores=JSON.stringify({w:0,b:0});
+    base.cards=JSON.stringify(buildMemoDuelDeck(base.seed,base.pairs));
   }
+  set(ref(db,'games/'+gameId),base).catch(()=>{});
+  closeModal();
+  showToast('⚔️','Reto enviado a '+d.name+'. Esperando respuesta...',4000);
+  // el creador entra a la sala de espera
+  _activeGameId=gameId;
+  if(game==='chess')startOnlineChess(gameId,'w',d.name);
+  else startOnlineMemorama(gameId,'w',d.name);
+};
+
+// ── Escuchar invitaciones entrantes ──
+function listenGameInvites(){
+  if(_unsubInvites){_unsubInvites();_unsubInvites=null;}
+  if(!myUid)return;
+  _unsubInvites=onValue(ref(db,'gameInvites/'+myUid),snap=>{
+    const d=snap.val()||{};
+    const now=Date.now();
+    Object.entries(d).forEach(([gid,inv])=>{
+      if(!inv)return;
+      if(inv.status==='pending'&&(now-(inv.ts||0))<60000){
+        showInviteModal(inv);
+      }
+      // limpieza de invitaciones viejas
+      if((now-(inv.ts||0))>120000)remove(ref(db,'gameInvites/'+myUid+'/'+gid)).catch(()=>{});
+    });
+  });
+}
+let _shownInvites={};
+function showInviteModal(inv){
+  if(_shownInvites[inv.gameId])return;
+  _shownInvites[inv.gameId]=true;
+  const gname=inv.game==='chess'?'♟️ Ajedrez':'🧩 Memorama';
+  document.getElementById('modalContainer').innerHTML=
+    '<div class="modal-overlay"><div class="modal-box">'+
+    '<span class="modal-emoji">⚔️</span>'+
+    '<div class="modal-title">'+esc(inv.fromName)+' '+(inv.fromAvatar||'')+' te reta</div>'+
+    '<div class="modal-text">Te invita a un duelo de <strong>'+gname+'</strong> en línea. ¿Aceptas?</div>'+
+    '<div style="display:flex;gap:10px;justify-content:center;">'+
+      '<button class="modal-btn" onclick="acceptChallenge(\''+inv.gameId+'\',\''+inv.game+'\',\''+esc(inv.fromName)+'\')">✅ Aceptar</button>'+
+      '<button class="modal-btn modal-btn-red" onclick="declineChallenge(\''+inv.gameId+'\')">❌ Rechazar</button>'+
+    '</div></div></div>';
+  showToast('⚔️','¡'+inv.fromName+' te retó a '+gname+'!',5000);
+}
+window.acceptChallenge=function(gameId,game,fromName){
+  set(ref(db,'gameInvites/'+myUid+'/'+gameId+'/status'),'accepted').catch(()=>{});
+  set(ref(db,'games/'+gameId+'/status'),'playing').catch(()=>{});
+  closeModal();
+  _activeGameId=gameId;
+  // el retado juega negras (b)
+  if(game==='chess')startOnlineChess(gameId,'b',fromName);
+  else startOnlineMemorama(gameId,'b',fromName);
+};
+window.declineChallenge=function(gameId){
+  set(ref(db,'gameInvites/'+myUid+'/'+gameId+'/status'),'declined').catch(()=>{});
+  set(ref(db,'games/'+gameId+'/status'),'declined').catch(()=>{});
+  closeModal();
+};
+
+// ══════ AJEDREZ ONLINE ══════
+function startOnlineChess(gameId,myColor,oppName){
+  _chessMode='online';_chessGameId=gameId;_chessMyColor=myColor;_chessOpponent=oppName;
+  openGame('chess'); // monta el panel
+  // sobreescribe la UI con cabecera online
+  const c=document.getElementById('gameContent');
+  c.innerHTML='<div class="chess-wrap">'+
+    '<div style="text-align:center;font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:#c39bd3;margin-bottom:8px;">⚔️ En línea vs '+esc(oppName)+' · Tú juegas '+(myColor==='w'?'Blancas ♔':'Negras ♚')+'</div>'+
+    '<div class="chess-captured" id="chessCapB"></div>'+
+    '<div class="chess-board" id="chessBoard"></div>'+
+    '<div class="chess-captured" id="chessCapW"></div>'+
+    '<div class="chess-status" id="chessStatus">Conectando...</div>'+
+    '<div style="text-align:center;"><button class="btn-chess" onclick="closeGame()">🚪 Salir del duelo</button></div>'+
+  '</div>';
+  if(_unsubChessGame){_unsubChessGame();_unsubChessGame=null;}
+  _unsubChessGame=onValue(ref(db,'games/'+gameId),snap=>{
+    const g=snap.val();if(!g){showToast('⚠️','La partida terminó',3000);closeGame();return;}
+    if(g.status==='declined'){showToast('❌',oppName+' rechazó o salió',3500);closeGame();return;}
+    if(g.board){try{_chessBoard=JSON.parse(g.board);}catch(e){}}
+    _chessTurn=g.turn||'w';
+    if(g.captured){try{_chessCaptured=JSON.parse(g.captured);}catch(e){}}
+    _chessLast=g.last||null;_chessSel=null;
+    renderChess();
+    const st=document.getElementById('chessStatus');
+    if(st){
+      if(g.winner){st.textContent='👑 ¡'+(g.winner===myColor?'Ganaste':oppName+' ganó')+'!';}
+      else st.textContent=(_chessTurn===_chessMyColor?'➡️ Tu turno':'⏳ Turno de '+oppName);
+    }
+  });
+}
+function pushChessState(){
+  if(!_chessGameId)return;
+  const upd={board:JSON.stringify(_chessBoard),turn:_chessTurn,captured:JSON.stringify(_chessCaptured),last:_chessLast};
+  // ¿rey capturado? detectar ganador
+  let hasWK=false,hasBK=false;
+  _chessBoard.forEach(row=>row.forEach(p=>{if(p==='wk')hasWK=true;if(p==='bk')hasBK=true;}));
+  if(!hasWK)upd.winner='b';else if(!hasBK)upd.winner='w';
+  set(ref(db,'games/'+_chessGameId),Object.assign({game:'chess',status:'playing'},upd)).catch(()=>{
+    // fallback: actualizar campos sueltos
+    Object.entries(upd).forEach(([k,v])=>set(ref(db,'games/'+_chessGameId+'/'+k),v).catch(()=>{}));
+  });
+}
+
+// ══════ MEMORAMA DUELO ONLINE ══════
+let _memoDuel=null,_unsubMemoGame=null;
+function buildMemoDuelDeck(seed,pairs){
+  // generador determinista simple (mismo mazo para ambos)
+  let s=seed||1;const rnd=()=>{s=(s*9301+49297)%233280;return s/233280;};
+  const syms=['🧬','💊','🫀','🧠','🦴','🩺','🔬','🦠','💉','🩸','🫁','👁️'].slice(0,pairs);
+  let cards=[];syms.forEach(x=>{cards.push(x,x);});
+  for(let i=cards.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]];}
+  return cards;
+}
+function startOnlineMemorama(gameId,myColor,oppName){
+  _memoDuel={gameId,myColor,oppName,locked:false};
+  openGame('memorama');
+  const c=document.getElementById('gameContent');
+  c.innerHTML='<div class="memo-wrap">'+
+    '<div style="text-align:center;font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:#c39bd3;margin-bottom:8px;">⚔️ Duelo vs '+esc(oppName)+'</div>'+
+    '<div class="memo-stats-bar" style="justify-content:center;">'+
+      '<div class="memo-stat green"><div class="memo-stat-v" id="memoMeScore">0</div><div class="memo-stat-l">Tú</div></div>'+
+      '<div class="memo-stat red"><div class="memo-stat-v" id="memoOppScore">0</div><div class="memo-stat-l">'+esc(oppName.slice(0,8))+'</div></div>'+
+    '</div>'+
+    '<div class="memo-status" id="memoDuelStatus" style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:8px;">Conectando...</div>'+
+    '<div class="memo-g memo-g4" id="memoGrid"></div>'+
+    '<div style="text-align:center;"><button class="btn-memo" onclick="closeGame()">🚪 Salir del duelo</button></div>'+
+  '</div>';
+  if(_unsubMemoGame){_unsubMemoGame();_unsubMemoGame=null;}
+  _unsubMemoGame=onValue(ref(db,'games/'+gameId),snap=>{
+    const g=snap.val();if(!g){showToast('⚠️','La partida terminó',3000);closeGame();return;}
+    if(g.status==='declined'){showToast('❌',oppName+' rechazó o salió',3500);closeGame();return;}
+    renderMemoDuel(g);
+  });
+}
+function renderMemoDuel(g){
+  const grid=document.getElementById('memoGrid');if(!grid)return;
+  let cards=[],flipped=[],matched=[],scores={w:0,b:0},turn='w';
+  try{cards=JSON.parse(g.cards||'[]');}catch(e){}
+  try{flipped=JSON.parse(g.flipped||'[]');}catch(e){}
+  try{matched=JSON.parse(g.matched||'[]');}catch(e){}
+  try{scores=JSON.parse(g.scores||'{"w":0,"b":0}');}catch(e){}
+  turn=g.turn||'w';
+  const myColor=_memoDuel.myColor;
+  grid.innerHTML='';
+  cards.forEach((face,i)=>{
+    const isFlipped=flipped.includes(i)||matched.includes(i);
+    const el=document.createElement('div');
+    el.className='memo-card'+(isFlipped?' flipped':'')+(matched.includes(i)?' matched':'');
+    el.innerHTML='<div class="memo-inner"><div class="memo-front"></div><div class="memo-back">'+face+'</div></div>';
+    el.onclick=()=>flipMemoDuel(i,g);
+    grid.appendChild(el);
+  });
+  const meS=document.getElementById('memoMeScore'),opS=document.getElementById('memoOppScore');
+  if(meS)meS.textContent=scores[myColor]||0;
+  if(opS)opS.textContent=scores[myColor==='w'?'b':'w']||0;
+  const st=document.getElementById('memoDuelStatus');
+  const totalPairs=g.pairs||8;
+  if(matched.length>=totalPairs*2){
+    const myScore=scores[myColor]||0,oppScore=scores[myColor==='w'?'b':'w']||0;
+    if(st)st.textContent=myScore>oppScore?'🏆 ¡Ganaste el duelo!':myScore<oppScore?'😔 '+_memoDuel.oppName+' ganó':'🤝 ¡Empate!';
+  } else {
+    if(st)st.textContent=(turn===myColor?'➡️ Tu turno':'⏳ Turno de '+_memoDuel.oppName);
+  }
+}
+window.flipMemoDuel=function(i,g){
+  const myColor=_memoDuel.myColor;
+  if((g.turn||'w')!==myColor)return; // no es mi turno
+  let flipped=[],matched=[];
+  try{flipped=JSON.parse(g.flipped||'[]');}catch(e){}
+  try{matched=JSON.parse(g.matched||'[]');}catch(e){}
+  if(flipped.includes(i)||matched.includes(i))return;
+  if(flipped.length>=2)return;
+  flipped.push(i);
+  const gid=_memoDuel.gameId;
+  if(flipped.length<2){
+    set(ref(db,'games/'+gid+'/flipped'),JSON.stringify(flipped)).catch(()=>{});
+    return;
+  }
+  // segunda carta: resolver
+  let cards=[],scores={w:0,b:0};
+  try{cards=JSON.parse(g.cards||'[]');}catch(e){}
+  try{scores=JSON.parse(g.scores||'{"w":0,"b":0}');}catch(e){}
+  set(ref(db,'games/'+gid+'/flipped'),JSON.stringify(flipped)).catch(()=>{});
+  const [a,b]=flipped;
+  if(cards[a]===cards[b]){
+    matched.push(a,b);scores[myColor]=(scores[myColor]||0)+1;
+    setTimeout(()=>{
+      const upd={matched:JSON.stringify(matched),scores:JSON.stringify(scores),flipped:JSON.stringify([])};
+      // acierta => sigue el mismo jugador
+      Object.entries(upd).forEach(([k,v])=>set(ref(db,'games/'+gid+'/'+k),v).catch(()=>{}));
+      memoPlaySound('match');
+    },700);
+  } else {
+    setTimeout(()=>{
+      const nextTurn=myColor==='w'?'b':'w';
+      set(ref(db,'games/'+gid+'/flipped'),JSON.stringify([])).catch(()=>{});
+      set(ref(db,'games/'+gid+'/turn'),nextTurn).catch(()=>{});
+      memoPlaySound('wrong');
+    },1100);
+  }
+};
+
+// limpiar listeners de juego al cerrar
+const _origCloseGame=window.closeGame;
+window.closeGame=function(){
+  if(_unsubChessGame){_unsubChessGame();_unsubChessGame=null;}
+  if(_unsubMemoGame){_unsubMemoGame();_unsubMemoGame=null;}
+  if(_activeGameId){
+    // marcar partida como abandonada
+    set(ref(db,'games/'+_activeGameId+'/status'),'declined').catch(()=>{});
+    _activeGameId=null;
+  }
+  _chessMode='ai';_chessGameId=null;_memoDuel=null;
+  if(_origCloseGame)_origCloseGame();
+};
+
+// ══════ BEFOREUNLOAD ══════
+window.addEventListener('beforeunload',()=>{
+  if(user)saveStats(loadStats());
+  savePomoState();
 });
 
 </script>
