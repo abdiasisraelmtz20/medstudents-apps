@@ -692,6 +692,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
             </div>
             <div class="bi">📵 Sin celular</div>
             <div class="bi">😴 Cierra ojos</div>
+            <div class="bi" style="width:100%;text-align:center;cursor:pointer;background:rgba(239,65,80,0.12);border:1px solid rgba(239,65,80,0.3);color:var(--red);font-weight:700;" onclick="skipBreak()">🔥 Saltar descanso · iniciar otro pomodoro</div>
           </div>
         </div>
       </div>
@@ -969,7 +970,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",san
 <script type="module">
 
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getDatabase,ref,set,onValue,push,remove,onDisconnect,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import{getDatabase,ref,set,update,onValue,push,remove,onDisconnect,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const FB={apiKey:"AIzaSyBs2uK2PlvHj7s51Oz9Op3dcFq6SVRnThM",authDomain:"medstudents-study-room.firebaseapp.com",databaseURL:"https://medstudents-study-room-default-rtdb.firebaseio.com",projectId:"medstudents-study-room",storageBucket:"medstudents-study-room.firebasestorage.app",messagingSenderId:"946855683989",appId:"1:946855683989:web:3d55ab4abab4f2da6ab89c"};
 const db=getDatabase(initializeApp(FB));
@@ -1423,6 +1424,7 @@ function listenStudents(){
   _unsubStudents=onValue(ref(db,'students'),snap=>{
     const d=snap.val()||{};const now=Date.now();
     window._studentsCache=d;
+    if(typeof updateMuralStats==='function'&&document.getElementById('muralCount'))updateMuralStats();
     const entries=Object.entries(d).filter(([k,s])=>s&&s.name&&(s.lastSeen?(now-s.lastSeen<STALE_TTL):true));
     document.getElementById('onlineCount').textContent=entries.length+' en línea';
     const c=document.getElementById('activeStudents');
@@ -1447,7 +1449,7 @@ function listenStudents(){
           '<span class="badge-sm badge-pos">'+pos+'</span>'+
           (isMe?'<span class="badge-sm badge-time">⏱ '+mins+'min</span>':'')+
           '<span class="badge-sm badge-rank">'+rank.icon+' '+rank.name+'</span>'+
-          (!isMe?'<span class="badge-challenge" title="Retar a un juego" onclick="openChallengeMenu(\''+uid+'\')">⚔️ Retar</span>':'')+
+          (!isMe?'<span class="badge-challenge" title="Retar a un juego" data-action="challenge" data-uid="'+esc(uid)+'">⚔️ Retar</span>':'')+
         '</div>'+
       '</div>';
     });
@@ -1498,6 +1500,8 @@ window.leaveRoom=function(){
   if(_unsubChat){_unsubChat();_unsubChat=null;}
   if(_unsubFallen){_unsubFallen();_unsubFallen=null;}
   if(_unsubMural){_unsubMural();_unsubMural=null;}
+  if(_unsubInvites){_unsubInvites();_unsubInvites=null;}
+  _shownInvites={};_inviteCache={};
   const rb=document.getElementById('reconnBanner');if(rb)rb.remove();
   clearPomoState();clearInterval(pomoInt);clearInterval(chronoInt);
   stopLofi();closeModal();closeGame();
@@ -1774,8 +1778,22 @@ function showToast(e,t,d){return window.showToast(e,t,d);}
 
 // ── MODALS ──
 function showBreakModal(){
-  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">🎉</span><div class="modal-title">¡Pomodoro completado!</div><div class="modal-text">Tómate 15 min de descanso guiado. Tu cerebro consolida lo aprendido durante la pausa.</div><ul class="bml"><li>💧 Hidrátate</li><li>🧘 Estírate</li><li>👁️ Descansa la vista</li><li>📵 Sin celular</li></ul><button class="modal-btn" onclick="closeModal()">¡Entendido! 💪</button></div></div>';
+  document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">🎉</span><div class="modal-title">¡Pomodoro completado!</div><div class="modal-text">Tómate 15 min de descanso guiado. Tu cerebro consolida lo aprendido durante la pausa.</div><ul class="bml"><li>💧 Hidrátate</li><li>🧘 Estírate</li><li>👁️ Descansa la vista</li><li>📵 Sin celular</li></ul><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;"><button class="modal-btn" onclick="closeModal()">¡Entendido! 💪</button><button class="modal-btn modal-btn-red" onclick="skipBreak()">🔥 Saltar descanso e iniciar otro</button></div></div></div>';
 }
+window.skipBreak=function(){
+  closeModal();
+  if(pomoRunning){clearInterval(pomoInt);pomoRunning=false;}
+  onBreak=false;pomoTime=POMO_TOTAL;
+  document.getElementById('timerLbl').textContent='POMODORO';
+  document.getElementById('breakSugg').style.display='none';
+  const pw=document.getElementById('pomoWrap');if(pw)pw.className='pomo p-risk';
+  document.getElementById('phaseBadge').textContent='Zona de riesgo';
+  document.getElementById('phaseBadge').className='phase-badge ph-risk';
+  resetFlameBar();lastMotPhase='';
+  updateTimerUI();updateRing();updatePhase();
+  togglePomo(); // arranca el nuevo pomodoro de inmediato
+  showToast('🔥','¡Descanso saltado! Nuevo pomodoro en marcha, crack 💪',3500);
+};
 function showNeuralWarning(){
   document.getElementById('modalContainer').innerHTML='<div class="modal-overlay"><div class="modal-box"><span class="modal-emoji">🧠</span><div class="modal-title">¡No te distraigas!</div><div class="modal-text">Cada interrupción reinicia tu enfoque. Vuelve al material, crack.</div><button class="modal-btn modal-btn-red" onclick="closeModal()">Volver a estudiar</button></div></div>';
 }
@@ -1834,16 +1852,12 @@ function updateMuralStats(){
   const arr=Object.values(_muralData).filter(m=>m&&m.handle);
   const setT=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   setT('muralCount',arr.length);
-  // online: handles whose name matches an online student
-  let onlineNames=[];
-  onValue(ref(db,'students'),s=>{const d=s.val()||{};onlineNames=Object.values(d).filter(x=>x&&x.name).map(x=>x.name.toLowerCase());},{onlyOnce:true});
+  const onlineNames=Object.values(window._studentsCache||{}).filter(x=>x&&x.name).map(x=>x.name.toLowerCase());
   const now=Date.now();
   const newToday=arr.filter(m=>m.ts&&(now-m.ts)<24*60*60*1000).length;
   setT('muralNew',newToday);
-  setTimeout(()=>{
-    const onCount=arr.filter(m=>m.name&&onlineNames.includes(m.name.toLowerCase())).length;
-    setT('muralOnline',onCount);
-  },300);
+  const onCount=arr.filter(m=>m.name&&onlineNames.includes(m.name.toLowerCase())).length;
+  setT('muralOnline',onCount);
 }
 window.setMuralFilter=function(f,el){
   _muralFilter=f;
@@ -1859,8 +1873,8 @@ window.renderMural=function(){
   const q=(document.getElementById('muralSearch')?.value||'').toLowerCase().trim();
   if(q)arr=arr.filter(m=>(m.name||'').toLowerCase().includes(q)||(m.handle||'').toLowerCase().includes(q));
   const now=Date.now();
-  let onlineNames=[];
-  onValue(ref(db,'students'),s=>{const d=s.val()||{};onlineNames=Object.values(d).filter(x=>x&&x.name).map(x=>x.name.toLowerCase());drawMuralGrid(arr,onlineNames,now);},{onlyOnce:true});
+  const onlineNames=Object.values(window._studentsCache||{}).filter(x=>x&&x.name).map(x=>x.name.toLowerCase());
+  drawMuralGrid(arr,onlineNames,now);
 };
 function drawMuralGrid(arr,onlineNames,now){
   const grid=document.getElementById('muralGrid');if(!grid)return;
@@ -2764,8 +2778,8 @@ window.openChallengeMenu=function(targetUid){
     '<div class="modal-title">Retar a '+esc(d.name)+'</div>'+
     '<div class="modal-text">Elige el juego para tu duelo en línea:</div>'+
     '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
-      '<button class="modal-btn" onclick="sendChallenge(\''+targetUid+'\',\'chess\')">♟️ Ajedrez</button>'+
-      '<button class="modal-btn" onclick="sendChallenge(\''+targetUid+'\',\'memorama\')">🧩 Memorama</button>'+
+      '<button class="modal-btn" data-action="send-challenge" data-uid="'+esc(targetUid)+'" data-game="chess">♟️ Ajedrez</button>'+
+      '<button class="modal-btn" data-action="send-challenge" data-uid="'+esc(targetUid)+'" data-game="memorama">🧩 Memorama</button>'+
     '</div>'+
     '<div style="margin-top:12px;"><button class="modal-btn" style="background:rgba(255,255,255,0.08);" onclick="closeModal()">Cancelar</button></div>'+
     '</div></div>';
@@ -2834,22 +2848,40 @@ function listenGameInvites(){
     });
   });
 }
-let _shownInvites={};
+let _shownInvites={},_inviteCache={};
 function showInviteModal(inv){
   if(_shownInvites[inv.gameId])return;
   _shownInvites[inv.gameId]=true;
+  _inviteCache[inv.gameId]=inv;
   const gname=inv.game==='chess'?'♟️ Ajedrez':'🧩 Memorama';
   document.getElementById('modalContainer').innerHTML=
     '<div class="modal-overlay"><div class="modal-box">'+
     '<span class="modal-emoji">⚔️</span>'+
-    '<div class="modal-title">'+esc(inv.fromName)+' '+(inv.fromAvatar||'')+' te reta</div>'+
+    '<div class="modal-title">'+esc(inv.fromName)+' '+esc(inv.fromAvatar||'')+' te reta</div>'+
     '<div class="modal-text">Te invita a un duelo de <strong>'+gname+'</strong> en línea. ¿Aceptas?</div>'+
     '<div style="display:flex;gap:10px;justify-content:center;">'+
-      '<button class="modal-btn" onclick="acceptChallenge(\''+inv.gameId+'\',\''+inv.game+'\',\''+esc(inv.fromName)+'\')">✅ Aceptar</button>'+
-      '<button class="modal-btn modal-btn-red" onclick="declineChallenge(\''+inv.gameId+'\')">❌ Rechazar</button>'+
+      '<button class="modal-btn" data-action="accept-inv" data-gid="'+esc(inv.gameId)+'">✅ Aceptar</button>'+
+      '<button class="modal-btn modal-btn-red" data-action="decline-inv" data-gid="'+esc(inv.gameId)+'">❌ Rechazar</button>'+
     '</div></div></div>';
   showToast('⚔️','¡'+inv.fromName+' te retó a '+gname+'!',5000);
+  memoPlaySound('match');
+  // notificación de escritorio si la pestaña está oculta o sin foco
+  if(document.hidden||!document.hasFocus()){
+    sendDesktopNotif('⚔️ ¡'+inv.fromName+' te retó!','Duelo de '+(inv.game==='chess'?'Ajedrez ♟️':'Memorama 🧩')+' en MedStudents Study Room. Entra a la pestaña para aceptar.');
+  }
 }
+// listener delegado seguro para acciones de duelo (evita inyección en onclick)
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-action]');if(!t)return;
+  const a=t.dataset.action;
+  if(a==='challenge')openChallengeMenu(t.dataset.uid);
+  else if(a==='send-challenge')sendChallenge(t.dataset.uid,t.dataset.game);
+  else if(a==='accept-inv'){
+    const inv=_inviteCache[t.dataset.gid];
+    if(inv)acceptChallenge(inv.gameId,inv.game,inv.fromName);
+  }
+  else if(a==='decline-inv')declineChallenge(t.dataset.gid);
+});
 window.acceptChallenge=function(gameId,game,fromName){
   set(ref(db,'gameInvites/'+myUid+'/'+gameId+'/status'),'accepted').catch(()=>{});
   set(ref(db,'games/'+gameId+'/status'),'playing').catch(()=>{});
@@ -2897,15 +2929,12 @@ function startOnlineChess(gameId,myColor,oppName){
 }
 function pushChessState(){
   if(!_chessGameId)return;
-  const upd={board:JSON.stringify(_chessBoard),turn:_chessTurn,captured:JSON.stringify(_chessCaptured),last:_chessLast};
+  const upd={board:JSON.stringify(_chessBoard),turn:_chessTurn,captured:JSON.stringify(_chessCaptured),last:_chessLast,status:'playing'};
   // ¿rey capturado? detectar ganador
   let hasWK=false,hasBK=false;
   _chessBoard.forEach(row=>row.forEach(p=>{if(p==='wk')hasWK=true;if(p==='bk')hasBK=true;}));
   if(!hasWK)upd.winner='b';else if(!hasBK)upd.winner='w';
-  set(ref(db,'games/'+_chessGameId),Object.assign({game:'chess',status:'playing'},upd)).catch(()=>{
-    // fallback: actualizar campos sueltos
-    Object.entries(upd).forEach(([k,v])=>set(ref(db,'games/'+_chessGameId+'/'+k),v).catch(()=>{}));
-  });
+  update(ref(db,'games/'+_chessGameId),upd).catch(()=>{});
 }
 
 // ══════ MEMORAMA DUELO ONLINE ══════
@@ -2971,6 +3000,7 @@ function renderMemoDuel(g){
 }
 window.flipMemoDuel=function(i,g){
   const myColor=_memoDuel.myColor;
+  if(_memoDuel.locked)return; // candado: esperando resolución
   if((g.turn||'w')!==myColor)return; // no es mi turno
   let flipped=[],matched=[];
   try{flipped=JSON.parse(g.flipped||'[]');}catch(e){}
@@ -2980,10 +3010,14 @@ window.flipMemoDuel=function(i,g){
   flipped.push(i);
   const gid=_memoDuel.gameId;
   if(flipped.length<2){
-    set(ref(db,'games/'+gid+'/flipped'),JSON.stringify(flipped)).catch(()=>{});
+    _memoDuel.locked=true; // bloquear hasta que el listener confirme la 1ª carta
+    set(ref(db,'games/'+gid+'/flipped'),JSON.stringify(flipped))
+      .then(()=>{_memoDuel.locked=false;})
+      .catch(()=>{_memoDuel.locked=false;});
     return;
   }
   // segunda carta: resolver
+  _memoDuel.locked=true;
   let cards=[],scores={w:0,b:0};
   try{cards=JSON.parse(g.cards||'[]');}catch(e){}
   try{scores=JSON.parse(g.scores||'{"w":0,"b":0}');}catch(e){}
@@ -2992,16 +3026,18 @@ window.flipMemoDuel=function(i,g){
   if(cards[a]===cards[b]){
     matched.push(a,b);scores[myColor]=(scores[myColor]||0)+1;
     setTimeout(()=>{
-      const upd={matched:JSON.stringify(matched),scores:JSON.stringify(scores),flipped:JSON.stringify([])};
-      // acierta => sigue el mismo jugador
-      Object.entries(upd).forEach(([k,v])=>set(ref(db,'games/'+gid+'/'+k),v).catch(()=>{}));
+      // acierta => sigue el mismo jugador (escritura atómica)
+      update(ref(db,'games/'+gid),{matched:JSON.stringify(matched),scores:JSON.stringify(scores),flipped:JSON.stringify([])})
+        .then(()=>{_memoDuel.locked=false;})
+        .catch(()=>{_memoDuel.locked=false;});
       memoPlaySound('match');
     },700);
   } else {
     setTimeout(()=>{
       const nextTurn=myColor==='w'?'b':'w';
-      set(ref(db,'games/'+gid+'/flipped'),JSON.stringify([])).catch(()=>{});
-      set(ref(db,'games/'+gid+'/turn'),nextTurn).catch(()=>{});
+      update(ref(db,'games/'+gid),{flipped:JSON.stringify([]),turn:nextTurn})
+        .then(()=>{_memoDuel.locked=false;})
+        .catch(()=>{_memoDuel.locked=false;});
       memoPlaySound('wrong');
     },1100);
   }
